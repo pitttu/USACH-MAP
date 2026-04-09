@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>USACH Campus Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="map"></div>
+  
+  <div class="top-ui">
+    <div class="search-container glass">
+      <input type="text" id="search-input" placeholder="Busca aquí" autocomplete="off">
+      <ul id="search-results"></ul>
+    </div>
+    <div class="chips-container">
+      <button class="chip" id="btn-accesos">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8"></path>
+          <path d="M16 17l5-5-5-5"></path>
+          <path d="M21 12H9"></path>
+        </svg>
+        <span style="vertical-align: middle;">Entradas y Salidas</span>
+      </button>
+    </div>
+  </div>
+
+  <button id="gps-button" class="fab glass" aria-label="Mi ubicación">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+    </svg>
+  </button>
+
+  <div id="bottom-sheet" class="bottom-sheet glass hidden">
+    <div class="sheet-handle"></div>
+    <div class="sheet-content">
+      <h2 id="sheet-title">Nombre de la Sala</h2>
+      <p id="sheet-edificio">Edificio: </p>
+      <p id="sheet-piso">Piso: </p>
+      <p id="sheet-capacidad">Capacidad: </p>
+      <div class="sheet-actions">
+        <button id="btn-navigate" class="primary-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;margin-right:8px;vertical-align:middle;">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+          <span style="vertical-align:middle;">Cómo llegar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+  <!-- Turf.js for geographic operations (like routing) -->
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+  <!-- Three.js for 3D Models Mapbox integration -->
+  <script src="https://unpkg.com/three@0.126.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

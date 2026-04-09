@@ -1,0 +1,526 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1010,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6901034204359, -33.451033369993]
+      },
+      "properties": {
+        "category": "acceso",
+        "descripcion": "Entrada al Estadio",
+        "etiqueta": "Flujo peatonal",
+        "id": 1010,
+        "name": "Estadio",
+        "subCategory": "Sector 1",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1011,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6885436096338, -33.4511658698027]
+      },
+      "properties": {
+        "atractivo": 0.381252530463,
+        "category": "acceso",
+        "descripcion": "Ingreso espacio ruiz tagle",
+        "etiqueta": "Flujo peatonal",
+        "id": 1011,
+        "name": "Ingreso espacio ruiz tagle",
+        "subCategory": "Sector 1",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1012,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6881301247451, -33.450660745375]
+      },
+      "properties": {
+        "atractivo": 0.508920386834,
+        "category": "acceso",
+        "descripcion": "Entrada a industrias por Victo Jara",
+        "etiqueta": "Flujo peatonal",
+        "id": 1012,
+        "name": "Industrias Victor Jara",
+        "subCategory": "Sector 2",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1013,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6848433600566, -33.4508316729899]
+      },
+      "properties": {
+        "atractivo": 0.403841389744,
+        "category": "acceso",
+        "descripcion": "Artes y electrica",
+        "etiqueta": "Flujo peatonal",
+        "id": 1013,
+        "name": "Artes y electrica",
+        "subCategory": "Sector 2",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1014,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6879529747307, -33.4495224521234]
+      },
+      "properties": {
+        "atractivo": 0.32238913505,
+        "category": "acceso",
+        "descripcion": "Salida de industrial por El Belloto",
+        "etiqueta": "Flujo mixto",
+        "id": 1014,
+        "name": "Industrias El Belloto",
+        "subCategory": "Sector 2",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1015,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6855671394763, -33.4507915395822]
+      },
+      "properties": {
+        "atractivo": 0.281466390067,
+        "category": "acceso",
+        "descripcion": "Patio los naranjos VJ",
+        "etiqueta": "Flujo peatonal",
+        "id": 1015,
+        "name": "Patio los naranjos",
+        "subCategory": "Sector 2",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1016,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6863408102362, -33.4507449398938]
+      },
+      "properties": {
+        "atractivo": 0.463694838876,
+        "category": "acceso",
+        "descripcion": "Entrada obras",
+        "etiqueta": "Flujo peatonal",
+        "id": 1016,
+        "name": "Entrada obras",
+        "subCategory": "Sector 2",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1017,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6845957410321, -33.4513578466585]
+      },
+      "properties": {
+        "atractivo": 0.0918076900601,
+        "category": "acceso",
+        "descripcion": "Entrada y salida al edificio por calle wenceslao sanchez",
+        "etiqueta": "Flujo vehicular",
+        "id": 1017,
+        "name": "Edificio salas de Innovación Docente",
+        "subCategory": "Sector 2",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1018,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6843861541934, -33.4510072595595]
+      },
+      "properties": {
+        "atractivo": 0.517334788833,
+        "category": "acceso",
+        "descripcion": "Entrada al ED por calle victor jara",
+        "etiqueta": "Flujo peatonal",
+        "id": 1018,
+        "name": "Edificio ED",
+        "subCategory": "Sector 2",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1019,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6851881395029, -33.4495521797736]
+      },
+      "properties": {
+        "atractivo": 0.317916882094,
+        "category": "acceso",
+        "descripcion": "Ingreso salud",
+        "etiqueta": "Flujo mixto",
+        "id": 1019,
+        "name": "Ingreso salud",
+        "subCategory": "Sector 3",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1020,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6832930932469, -33.4496049500453]
+      },
+      "properties": {
+        "atractivo": 0.18764526987,
+        "category": "acceso",
+        "descripcion": "Entrada a medicina el belloto",
+        "etiqueta": "Flujo mixto",
+        "id": 1020,
+        "name": "Medicina El Belloto",
+        "subCategory": "Sector 3",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1021,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6830228181612, -33.449925884118]
+      },
+      "properties": {
+        "atractivo": 0.281273988374,
+        "category": "acceso",
+        "descripcion": "Entrada lateral de la biblioteca hacia el centro de salud",
+        "etiqueta": "Flujo peatonal",
+        "id": 1021,
+        "name": "Biblioteca",
+        "subCategory": "Sector 3",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1022,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6825569376112, -33.449568657351]
+      },
+      "properties": {
+        "atractivo": 0.244505773059,
+        "category": "acceso",
+        "descripcion": "Ingreso al sector 4 en el cruce Enrique Kirberg-El Belloto",
+        "etiqueta": "Flujo mixto",
+        "id": 1022,
+        "name": "Ingreso Enrique-Belloto",
+        "subCategory": "Sector 4",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1023,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6827776517009, -33.4507340035114]
+      },
+      "properties": {
+        "atractivo": 0.300733755232,
+        "category": "acceso",
+        "descripcion": "Finanzas",
+        "etiqueta": "Flujo peatonal",
+        "id": 1023,
+        "name": "Finanzas",
+        "subCategory": "Sector 4",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1024,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6819410378735, -33.4508839709011]
+      },
+      "properties": {
+        "atractivo": 0.135204523977,
+        "category": "acceso",
+        "descripcion": "Planetario salida",
+        "etiqueta": "Salida vehicular",
+        "id": 1024,
+        "name": "Planetario salida",
+        "subCategory": "Sector 4",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1025,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6807636725878, -33.4509354502013]
+      },
+      "properties": {
+        "atractivo": 0.180676205603,
+        "category": "acceso",
+        "descripcion": "Planetario entrada a la entrada de Victor Jara",
+        "etiqueta": "Entrada vehicular",
+        "id": 1025,
+        "name": "Planetario entrada",
+        "subCategory": "Sector 4",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1026,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6801575954688, -33.45071864093]
+      },
+      "properties": {
+        "atractivo": 1.28569099979,
+        "category": "acceso",
+        "descripcion": "Frontis. Hay guardias",
+        "etiqueta": "Flujo peatonal",
+        "id": 1026,
+        "name": "Frontis",
+        "subCategory": "Sector 5",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1027,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6796508875371, -33.4485360384633]
+      },
+      "properties": {
+        "atractivo": 0.703043381686,
+        "category": "acceso",
+        "descripcion": "Entrada a la FAE por Av. Matucana Norte",
+        "etiqueta": "Flujo mixto",
+        "id": 1027,
+        "name": "Entrada Av. Matucana",
+        "subCategory": "Sector 5",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1028,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6837456903919, -33.4487071104387]
+      },
+      "properties": {
+        "atractivo": 0.173434983215,
+        "category": "acceso",
+        "descripcion": "Caseta de guardias en los pastos de ciencias, primera caseta",
+        "etiqueta": "Flujo mixto",
+        "id": 1028,
+        "name": "Ciencias 1",
+        "subCategory": "Sector 6",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1029,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6831484401614, -33.4493107307999]
+      },
+      "properties": {
+        "atractivo": 0.121657242288,
+        "category": "acceso",
+        "descripcion": "Salida El Belloto. Hay guardias",
+        "etiqueta": "Salida peatonal",
+        "id": 1029,
+        "name": "El Belloto",
+        "subCategory": "Sector 6",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1030,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6832726997809, -33.4458162404003]
+      },
+      "properties": {
+        "atractivo": 0.187374240595,
+        "category": "acceso",
+        "descripcion": "Ingreso y salida por la VIME",
+        "etiqueta": "Flujo mixto",
+        "id": 1030,
+        "name": "VIME",
+        "subCategory": "Sector 7",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1031,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6836120499023, -33.447076360285]
+      },
+      "properties": {
+        "atractivo": 0.0505433955572,
+        "category": "acceso",
+        "descripcion": "Ingreso de vehiculos en Pastos de ciencias, Segunda caseta",
+        "etiqueta": "Flujo vehicular",
+        "id": 1031,
+        "name": "Ciencias 2",
+        "subCategory": "Sector 7",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1032,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6864270383945, -33.4509242792072]
+      },
+      "properties": {
+        "atractivo": 0.151823950257,
+        "category": "acceso",
+        "descripcion": "Entrada a Arquitectura por Victor Jara",
+        "etiqueta": "Flujo peatonal",
+        "id": 1032,
+        "name": "Arquitectura Victor Jara",
+        "subCategory": "Sector 8",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1033,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6859853899472, -33.4523910901721]
+      },
+      "properties": {
+        "atractivo": 0.405049797129,
+        "category": "acceso",
+        "descripcion": "Entrada a arquitectyra por Metro Usach",
+        "etiqueta": "Flujo peatonal",
+        "id": 1033,
+        "name": "Arquitectura Metro usach",
+        "subCategory": "Sector 8",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1034,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6855576602868, -33.4514139201901]
+      },
+      "properties": {
+        "atractivo": 0.33192043012,
+        "category": "acceso",
+        "descripcion": "Caseta salida arquitectura obispo umaña",
+        "etiqueta": "Flujo vehicular",
+        "id": 1034,
+        "name": "Arquitectura obispo umaña",
+        "subCategory": "Sector 8",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1035,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6826641686169, -33.4504597832023]
+      },
+      "properties": {
+        "atractivo": 0.406170468221,
+        "category": "acceso",
+        "descripcion": "Entrada geo",
+        "etiqueta": "Flujo mixto",
+        "id": 1035,
+        "name": "Geoespacial",
+        "subCategory": "Sector 4",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1036,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6889209058435, -33.4508812800581]
+      },
+      "properties": {
+        "atractivo": 0.304686907196,
+        "category": "acceso",
+        "descripcion": "Cerca estadio",
+        "etiqueta": "Flujo mixto",
+        "id": 1036,
+        "name": "Facultad Innovación",
+        "subCategory": "Sector 1",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1037,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6869404564631, -33.4495103808026]
+      },
+      "properties": {
+        "atractivo": 0.1833879148,
+        "category": "acceso",
+        "descripcion": "El Belloto vehicular",
+        "etiqueta": "Flujo vehicular",
+        "id": 1037,
+        "name": "EAO vehicular 1",
+        "subCategory": "Sector 2",
+        "type": "acceso"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1038,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6862566401587, -33.4495172866327]
+      },
+      "properties": {
+        "atractivo": 0.103238219614,
+        "category": "acceso",
+        "descripcion": "El Belloto vehicular 1",
+        "etiqueta": "Flujo vehicular",
+        "id": 1038,
+        "name": "El Belloto vehicular 1",
+        "subCategory": "Sector 2",
+        "type": "acceso"
+      }
+    }
+  ]
+}

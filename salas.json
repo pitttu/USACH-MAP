@@ -1,0 +1,4633 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ826",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 39
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68599977, -33.45121155]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ855",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68566865, -33.45130233]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ858",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68571444, -33.45133936]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ859",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68577588, -33.45131025]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ860",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 54
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68577409, -33.45131622]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ861",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68575292, -33.45160491]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ862",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68576551, -33.45160858]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ865",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68559326, -33.45202748]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ872",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68543076, -33.45228633]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ARQ876",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68546723, -33.4523109]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH101",
+        "piso": 1,
+        "edificio": "S8 Bachillerato: Salas de Estudio",
+        "capacidad": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68703, -33.451082]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH102",
+        "piso": 1,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686979, -33.451108]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH103",
+        "piso": 1,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68699, -33.451103]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH830",
+        "piso": 1,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68687427, -33.45138926]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH831",
+        "piso": -1,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6868725, -33.4513378]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH833",
+        "piso": -1,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686861, -33.451415]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH835",
+        "piso": 2,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68687287, -33.45133747]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH836",
+        "piso": 2,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68687197, -33.45136396]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH837",
+        "piso": 2,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68687339, -33.451389]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH839",
+        "piso": 3,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686899, -33.451303]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH840",
+        "piso": 3,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686861, -33.451358]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH841",
+        "piso": 3,
+        "edificio": "S8 Edificio Programa Bachillerato (BCH)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686851, -33.451424]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "CDA102",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 13
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68109453, -33.44810279]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "CUL606",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 199
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.685112, -33.450144]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL301B",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68267187, -33.44760558]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL302",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68248731, -33.44765567]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL310",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68258583, -33.44808044]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL311",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68255901, -33.44808931]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL312",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68248928, -33.44808942]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL313",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68244636, -33.44807137]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL314",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68243563, -33.44792337]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL315",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68247318, -33.44792788]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL316",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68254292, -33.44791472]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DLL317",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68257511, -33.44793231]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DOC539",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68646431, -33.45058678]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DOC540",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686497, -33.450627]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DOC576",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686497, -33.450627]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DPI002",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 13
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68897486, -33.44959779]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DPI2002",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6884779, -33.45139095]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DQM101",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.681732, -33.44836385]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "DTG857",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68565403, -33.45126576]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO507",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68595513, -33.45037091]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO508",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68597191, -33.45036691]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO509",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 44
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68580073, -33.45002839]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO510",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68580188, -33.45003183]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO513",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 44
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.685686, -33.450109]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO514",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 44
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6858328, -33.45004383]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO515",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 33
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68642826, -33.45000786]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO516",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 35
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68649272, -33.44998874]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO517",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686752, -33.44997303]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO518",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 44
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68681325, -33.45000324]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO528",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68673394, -33.45036086]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO529",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68662462, -33.45035516]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO530",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 62
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686491, -33.4503]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO532",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686471, -33.450515]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO543",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68618851, -33.45035179]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO544",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68609994, -33.45033684]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO545",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 63
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68601875, -33.45035737]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO546",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68585849, -33.45036382]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO547",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68586339, -33.45000754]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO548",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68570119, -33.45030506]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO549",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 65
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68566726, -33.45013312]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO550",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6856888, -33.45008629]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO551",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6857434, -33.45005396]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO552",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 47
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68582, -33.450027]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO553",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 54
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68646512, -33.45048495]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO554",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 54
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68596912, -33.45004301]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO555",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68611336, -33.45001057]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO556",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 51
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68615158, -33.45002072]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO557",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 70
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6850035, -33.4512091]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO558",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 58
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68632478, -33.45017207]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO559",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 44
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68686817, -33.45000834]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO560",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68663223, -33.45001998]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO561",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 49
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6854176, -33.4511994]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO562",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6854254, -33.451357]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO563",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6869473, -33.4503331]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO564",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68676893, -33.44998316]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO565",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 44
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68683916, -33.44999188]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO566",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68693597, -33.45028565]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO567",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68688007, -33.45032108]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO568",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68683736, -33.45034169]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO569",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68675761, -33.45032264]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO570",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68669499, -33.45032801]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO571",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 52
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68650213, -33.45032955]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO572",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68638789, -33.45033183]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO573",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 72
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68621998, -33.45027387]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED101",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68413277, -33.45129946]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED103",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68427347, -33.45129256]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED201",
+        "piso": 2,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6844496, -33.45132156]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED202",
+        "piso": 2,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68435042, -33.45130307]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED203",
+        "piso": 2,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68427676, -33.45129019]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED204",
+        "piso": 2,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68417219, -33.45126952]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED205",
+        "piso": 2,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68440829, -33.45107888]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED301",
+        "piso": 3,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68445493, -33.45132754]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED302",
+        "piso": 3,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68434987, -33.45130723]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED303",
+        "piso": 3,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68427038, -33.45128532]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED304",
+        "piso": 3,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68417661, -33.45127588]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED305",
+        "piso": 3,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68434758, -33.45106296]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED306",
+        "piso": 3,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68413358, -33.45120394]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED401",
+        "piso": 4,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68444465, -33.45131959]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED402",
+        "piso": 4,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68434842, -33.45130337]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED403",
+        "piso": 4,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68426985, -33.45129032]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED404",
+        "piso": 4,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68418178, -33.45127754]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED405",
+        "piso": 4,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68436172, -33.45106187]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED406",
+        "piso": 4,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6841422, -33.4512074]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED501",
+        "piso": 5,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68446146, -33.45132455]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED502",
+        "piso": 5,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68434845, -33.45129934]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED503",
+        "piso": 5,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68427447, -33.45128633]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED504",
+        "piso": 5,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68418478, -33.45126624]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED505",
+        "piso": 5,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68414276, -33.45119202]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED601",
+        "piso": 6,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68444829, -33.4513267]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED602",
+        "piso": 6,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68435252, -33.45130395]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED603",
+        "piso": 6,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68428877, -33.45129192]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED604",
+        "piso": 6,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68418221, -33.45127184]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED605",
+        "piso": 6,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68434771, -33.45107128]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED606",
+        "piso": 6,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6841404, -33.4511973]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED701",
+        "piso": 7,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68008252, -33.44979067]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED702",
+        "piso": 7,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68434854, -33.45130542]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED703",
+        "piso": 7,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68428956, -33.45129439]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED704",
+        "piso": 7,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68418345, -33.45126798]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED705",
+        "piso": 7,
+        "edificio": "S3 Edificio Salas de Innovación Docente (ED)",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68435305, -33.45109018]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED706",
+        "piso": 7,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68414455, -33.45120697]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED801",
+        "piso": 8,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68445461, -33.45132529]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED802",
+        "piso": 8,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68435302, -33.45130421]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED803",
+        "piso": 8,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68428641, -33.45129435]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED804",
+        "piso": 8,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68417839, -33.45126949]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ED805",
+        "piso": 8,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68434418, -33.45107084]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EDU814",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6863201, -33.45099012]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EDU815",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 45
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68624945, -33.45099281]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EDU816",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68618746, -33.45099903]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EDU872",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 44
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68534745, -33.45224164]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EDU873",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68540539, -33.45229351]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF401",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 49
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68000555, -33.44915003]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF402",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67989826, -33.44902434]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF403",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67967296, -33.44909158]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF404",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67963596, -33.44920406]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF405",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67973197, -33.44932446]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF406",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6799151, -33.44937469]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF501",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67990691, -33.44903918]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF502",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6797266, -33.44903772]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF503",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67967098, -33.44909911]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF504",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6796752, -33.44931322]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF505",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 41
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67986608, -33.44937815]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF506",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.679968, -33.44936936]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF601",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6798929, -33.44905141]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF602",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67974269, -33.44904264]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF603",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67967832, -33.44911821]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF604",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67963634, -33.44920265]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF605",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67971051, -33.44931103]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF606",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 41
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6798929, -33.44936913]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EF607",
+        "piso": 1,
+        "edificio": "S5 Edificio Nuevo FAE (EF)",
+        "capacidad": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67997254, -33.44937342]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE624",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68453008, -33.45064856]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE625",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68453178, -33.45067019]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE626",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6845432, -33.4508172]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE628",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6841898, -33.45127458]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE629",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6843587, -33.4507752]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE630",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68435772, -33.45069864]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE641",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68437962, -33.45046577]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE642",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68436203, -33.4504679]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE644",
+        "piso": -1,
+        "edificio": "Sin definir",
+        "capacidad": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.684528, -33.450506]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ELE647",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68433067, -33.45046592]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF761",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 33
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67982852, -33.45021562]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF762",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 34
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67982625, -33.45029725]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF763",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67982417, -33.45036217]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF764",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67979829, -33.45042421]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF765A",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67970067, -33.45040014]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF765B",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67958256, -33.45039782]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF766",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 52
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67946892, -33.45037322]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF767",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 53
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.679471, -33.45029977]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF768",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 48
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67948793, -33.45020372]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF769",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 51
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67950277, -33.45015451]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF770",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67972901, -33.45010941]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF771",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67958854, -33.45010875]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF772",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67971566, -33.45018716]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF773",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67970669, -33.45028203]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPM807",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68648058, -33.4510567]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPM808",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68614315, -33.4510029]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPM809",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68608034, -33.45100362]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPM812",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68655694, -33.45098895]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPM817",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 23
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68614013, -33.45099964]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPM818",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68601139, -33.45100107]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPS822",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68618815, -33.4509998]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPS823",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 45
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6861324, -33.45100074]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT1001",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
+        "capacidad": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68857175, -33.45107012]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT1002",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
+        "capacidad": 33
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68864417, -33.45109358]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT1003",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68845049, -33.45143364]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT1004",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68843758, -33.45148374]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT1005",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
+        "capacidad": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68899378, -33.45154778]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT101",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68134225, -33.44683911]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2001",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68851805, -33.45140185]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2004",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68855597, -33.4513094]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2005",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68850772, -33.45129101]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2006",
+        "piso": 2,
+        "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68900774, -33.45153067]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2007",
+        "piso": 2,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 27
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68899485, -33.45157943]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2008",
+        "piso": 2,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 38
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6889779, -33.4516298]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2009",
+        "piso": 2,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 34
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68885102, -33.45170974]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2010",
+        "piso": 2,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 37
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68877195, -33.45169374]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2011",
+        "piso": 2,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 37
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6886944, -33.45168181]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2012",
+        "piso": 2,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 37
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68861335, -33.45167232]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT2014",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68862798, -33.45168238]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT3001",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68902101, -33.4515336]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT3002",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 33
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68900965, -33.45158478]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT3003",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 35
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68899538, -33.45162986]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT3004",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 37
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68885026, -33.45172295]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT3005",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 39
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68876886, -33.45170805]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT3006",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 34
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68869482, -33.45169558]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT3007",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68861199, -33.45168232]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT3008",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68853716, -33.45167138]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT3009",
+        "piso": 1,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68845829, -33.45165721]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT301",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6890023, -33.45167431]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "ERT302",
+        "piso": 3,
+        "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
+        "capacidad": 9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.688964, -33.451719]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE701",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 85
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68012357, -33.4496913]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE703",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 90
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68012893, -33.44970038]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE704",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68022549, -33.44934612]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE706",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 90
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68013354, -33.4494288]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE707",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68028182, -33.44926748]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE708",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68027914, -33.4494947]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE709",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 45
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68028986, -33.44950348]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE710",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68027914, -33.44957495]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE711",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68028769, -33.44965059]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE712",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68028586, -33.44973101]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE713",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68024695, -33.44968284]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE714",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 56
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68027554, -33.44981963]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE715",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 35
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68026717, -33.44956923]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE716",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68025626, -33.44964087]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE717",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6802436, -33.44972477]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE718",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68022867, -33.44980402]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE720",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68018365, -33.44946059]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE721",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68035052, -33.44876531]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE722",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 55
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6803515, -33.44869571]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE723",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 55
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68028867, -33.44869041]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE724",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68027345, -33.4487561]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE725",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68027607, -33.4488216]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE731",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68015928, -33.44954699]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE781",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6803568, -33.44884083]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE782",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68035939, -33.44876476]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE783",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6803631, -33.44869751]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE784",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68028243, -33.44868815]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE785",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6802787, -33.44875576]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FAE789",
+        "piso": 1,
+        "edificio": "S5 Edificio Antiguo FAE (FAE)",
+        "capacidad": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68027717, -33.44868116]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM240",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68171093, -33.44539607]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM241",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68166569, -33.44551543]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM242",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68167291, -33.44542922]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM243",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68182523, -33.44557428]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM244",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6817669, -33.44558802]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM245",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68160951, -33.44565861]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM246",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68182904, -33.44558368]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM247",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68177646, -33.4458698]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM249",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68181036, -33.44554901]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM250",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68184555, -33.44543478]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FCM251",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6818831, -33.44525561]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE251",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 72
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68325805, -33.44645259]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE252",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 108
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68326422, -33.44647532]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE253",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 106
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68320704, -33.44643599]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE254",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 72
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6832305, -33.44640483]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE257",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 70
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68332076, -33.44643751]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE258",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 108
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68314576, -33.44634499]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE261",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68330175, -33.44647471]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE262",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 70
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68312898, -33.44643875]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE268",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68314996, -33.44634054]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE269",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68331115, -33.44635658]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE270",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 37
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68317056, -33.44643313]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE271",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 39
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68319738, -33.44643749]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FDE272",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68318447, -33.44661369]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIN673",
+        "piso": 1,
+        "edificio": "S3 Salón Bulnes (CAI)",
+        "capacidad": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6847311, -33.44976615]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIN675",
+        "piso": 1,
+        "edificio": "S3 Salón Bulnes (CAI)",
+        "capacidad": 27
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68481434, -33.44972738]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIN676",
+        "piso": 1,
+        "edificio": "S3 Salón Bulnes (CAI)",
+        "capacidad": 27
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68477714, -33.44972853]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS201",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68421769, -33.45005051]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS202",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68421447, -33.4500512]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS301",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68423915, -33.45004614]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS302",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68424237, -33.45003907]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS401",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68422735, -33.45006706]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS402",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6841855, -33.45005591]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS501",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6842134, -33.45004879]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS502",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6842435, -33.4500356]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS619",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68370054, -33.45079933]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS620",
+        "piso": 1,
+        "edificio": "S3 Departamento de Fisica (FIS)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68383, -33.4504991]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS622",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6837725, -33.45079558]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS623",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68383, -33.4504991]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FIS624",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68387687, -33.45050168]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FQB305",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68181966, -33.44773348]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FQB308",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68696213, -33.45185616]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FQB310",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68142176, -33.44825033]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "FQB312",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68134665, -33.44812178]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GDC107",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68704903, -33.44984351]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO719",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68207288, -33.45016435]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO720",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 34
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68230347, -33.45013667]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO722",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68260816, -33.45001085]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO723",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68260561, -33.45006933]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO724",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 35
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68260697, -33.45010419]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO725",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 19
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68261016, -33.45015058]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO726",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 45
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68227274, -33.44995798]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO727",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68213522, -33.45004513]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO729",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68245979, -33.45031874]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO730",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68240419, -33.45031903]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "GEO734",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68226, -33.450105]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "HIS330",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68221569, -33.44831293]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "IND201",
+        "piso": 2,
+        "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68843199, -33.45014336]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "IND203",
+        "piso": 1,
+        "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68834366, -33.4501493]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "IND401",
+        "piso": 1,
+        "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68834443, -33.45023932]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "IND413",
+        "piso": 1,
+        "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
+        "capacidad": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68863173, -33.45046873]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "IND418",
+        "piso": 1,
+        "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
+        "capacidad": 74
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68873346, -33.45055988]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "IND420",
+        "piso": 1,
+        "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.688607, -33.450465]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "IND427",
+        "piso": 1,
+        "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
+        "capacidad": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68901434, -33.45023238]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "INF201",
+        "piso": 2,
+        "edificio": "S2 Dpto. de Ing. Informática (INF)",
+        "capacidad": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68700315, -33.45002592]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "INF202",
+        "piso": 2,
+        "edificio": "S2 Dpto. de Ing. Informática (INF)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68707492, -33.44994882]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "INF519",
+        "piso": 1,
+        "edificio": "S2 Dpto. de Ing. Informática (INF)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6872797, -33.4496688]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "INF521",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68736102, -33.4496702]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "INF526",
+        "piso": 1,
+        "edificio": "S2 Dpto. de Ing. Informática (INF)",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68725288, -33.44976314]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "LMT202",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68760693, -33.45060969]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MCC210",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 23
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6816631, -33.4464413]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MCC303",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68299823, -33.4467361]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MEC205",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 35
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6816558, -33.4464638]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MEC208",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6816977, -33.4463858]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MEC209",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6816977, -33.4463858]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MEC522",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68686137, -33.45001451]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MEC523",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68686137, -33.45001451]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MEC524",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68695457, -33.45030422]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MEC531",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68631274, -33.45027513]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MEC594",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68768203, -33.45052955]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MET574",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68765159, -33.45050651]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MET575",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68750134, -33.45064985]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MET578",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68684403, -33.45033478]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MET586",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68763101, -33.45063651]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MET587",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 45
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68749027, -33.45064042]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN100",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68387046, -33.44477792]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN102",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68411647, -33.44489542]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN103",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68412184, -33.44497423]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN111",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68197966, -33.4467358]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN112",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68199682, -33.4467215]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN130",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68246139, -33.44661317]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN131",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68234444, -33.44659397]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN161",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68197107, -33.44745806]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN162",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68196678, -33.447408]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN212",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68247318, -33.44695748]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN213",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68237877, -33.44699324]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "MIN214",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68238199, -33.44671073]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "QUI220",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 35
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68142176, -33.44694313]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "QUI222",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68126082, -33.44704634]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "QUI227",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68163452, -33.44738921]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "QUI229",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68124473, -33.44696104]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "R1",
+        "piso": 1,
+        "edificio": "S5 Edificio Recicla FACIMED",
+        "capacidad": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68056815, -33.44872643]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "R3",
+        "piso": 1,
+        "edificio": "S5 Edificio Recicla FACIMED",
+        "capacidad": 55
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68055816, -33.44891835]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "R4",
+        "piso": 1,
+        "edificio": "S5 Edificio Recicla FACIMED",
+        "capacidad": 38
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68056778, -33.4487134]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG331",
+        "piso": 1,
+        "edificio": "S6 Paraninfo Profesor Eliodoro Domínguez D. (REG)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68180263, -33.44868458]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG332",
+        "piso": 1,
+        "edificio": "S6 Paraninfo Profesor Eliodoro Domínguez D. (REG)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68181336, -33.44869354]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG333",
+        "piso": 1,
+        "edificio": "S6 Paraninfo Profesor Eliodoro Domínguez D. (REG)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68196356, -33.44875599]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG334",
+        "piso": 1,
+        "edificio": "S6 Paraninfo Profesor Eliodoro Domínguez D. (REG)",
+        "capacidad": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6820333, -33.44869321]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG335",
+        "piso": 1,
+        "edificio": "S7 Edificio Vicerrectoría de Postgrado (REG)",
+        "capacidad": 46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68299353, -33.44748932]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG336",
+        "piso": 1,
+        "edificio": "S7 Edificio Vicerrectoría de Postgrado (REG)",
+        "capacidad": 45
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68298817, -33.44742674]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG337",
+        "piso": 1,
+        "edificio": "S7 Edificio Vicerrectoría de Postgrado (REG)",
+        "capacidad": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68280578, -33.44750273]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG339",
+        "piso": 1,
+        "edificio": "S7 Edificio Vicerrectoría de Postgrado (REG)",
+        "capacidad": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68270385, -33.44750292]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "SALAA",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68856738, -33.44961341]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "SALAB",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68391148, -33.45072528]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "VM201",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 120
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68286152, -33.44627113]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "VM202",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 120
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68265962, -33.44627692]
+      }
+    }
+  ]
+}
