@@ -6,7 +6,32 @@ const map = new mapboxgl.Map({
   center: [-70.6844, -33.4503], // USACH center
   zoom: 15.5,
   pitch: 45, // give it a slightly 3D look
-  bearing: -17.6
+  bearing: -17.6,
+  maxBounds: [
+    [-70.691987, -33.454381], // Posición Sur-Oeste
+    [-70.677701, -33.444594]  // Posición Nor-Este
+  ]
+});
+
+function updateDate() {
+  if (!sheetDate) return;
+  const now = new Date();
+  const options = { weekday: 'long', day: 'numeric', month: 'long' };
+  let dateStr = now.toLocaleDateString('es-ES', options);
+  // Capitalize first letter
+  dateStr = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+  sheetDate.textContent = dateStr;
+}
+
+// Configure atmosphere/fog for horizontal camera panning
+map.on('style.load', () => {
+  map.setFog({
+    'color': 'rgb(255, 255, 255)', // Atmospheric fog color
+    'high-color': 'rgb(215, 235, 255)', // Sky blue on the horizon
+    'horizon-blend': 0.1, // Thickness of the fog
+    'space-color': 'rgb(170, 210, 250)', // Above horizon
+    'star-intensity': 0.0
+  });
 });
 
 // UI Elements
@@ -19,14 +44,64 @@ const sheetPiso = document.getElementById('sheet-piso');
 const sheetCapacidad = document.getElementById('sheet-capacidad');
 const btnNavigate = document.getElementById('btn-navigate');
 const gpsButton = document.getElementById('gps-button');
+const defaultSheetContent = document.getElementById('default-sheet-content');
+const poiSheetContent = document.getElementById('poi-sheet-content');
+const sheetDate = document.getElementById('sheet-date');
+const routeSheetContent = document.getElementById('route-sheet-content');
+const routeInfo = document.getElementById('route-info');
+const btnEndRoute = document.getElementById('btn-end-route');
+updateDate();
 
 // Data State
 let salasData = null;
 let accesosData = null;
+let banosData = null;
+let impresionesData = null;
 let graph = null;
 let currentMarker = null;
 let userLocation = null;
 let pendingRouteCoords = null;
+
+// Loader Logic
+let isLoadingFinished = false;
+const loaderOverlay = document.getElementById('loader-overlay');
+
+function finishLoading() {
+  if (isLoadingFinished) return;
+  isLoadingFinished = true;
+  loaderOverlay.classList.add('hidden-loader');
+}
+
+// Global Timeout: 10s max (good for mobile tiles to render)
+setTimeout(finishLoading, 10000);
+
+// Data loading tracker
+let resourcesToLoad = 4; // salas, accesos, banos, impresiones
+function resourceLoaded() {
+  resourcesToLoad--;
+  checkIfReady();
+}
+
+let isMapReady = false;
+function checkIfReady() {
+  if (resourcesToLoad === 0 && isMapReady) {
+    // Small extra delay for smoother entry
+    setTimeout(finishLoading, 500);
+  }
+}
+
+// ==========================================
+// BOTTOM SHEET & GPS BUTTON DYNAMIC LOGIC
+// ==========================================
+const REST_OFFSET = 100;
+const MID_OFFSET = 380; // Increased to ensure action buttons are fully visible
+const FULL_OFFSET = 20;
+
+let currentSheetState = 'REST'; // New state tracking
+let sheetY = window.innerHeight - REST_OFFSET; 
+let startY = 0;
+let isDragging = false;
+
 
 // Graph MinHeap Priority Queue for instantaneous pathfinding
 class MinHeap {
@@ -96,6 +171,40 @@ const compassControl = new mapboxgl.NavigationControl({
 map.addControl(compassControl, 'top-right');
 
 gpsButton.addEventListener('click', () => {
+  if (manualLocationMode && userLocationLocked) {
+    // Unlock for a new pick
+    userLocationLocked = false;
+    userLocation = null;
+    if (customUserMarker) {
+      customUserMarker.remove();
+      customUserMarker = null;
+    }
+    
+    // Notifications
+    const toast = document.createElement('div');
+    toast.innerText = "📍 Toca el mapa para establecer tu nuevo punto.";
+    toast.style.position = 'absolute';
+    toast.style.top = '90px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.background = 'rgba(0,0,0,0.8)';
+    toast.style.color = 'white';
+    toast.style.padding = '8px 16px';
+    toast.style.borderRadius = '20px';
+    toast.style.zIndex = '1000';
+    toast.style.transition = 'opacity 0.5s';
+    toast.style.fontWeight = '500';
+    toast.style.fontFamily = 'Inter, sans-serif';
+    toast.style.fontSize = '14px';
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 500);
+    }, 2000);
+    
+    return; // Stop here, don't ping real GPS
+  }
+
   geolocateControl.trigger();
 });
 
@@ -107,8 +216,12 @@ geolocateControl.on('geolocate', (e) => {
   }
 });
 
-function enableManualMode() {
+// Handle GPS errors (Permission denied, unavailable, timeout)
+geolocateControl.on('error', (e) => {
+  // pendingRouteCoords = null; // REMOVED: Keep destination even if GPS fails
+  console.warn("GPS Error", e);
   manualLocationMode = true; // Enable clicking map
+  userLocationLocked = false; // Fresh start for manual selection
 
   // Smooth fly to requested location top-down
   map.flyTo({
@@ -141,23 +254,22 @@ function enableManualMode() {
     toast.style.opacity = '0';
     setTimeout(() => toast.remove(), 500);
   }, 4000);
-}
-
-// Handle GPS errors (Permission denied, unavailable, timeout)
-geolocateControl.on('error', (e) => {
-  pendingRouteCoords = null;
-  console.warn("GPS Error", e);
-  enableManualMode();
 });
 
 // Allow manual location setting by clicking the map only after GPS error
 let customUserMarker = null;
 let manualLocationMode = false;
+let userLocationLocked = false;
 
 map.on('click', (e) => {
-  if (!manualLocationMode) return; // Only do this if GPS failed/denied
+  if (!manualLocationMode || userLocationLocked) return; // Only do this if GPS failed/denied and unset
+
+  // Stop propagation so the map reset listener doesn't see this click
+  if (e.originalEvent) e.originalEvent.stopPropagation();
 
   userLocation = [e.lngLat.lng, e.lngLat.lat];
+  userLocationLocked = true; // Lock location
+
 
   if (customUserMarker) {
     customUserMarker.setLngLat(userLocation);
@@ -200,22 +312,35 @@ map.on('click', (e) => {
 
 // Load data and setup map layers
 map.on('load', async () => {
+  isMapReady = true;
+  checkIfReady();
+
   try {
     btnNavigate.innerText = "Cargando rutas...";
     btnNavigate.disabled = true;
 
     // Fetch JSON data
-    const [salasRes, sectoresRes, pathsRes, accesosRes] = await Promise.all([
+    const [salasRes, sectoresRes, pathsRes, accesosRes, banosRes, metroRes, impresionesRes] = await Promise.all([
       fetch('salas.json'),
       fetch('SectoresColores.json'),
       fetch('paths.json'),
-      fetch('Accesos.json')
+      fetch('Accesos.json'),
+      fetch('baños.json'),
+      fetch('metro.json'),
+      fetch('impresiones.json')
     ]);
 
     salasData = await salasRes.json();
     const sectoresData = await sectoresRes.json();
     const pathsData = await pathsRes.json();
     accesosData = await accesosRes.json();
+    banosData = await banosRes.json();
+    const metroData = await metroRes.json();
+    impresionesData = await impresionesRes.json();
+
+    // Mark resources as loaded
+    resourcesToLoad = 0;
+    checkIfReady();
 
     // Prepare Graph from paths in the background
     graph = buildGraph(pathsData);
@@ -275,6 +400,120 @@ map.on('load', async () => {
         'circle-stroke-width': 2,
         'circle-stroke-color': '#00aeef'
       }
+    });
+
+    // Make Accesos clickable and zoomable
+    map.on('click', 'accesos-point', (e) => {
+      const feature = e.features[0];
+      const coords = feature.geometry.coordinates;
+      const synthetic = {
+        geometry: { coordinates: coords },
+        properties: {
+          nombre: feature.properties.nombre || "Acceso",
+          edificio: "Entrada/Salida",
+          piso: "-",
+          capacidad: "-"
+        }
+      };
+      selectSala(synthetic);
+    });
+
+    // Change cursor on hover
+    map.on('mouseenter', 'accesos-point', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'accesos-point', () => {
+      map.getCanvas().style.cursor = '';
+    });
+
+    // Add Baños visual hints
+    map.addSource('banos', { type: 'geojson', data: banosData });
+    map.addLayer({
+      'id': 'banos-point',
+      'type': 'circle',
+      'source': 'banos',
+      'layout': {
+        'visibility': 'none'
+      },
+      'paint': {
+        'circle-radius': 5,
+        'circle-color': '#e8aa31',
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff'
+      }
+    });
+
+    // Spawn Metro HTML Markers
+    metroData.features.forEach(feature => {
+      const el = document.createElement('div');
+      el.className = 'metro-marker';
+
+      new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .addTo(map);
+    });
+
+    // Make Baños clickable and zoomable
+    map.on('click', 'banos-point', (e) => {
+      const feature = e.features[0];
+      const coords = feature.geometry.coordinates;
+      const synthetic = {
+        geometry: { coordinates: coords },
+        properties: {
+          nombre: "Baños",
+          edificio: feature.properties.edificio || "Campus",
+          piso: feature.properties.piso || "-",
+          capacidad: "-"
+        }
+      };
+      selectSala(synthetic);
+    });
+
+    map.on('mouseenter', 'banos-point', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'banos-point', () => {
+      map.getCanvas().style.cursor = '';
+    });
+
+    // Add Impresiones visual hints
+    map.addSource('impresiones', { type: 'geojson', data: impresionesData });
+    map.addLayer({
+      'id': 'impresiones-point',
+      'type': 'circle',
+      'source': 'impresiones',
+      'layout': {
+        'visibility': 'none'
+      },
+      'paint': {
+        'circle-radius': 5,
+        'circle-color': '#AC21F3',
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff'
+      }
+    });
+
+    // Make Impresiones clickable and zoomable
+    map.on('click', 'impresiones-point', (e) => {
+      const feature = e.features[0];
+      const coords = feature.geometry.coordinates;
+      const synthetic = {
+        geometry: { coordinates: coords },
+        properties: {
+          nombre: feature.properties.name || "Impresiones",
+          edificio: feature.properties.edificio || "Servicios",
+          piso: feature.properties.piso || "-",
+          capacidad: "-"
+        }
+      };
+      selectSala(synthetic);
+    });
+
+    map.on('mouseenter', 'impresiones-point', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'impresiones-point', () => {
+      map.getCanvas().style.cursor = '';
     });
 
     // Route line source
@@ -526,7 +765,13 @@ function setupSearch() {
       results.forEach(f => {
         const li = document.createElement('li');
         li.innerHTML = `<span>${f.properties.nombre}</span> <span class="result-badge">${f.properties.edificio || 'Campus'}</span>`;
-        li.addEventListener('click', () => selectSala(f));
+        li.addEventListener('click', (e) => {
+          e.stopPropagation(); // Stop click from hitting the map/document
+          selectSala(f);
+        });
+        li.addEventListener('touchstart', (e) => {
+          e.stopPropagation(); // Explicit touch isolation for mobile
+        }, { passive: true });
         searchResults.appendChild(li);
       });
     } else {
@@ -545,13 +790,34 @@ function setupSearch() {
 const btnAccesos = document.getElementById('btn-accesos');
 let accesosVisible = false;
 
+const btnBanos = document.getElementById('btn-banos');
+let banosVisible = false;
+
+const btnImpresiones = document.getElementById('btn-impresiones');
+let impresionesVisible = false;
+
+function disableAllChips() {
+  accesosVisible = false;
+  map.setLayoutProperty('accesos-point', 'visibility', 'none');
+  btnAccesos.classList.remove('active');
+
+  banosVisible = false;
+  map.setLayoutProperty('banos-point', 'visibility', 'none');
+  btnBanos.classList.remove('active');
+
+  impresionesVisible = false;
+  map.setLayoutProperty('impresiones-point', 'visibility', 'none');
+  btnImpresiones.classList.remove('active');
+}
+
 btnAccesos.addEventListener('click', () => {
-  accesosVisible = !accesosVisible;
-  if (accesosVisible) {
-    // Show
+  const willBeActive = !accesosVisible;
+  disableAllChips();
+
+  if (willBeActive) {
+    accesosVisible = true;
     map.setLayoutProperty('accesos-point', 'visibility', 'visible');
     btnAccesos.classList.add('active');
-    // Fly to USACH from top down
     map.flyTo({
       center: [-70.686453, -33.449353],
       zoom: 15,
@@ -560,16 +826,60 @@ btnAccesos.addEventListener('click', () => {
       essential: true,
       speed: 1.2
     });
-  } else {
-    // Hide
-    map.setLayoutProperty('accesos-point', 'visibility', 'none');
-    btnAccesos.classList.remove('active');
   }
 });
 
+btnBanos.addEventListener('click', () => {
+  const willBeActive = !banosVisible;
+  disableAllChips();
+
+  if (willBeActive) {
+    banosVisible = true;
+    map.setLayoutProperty('banos-point', 'visibility', 'visible');
+    btnBanos.classList.add('active');
+    map.flyTo({
+      center: [-70.686453, -33.449353],
+      zoom: 15,
+      pitch: 0,
+      bearing: 0,
+      essential: true,
+      speed: 1.2
+    });
+  }
+});
+
+btnImpresiones.addEventListener('click', () => {
+  const willBeActive = !impresionesVisible;
+  disableAllChips();
+
+  if (willBeActive) {
+    impresionesVisible = true;
+    map.setLayoutProperty('impresiones-point', 'visibility', 'visible');
+    btnImpresiones.classList.add('active');
+    map.flyTo({
+      center: [-70.686453, -33.449353],
+      zoom: 15,
+      pitch: 0,
+      bearing: 0,
+      essential: true,
+      speed: 1.2
+    });
+  }
+});
+
+const btnMore = document.getElementById('btn-more');
+btnMore.addEventListener('click', () => {
+  openSheet('FULL');
+});
+
+
+
 function selectSala(feature) {
   searchInput.value = feature.properties.nombre;
-  searchResults.classList.remove('active');
+  // Delay clearing results slightly for mobile to prevent "ghost click" on map
+  setTimeout(() => {
+    searchResults.classList.remove('active');
+  }, 150);
 
   const coords = feature.geometry.coordinates;
 
@@ -593,29 +903,20 @@ function selectSala(feature) {
   sheetPiso.textContent = "Piso: " + feature.properties.piso;
   sheetCapacidad.textContent = "Capacidad: " + (feature.properties.capacidad || "-");
 
+  // Switch content view
+  defaultSheetContent.classList.add('hidden');
+  poiSheetContent.classList.remove('hidden');
+
+  // Open the sheet a bit more if it was in rest mode
+  openSheet('MID'); 
+
   map.getSource('route').setData({ type: 'Feature', geometry: { type: 'LineString', coordinates: [] } });
-  bottomSheet.classList.remove('hidden');
 
   btnNavigate.onclick = () => {
     if (!userLocation) {
-      if (!navigator.geolocation || window.isSecureContext === false) {
-         alert("Tu navegador bloqueó el sensor GPS por conectarte sin HTTPS. Activando modo manual de inmediato.");
-         enableManualMode();
-         return;
-      }
-      
       alert("Intentaremos obtener tu GPS primero. De lograrlo, el camino se dibujará solo. Si falla, podrás fijar tu inicio en el mapa manualmente.");
       pendingRouteCoords = coords;
       geolocateControl.trigger();
-      
-      // Fallback in case Mapbox silently stalls on mobile devices without throwing an error
-      setTimeout(() => {
-        if (!userLocation && pendingRouteCoords) {
-           pendingRouteCoords = null;
-           enableManualMode();
-        }
-      }, 5000);
-      
     } else {
       drawDualRoute(userLocation, coords);
     }
@@ -638,10 +939,11 @@ async function drawDualRoute(userCoord, salaCoord) {
       const line = turf.lineString(internalPath);
       map.getSource('route').setData(line);
       map.fitBounds(turf.bbox(line), { padding: 80, maxZoom: 18 });
+      showRouteInfo(line);
     } else {
       alert("No logramos conectar tu ubicación con el destino de manera peatonal.");
+      resetSheet();
     }
-    bottomSheet.classList.add('hidden');
     resetBtn();
     return;
   }
@@ -695,12 +997,15 @@ async function drawDualRoute(userCoord, salaCoord) {
       const combinedLine = turf.lineString(fullCoords);
       map.getSource('route').setData(combinedLine);
       map.fitBounds(turf.bbox(combinedLine), { padding: { top: 100, bottom: 200, left: 80, right: 80 }, maxZoom: 18 });
+      
+      // Show route summary on the sheet
+      showRouteInfo(combinedLine);
     }
   } catch (e) {
     console.error("Error en Ruteo Dual:", e);
     alert("Hubo un error contactando a los servidores de calles externa.");
+    resetSheet();
   }
-  bottomSheet.classList.add('hidden');
   resetBtn();
 }
 
@@ -713,8 +1018,249 @@ function resetBtn() {
   `;
 }
 
-let touchStartY = 0;
-bottomSheet.addEventListener('touchstart', e => touchStartY = e.changedTouches[0].screenY, { passive: true });
-bottomSheet.addEventListener('touchend', e => {
-  if (e.changedTouches[0].screenY - touchStartY > 50) bottomSheet.classList.add('hidden');
+// ==========================================
+// BOTTOM SHEET & GPS BUTTON DYNAMIC LOGIC
+// ==========================================
+// (Constants moved to top)
+
+
+function updateUIPositions(y) {
+  const vh = window.innerHeight;
+  bottomSheet.style.transform = `translateY(${y}px)`;
+  
+  const sheetVisibleHeight = vh - y;
+  
+  // GPS Button: sube con la barra, pero frena al 50% de la pantalla
+  const btnBottom = Math.min(sheetVisibleHeight + 16, vh / 2);
+  gpsButton.style.bottom = `${btnBottom}px`;
+  
+  // Transitions for aesthetics
+  if (y < 60) {
+    bottomSheet.classList.add('expanded');
+  } else {
+    bottomSheet.classList.remove('expanded');
+  }
+}
+
+function openSheet(state) {
+  const vh = window.innerHeight;
+  let targetY = vh - REST_OFFSET;
+  if (state === 'MID') targetY = vh - MID_OFFSET;
+  if (state === 'FULL') targetY = FULL_OFFSET;
+  
+  currentSheetState = state; // Persist state for resize handling
+  sheetY = targetY;
+  bottomSheet.style.transition = "transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1)";
+  updateUIPositions(targetY);
+}
+
+function resetSheet() {
+  poiSheetContent.classList.add('hidden');
+  defaultSheetContent.classList.remove('hidden');
+  routeSheetContent.classList.add('hidden'); // Ensure route info is hidden
+  openSheet('REST');
+  if (currentMarker) currentMarker.remove();
+}
+
+function showRouteInfo(lineFeature) {
+  const distanceKm = turf.length(lineFeature, { units: 'kilometers' });
+  const distanceM = Math.round(distanceKm * 1000);
+  
+  // Estimate time: 5km/h = 83.3 meters per minute
+  const durationMin = Math.ceil(distanceM / 83.3);
+  
+  routeInfo.textContent = `${durationMin} min (${distanceM} m)`;
+  
+  // Switch to route view
+  poiSheetContent.classList.add('hidden');
+  defaultSheetContent.classList.add('hidden');
+  routeSheetContent.classList.remove('hidden');
+  
+  openSheet('REST'); // Stay in rest mode but with route info
+}
+
+function endRoute() {
+  // Clear map
+  map.getSource('route').setData({ type: 'Feature', geometry: { type: 'LineString', coordinates: [] } });
+  
+  // Clear any marker that might be showing
+  if (currentMarker) currentMarker.remove();
+  
+  // Reset sheet to default
+  resetSheet();
+  resetBtn();
+}
+
+btnEndRoute.addEventListener('click', endRoute);
+
+// Dragging Events
+bottomSheet.addEventListener('touchstart', e => {
+  startY = e.touches[0].clientY;
+  isDragging = true;
+  bottomSheet.style.transition = "none";
 }, { passive: true });
+
+document.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  const deltaY = e.touches[0].clientY - startY;
+  let newY = sheetY + deltaY;
+  
+  if (newY < FULL_OFFSET) newY = FULL_OFFSET;
+  if (newY > window.innerHeight - REST_OFFSET) newY = window.innerHeight - REST_OFFSET;
+  
+  updateUIPositions(newY);
+}, { passive: false });
+
+document.addEventListener('touchend', e => {
+  if (!isDragging) return;
+  isDragging = false;
+  
+  const vh = window.innerHeight;
+  // Get current translation from style
+  const matrix = new WebKitCSSMatrix(window.getComputedStyle(bottomSheet).transform);
+  const currentPos = matrix.m42;
+  
+  if (currentPos < vh * 0.4) {
+    openSheet('FULL');
+  } else if (currentPos < vh - 200) {
+    openSheet('MID');
+  } else {
+    openSheet('REST');
+  }
+});
+
+// Initialize rest position
+window.addEventListener('resize', () => {
+  // Respect current state on resize (solves keyboard close issue)
+  openSheet(currentSheetState);
+});
+// Use setTimeout to ensure window.innerHeight is accurate on mobile load
+setTimeout(() => openSheet('REST'), 100);
+
+
+
+// ==========================================
+// ADVANCED INTERACTIONS: POI & LONG CLICK
+// ==========================================
+let longPressTimer;
+let isPressing = false;
+let preventClick = false;
+
+const startPress = (e) => {
+    // Only trigger if we aren't waiting for a manual GPS drop
+    if (manualLocationMode && !userLocationLocked) return;
+    
+    isPressing = true;
+    preventClick = false;
+    const lngLat = e.lngLat;
+    const point = e.point;
+    
+    longPressTimer = setTimeout(() => {
+        if (isPressing) {
+            preventClick = true;
+            handleLongClick(lngLat, point);
+        }
+    }, 500); // 500ms long press
+};
+
+const cancelPress = () => {
+    isPressing = false;
+    clearTimeout(longPressTimer);
+};
+
+map.on('mousedown', startPress);
+map.on('touchstart', startPress);
+map.on('mouseup', cancelPress);
+map.on('touchend', cancelPress);
+map.on('touchcancel', cancelPress);
+map.on('dragstart', cancelPress);
+map.on('movestart', cancelPress);
+map.on('pitchstart', cancelPress);
+
+function handleLongClick(lngLat, point) {
+    const bbox = [
+      [point.x - 15, point.y - 15],
+      [point.x + 15, point.y + 15]
+    ];
+    const features = map.queryRenderedFeatures(bbox);
+    
+    // Look for any standard map text/icon symbol that has a name
+    const hitPoi = features.some(f => 
+       f.layer && 
+       f.layer.type === 'symbol' && 
+       f.properties && 
+       f.properties.name
+    );
+    
+    if (hitPoi) return; // Discard long click if they actually pressed a POI
+
+    const coords = [lngLat.lng, lngLat.lat];
+    const syntheticFeature = {
+       geometry: { coordinates: coords },
+       properties: {
+          nombre: 'Punto Seleccionado',
+          edificio: 'Ubicación Libre',
+          piso: '-',
+          capacidad: '-'
+       }
+    };
+    selectSala(syntheticFeature);
+}
+
+// Intercept clicks for regular base map POIs
+map.on('click', (e) => {
+    if (preventClick) {
+        preventClick = false;
+        return;
+    }
+    
+    // DONT reset sheet if we are in manual location mode or picking a point.
+    // In these states, the destination is sacred.
+    if (manualLocationMode) return;
+    
+    // Protection: If we have an active destination, clicking the map background 
+    // should NOT reset the selection.
+    if (currentMarker) return; 
+
+    // Create a touch box for mobile-friendly hit detection
+
+    const bbox = [
+      [e.point.x - 15, e.point.y - 15],
+      [e.point.x + 15, e.point.y + 15]
+    ];
+    const features = map.queryRenderedFeatures(bbox);
+    
+    // Exclude our own clickable layers to prevent background clicks from winning
+    const interactiveLayers = ['accesos-point', 'banos-point', 'impresiones-point'];
+    if (features.some(f => f.layer && interactiveLayers.includes(f.layer.id))) {
+        return;
+    }
+
+    // Capture any Mapbox background feature that is a symbol (Icon/Text) and has a name
+    const poi = features.find(f => 
+        f.layer && 
+        f.layer.type === 'symbol' && 
+        f.properties && 
+        f.properties.name
+    );
+
+    if (poi) {
+        // ALWAYS use the click coordinate for custom rendering to avoid vector tile geometry cutoffs
+        const coords = [e.lngLat.lng, e.lngLat.lat];
+
+        const syntheticFeature = {
+           geometry: { coordinates: coords },
+           properties: {
+              nombre: poi.properties.name || poi.properties.name_en || 'Punto de Interés',
+              edificio: poi.properties.category_en || poi.properties.type || poi.properties.maki || 'Lugar Público',
+              piso: '-',
+              capacidad: '-'
+           }
+        };
+        selectSala(syntheticFeature);
+        return; // Important: stop here if we hit a POI
+    }
+
+    // If we reached here, the user clicked on empty map area
+    resetSheet();
+});

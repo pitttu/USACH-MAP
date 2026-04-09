@@ -1,0 +1,107 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1038,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68211273329982, -33.45107698053721]
+      },
+      "properties": {
+        "category": "servicios",
+        "descripcion": "Local de impresiones y fotocopias",
+        "etiqueta": "Impresiones y Fotocopias",
+        "id": 1038,
+        "name": "Impresiones y Fotocopias",
+        "subCategory": "Servicios",
+        "type": "impresiones fotocopias"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1039,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68170417102996, -33.45111856491398]
+      },
+      "properties": {
+        "category": "servicios",
+        "descripcion": "Local de impresiones y fotocopias",
+        "etiqueta": "Impresiones y Fotocopias",
+        "id": 1039,
+        "name": "Impresiones y Fotocopias",
+        "subCategory": "Servicios",
+        "type": "impresiones fotocopias"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1040,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68149796989465, -33.45111189649363]
+      },
+      "properties": {
+        "category": "servicios",
+        "descripcion": "Local de impresiones y fotocopias",
+        "etiqueta": "Impresiones y Fotocopias",
+        "id": 1040,
+        "name": "Impresiones y Fotocopias",
+        "subCategory": "Servicios",
+        "type": "impresiones fotocopias"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1041,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68185240866832, -33.448007357517795]
+      },
+      "properties": {
+        "category": "servicios",
+        "descripcion": "Local de impresiones y fotocopias",
+        "etiqueta": "Impresiones y Fotocopias",
+        "id": 1041,
+        "name": "Impresiones y Fotocopias",
+        "subCategory": "Servicios",
+        "type": "impresiones fotocopias"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1042,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68268837706484, -33.45106091830389]
+      },
+      "properties": {
+        "category": "servicios",
+        "descripcion": "Local de impresiones y fotocopias",
+        "etiqueta": "Impresiones y Fotocopias",
+        "id": 1042,
+        "name": "Impresiones y Fotocopias",
+        "subCategory": "Servicios",
+        "type": "impresiones fotocopias"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1043,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68222894137628, -33.4511074393297]
+      },
+      "properties": {
+        "category": "servicios",
+        "descripcion": "Local de impresiones y fotocopias",
+        "etiqueta": "Impresiones y Fotocopias",
+        "id": 1043,
+        "name": "Impresiones y Fotocopias",
+        "subCategory": "Servicios",
+        "type": "impresiones fotocopias"
+      }
+    }
+  ]
+}

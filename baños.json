@@ -1,0 +1,447 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1010,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67947199306573, -33.45007016384523]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1010,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1011,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67966050533245, -33.44927311609046]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1011,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1012,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68015184446222, -33.44940668401804]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1012,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1013,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68002845511215, -33.44835377210617]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1013,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1014,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68198496253751, -33.44841664952147]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1014,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1015,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68232790883413, -33.44839812192821]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1015,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1016,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68219508364294, -33.44732916063736]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1016,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1017,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68127040534046, -33.44644994943541]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1017,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1018,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68205581913286, -33.450248919197115]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1018,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1019,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68310678462352, -33.450421040393536]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1019,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1020,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68462050992673, -33.45059316154477]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1020,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1021,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68465953782432, -33.44995119552941]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1021,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1022,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68552324977777, -33.45234209221661]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1022,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1023,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68534762424048, -33.45211415290258]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1023,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1024,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68581595900685, -33.451660598403905]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1024,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1025,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68591631645684, -33.4511605227459]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1025,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1026,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68697564496318, -33.45117215227836]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1026,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1027,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68691989086533, -33.45260176826866]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1027,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1028,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68599382039307, -33.45002950697802]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1028,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1029,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68693285059071, -33.449998881733485]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1029,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1030,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68758130169738, -33.450149456301176]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1030,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1031,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68833374923518, -33.45041997867608]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1031,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1032,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68899749370733, -33.449621170280885]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1032,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1033,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.69024852111046, -33.44950888138272]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1033,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1034,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.69072229558172, -33.45099882922588]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1034,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1035,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.69140239146775, -33.45098026239379]
+      },
+      "properties": {
+        "category": "baño",
+        "descripcion": "Servicios Higiénicos",
+        "etiqueta": "Baños",
+        "id": 1035,
+        "name": "Baño Público",
+        "subCategory": "General",
+        "type": "baño"
+      }
+    }
+  ]
+}

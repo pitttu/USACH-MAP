@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1036,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6859520406228,
+          -33.45251485662669
+        ]
+      },
+      "properties": {
+        "category": "transporte",
+        "descripcion": "Estación de Metro Universidad de Santiago - Línea 1",
+        "etiqueta": "Metro",
+        "id": 1036,
+        "name": "Metro Universidad de Santiago",
+        "subCategory": "Línea 1",
+        "type": "transporte"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1037,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.67929924982802,
+          -33.450658909617005
+        ]
+      },
+      "properties": {
+        "category": "transporte",
+        "descripcion": "Estación de Metro Estación Central - Línea 1",
+        "etiqueta": "Metro",
+        "id": 1037,
+        "name": "Metro Estación Central",
+        "subCategory": "Línea 1",
+        "type": "transporte"
+      }
+    }
+  ]
+}
