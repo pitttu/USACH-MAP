@@ -57,7 +57,7 @@ function updateMapHighlights() {
         ['==', ['get', 'id'], selectedId || -1], '#b72522',
         ['==', ['get', 'category'], 'deporte'], '#0894ff',
         ['==', ['get', 'category'], 'comida'], '#fe8029',
-        layerId === 'metro-labels' ? '#1a1a2e' : '#56707c'
+        '#56707c'
       ]);
 
       const isFixed = layerId.includes('fixed') || layerId === 'metro-labels';
@@ -364,7 +364,7 @@ map.on('load', async () => {
       'type': 'line',
       'source': 'route',
       'layout': { 'line-join': 'round', 'line-cap': 'round' },
-      'paint': { 'line-color': '#11c469', 'line-width': 6, 'line-opacity': 0.8 }
+      'paint': { 'line-color': '#4285F4', 'line-width': 6, 'line-opacity': 0.9 }
     });
 
     // Metro Stations (always visible, white circle + logo)
@@ -427,7 +427,7 @@ map.on('load', async () => {
         'text-ignore-placement': true
       },
       'paint': {
-        'text-color': '#1a1a2e',
+        'text-color': '#56707c',
         'text-halo-color': 'white',
         'text-halo-width': 2.5
       }
@@ -936,24 +936,28 @@ function buildGraph(data) {
     return Number(coord[0]).toFixed(5) + ',' + Number(coord[1]).toFixed(5);
   }
 
-  function addEdge(uStr, vStr, dist, trueU, trueV) {
-    if (!g.has(uStr)) g.set(uStr, { coord: trueU, edges: [] });
-    if (!g.has(vStr)) g.set(vStr, { coord: trueV, edges: [] });
-    g.get(uStr).edges.push({ to: vStr, dist });
-    g.get(vStr).edges.push({ to: uStr, dist });
-  }
-
   data.features.forEach(feature => {
+    const isOneway = feature.properties && feature.properties.oneway === true;
     const coords = feature.geometry.coordinates;
+
     for (let i = 0; i < coords.length - 1; i++) {
       const uStr = snap(coords[i]);
       const vStr = snap(coords[i + 1]);
+
       if (uStr !== vStr) {
         const dist = turf.distance(coords[i], coords[i + 1], { units: 'kilometers' });
-        addEdge(uStr, vStr, dist, coords[i], coords[i + 1]);
+
+        if (!g.has(uStr)) g.set(uStr, { coord: coords[i], edges: [] });
+        if (!g.has(vStr)) g.set(vStr, { coord: coords[i + 1], edges: [] });
+
+        g.get(uStr).edges.push({ to: vStr, dist });
+        if (!isOneway) {
+          g.get(vStr).edges.push({ to: uStr, dist });
+        }
       }
     }
   });
+
   return g;
 }
 
