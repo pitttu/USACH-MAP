@@ -1,0 +1,89 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pastos"
+            },
+            "geometry": {
+                "coordinates": [
+                    -70.68317864229705,
+                    -33.449714256388184
+                ],
+                "type": "Point"
+            },
+            "id": 0
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pastos"
+            },
+            "geometry": {
+                "coordinates": [
+                    -70.68352572606518,
+                    -33.4491692194408
+                ],
+                "type": "Point"
+            },
+            "id": 1
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pastos"
+            },
+            "geometry": {
+                "coordinates": [
+                    -70.68341488038462,
+                    -33.447745376506866
+                ],
+                "type": "Point"
+            },
+            "id": 2
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pastos de Derecho"
+            },
+            "geometry": {
+                "coordinates": [
+                    -70.68336928198093,
+                    -33.44687774896786
+                ],
+                "type": "Point"
+            },
+            "id": 3
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Pastos Mecanica"
+            },
+            "geometry": {
+                "coordinates": [
+                    -70.68172885853478,
+                    -33.44678113477094
+                ],
+                "type": "Point"
+            },
+            "id": 4
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "name": "Huerta Comunitaria"
+            },
+            "geometry": {
+                "coordinates": [
+                    -70.68195430890394,
+                    -33.44828344423629
+                ],
+                "type": "Point"
+            },
+            "id": 5
+        }
+    ]
+}

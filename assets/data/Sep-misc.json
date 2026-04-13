@@ -746,6 +746,108 @@
                 "subCategory": "Alimentación",
                 "type": "comida rapida"
             }
+        },
+        {
+            "type": "Feature",
+            "id": 1100,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68317864229705,
+                    -33.449714256388184
+                ]
+            },
+            "properties": {
+                "category": "pastos",
+                "id": 1100,
+                "name": "Pastos",
+                "type": "area verde pasto"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1101,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68352572606518,
+                    -33.4491692194408
+                ]
+            },
+            "properties": {
+                "category": "pastos",
+                "id": 1101,
+                "name": "Pastos",
+                "type": "area verde pasto"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1102,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68341488038462,
+                    -33.447745376506866
+                ]
+            },
+            "properties": {
+                "category": "pastos",
+                "id": 1102,
+                "name": "Pastos",
+                "type": "area verde pasto"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1103,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68336928198093,
+                    -33.44687774896786
+                ]
+            },
+            "properties": {
+                "category": "pastos",
+                "id": 1103,
+                "name": "Pastos de Derecho",
+                "type": "area verde pasto derecho"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1104,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68172885853478,
+                    -33.44678113477094
+                ]
+            },
+            "properties": {
+                "category": "pastos",
+                "id": 1104,
+                "name": "Pastos Mecánica",
+                "type": "area verde pasto mecanica"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1105,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68195430890394,
+                    -33.44828344423629
+                ]
+            },
+            "properties": {
+                "category": "pastos",
+                "id": 1105,
+                "name": "Huerta Comunitaria",
+                "type": "area verde huerta"
+            }
         }
     ]
 }

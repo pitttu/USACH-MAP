@@ -57,6 +57,7 @@ function updateMapHighlights() {
         ['==', ['get', 'id'], selectedId || -1], '#b72522',
         ['==', ['get', 'category'], 'deporte'], '#0894ff',
         ['==', ['get', 'category'], 'comida'], '#fe8029',
+        ['==', ['get', 'category'], 'pastos'], '#15a972',
         '#56707c'
       ]);
 
@@ -337,6 +338,11 @@ map.on('load', async () => {
         ctx.drawImage(image, 830, 0, 166, 166, 0, 0, 166, 166);
         map.addImage('deporte-poi-icon', ctx.getImageData(0, 0, 166, 166));
 
+        // Pastos Icon (index 7)
+        ctx.clearRect(0, 0, 166, 166);
+        ctx.drawImage(image, 1162, 0, 166, 166, 0, 0, 166, 166);
+        map.addImage('pasto-poi-icon', ctx.getImageData(0, 0, 166, 166));
+
         resolve();
       });
     });
@@ -444,6 +450,7 @@ map.on('load', async () => {
           'case',
           ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
           ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
+          ['==', ['get', 'category'], 'pastos'], 'pasto-poi-icon',
           'misc-poi-icon'
         ],
         'icon-size': 0.25,
@@ -463,9 +470,9 @@ map.on('load', async () => {
         'text-field': ['get', 'name'],
         'text-font': ['DIN Pro Regular', 'Arial Unicode MS Regular'],
         'text-size': 13.5,
-        'text-offset': ['case', ['==', ['get', 'category'], 'deporte'], ['literal', [-1.2, 0]], ['literal', [1.2, 0]]],
-        'text-anchor': ['case', ['==', ['get', 'category'], 'deporte'], 'right', 'left'],
-        'text-justify': ['case', ['==', ['get', 'category'], 'deporte'], 'right', 'left'],
+        'text-offset': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], ['literal', [-1.2, 0]], ['literal', [1.2, 0]]],
+        'text-anchor': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], 'right', 'left'],
+        'text-justify': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], 'right', 'left'],
         'text-max-width': 10,
         'text-allow-overlap': true,
         'text-ignore-placement': true
@@ -476,6 +483,7 @@ map.on('load', async () => {
           ['==', ['get', 'id'], selectedId || -1], '#b72522',
           ['==', ['get', 'category'], 'deporte'], '#0894ff',
           ['==', ['get', 'category'], 'comida'], '#fe8029',
+          ['==', ['get', 'category'], 'pastos'], '#15a972',
           '#56707c'
         ],
         'text-halo-color': 'white',
@@ -494,6 +502,7 @@ map.on('load', async () => {
           'case',
           ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
           ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
+          ['==', ['get', 'category'], 'pastos'], 'pasto-poi-icon',
           'misc-poi-icon'
         ],
         'icon-size': 0.25,
@@ -512,9 +521,9 @@ map.on('load', async () => {
         'text-field': ['get', 'name'],
         'text-font': ['DIN Pro Regular', 'Arial Unicode MS Regular'],
         'text-size': 13.5,
-        'text-offset': ['case', ['==', ['get', 'category'], 'deporte'], ['literal', [-1.2, 0]], ['literal', [1.2, 0]]],
-        'text-anchor': ['case', ['==', ['get', 'category'], 'deporte'], 'right', 'left'],
-        'text-justify': ['case', ['==', ['get', 'category'], 'deporte'], 'right', 'left'],
+        'text-offset': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], ['literal', [-1.2, 0]], ['literal', [1.2, 0]]],
+        'text-anchor': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], 'right', 'left'],
+        'text-justify': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], 'right', 'left'],
         'text-max-width': 10,
         'text-allow-overlap': true,
         'text-ignore-placement': true
@@ -524,6 +533,7 @@ map.on('load', async () => {
           'case',
           ['==', ['get', 'category'], 'deporte'], '#0894ff',
           ['==', ['get', 'category'], 'comida'], '#fe8029',
+          ['==', ['get', 'category'], 'pastos'], '#15a972',
           '#56707c'
         ],
         'text-halo-color': 'white',
