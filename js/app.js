@@ -281,10 +281,10 @@ map.on('load', async () => {
 
   // Fog and Performance Optimization
   map.setFog({
-    'color': 'rgba(255, 255, 255, 0.8)',
+    'color': 'rgb(255, 255, 255)',
     'high-color': '#e0f2f1',
-    'horizon-blend': 0.05,
-    'range': [1, 10] // Helps hide detail outside 1km
+    'horizon-blend': 0.3,
+    'range': [0.8, 3]
   });
 
   // Optimize 3D Layers (fill-extrusion)
