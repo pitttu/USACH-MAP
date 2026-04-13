@@ -58,6 +58,7 @@ function updateMapHighlights() {
         ['==', ['get', 'category'], 'deporte'], '#0894ff',
         ['==', ['get', 'category'], 'comida'], '#fe8029',
         ['==', ['get', 'category'], 'pastos'], '#15a972',
+        ['==', ['get', 'category'], 'salud'], '#f74855',
         '#56707c'
       ]);
 
@@ -284,7 +285,7 @@ map.on('load', async () => {
     'color': 'rgb(255, 255, 255)',
     'high-color': '#e0f2f1',
     'horizon-blend': 0.3,
-    'range': [0.8, 3]
+    'range': [0.6, 3]
   });
 
   // Optimize 3D Layers (fill-extrusion)
@@ -347,6 +348,20 @@ map.on('load', async () => {
       });
     });
 
+    await new Promise((resolve) => {
+      map.loadImage('assets/icons/spritesheet2-rm.png', (error, image) => {
+        if (error) { console.error('Image load error', error); resolve(); return; }
+        const canvas = document.createElement('canvas');
+        canvas.width = 204;
+        canvas.height = 204;
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        // Extract 6th icon (index 5)
+        ctx.drawImage(image, 1020, 0, 204, 204, 0, 0, 204, 204);
+        map.addImage('salud-poi-icon', ctx.getImageData(0, 0, 204, 204));
+        resolve();
+      });
+    });
+
     for (let i = 0; i < 8; i++) resourceLoaded();
 
     graph = buildGraph(pathsData);
@@ -404,6 +419,34 @@ map.on('load', async () => {
       img.src = 'assets/svg/MetroLogo.svg';
     });
 
+    await new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 44; canvas.height = 44;
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        // Soft shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.25)';
+        ctx.shadowBlur = 5;
+        ctx.shadowOffsetY = 2;
+        // White circle, no border
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(22, 22, 20, 0, Math.PI * 2);
+        ctx.fill();
+        // Reset shadow before drawing logo
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+        // Draw SVG logo centered inside
+        ctx.drawImage(img, 11, 11, 22, 22);
+        map.addImage('efe-icon', ctx.getImageData(0, 0, 44, 44));
+        resolve();
+      };
+      img.onerror = () => resolve();
+      img.src = 'assets/svg/efe.svg';
+    });
+
     map.addLayer({
       'id': 'metro-icons',
       'type': 'symbol',
@@ -411,6 +454,21 @@ map.on('load', async () => {
       'layout': {
         'icon-image': 'metro-icon',
         'icon-size': 0.6,
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true
+      },
+      'paint': { 'icon-opacity': 1 }
+    });
+
+    map.addLayer({
+      'id': 'metro-efe-icons',
+      'type': 'symbol',
+      'source': 'metro',
+      'filter': ['==', ['get', 'name'], 'Metro Estación Central'],
+      'layout': {
+        'icon-image': 'efe-icon',
+        'icon-size': 0.6,
+        'icon-offset': [-45, 0],
         'icon-allow-overlap': true,
         'icon-ignore-placement': true
       },
@@ -451,9 +509,14 @@ map.on('load', async () => {
           ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
           ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
           ['==', ['get', 'category'], 'pastos'], 'pasto-poi-icon',
+          ['==', ['get', 'category'], 'salud'], 'salud-poi-icon',
           'misc-poi-icon'
         ],
-        'icon-size': 0.25,
+        'icon-size': [
+          'case',
+          ['==', ['get', 'category'], 'salud'], 0.203,
+          0.25
+        ],
         'icon-allow-overlap': true,
         'icon-ignore-placement': true
       },
@@ -484,6 +547,7 @@ map.on('load', async () => {
           ['==', ['get', 'category'], 'deporte'], '#0894ff',
           ['==', ['get', 'category'], 'comida'], '#fe8029',
           ['==', ['get', 'category'], 'pastos'], '#15a972',
+          ['==', ['get', 'category'], 'salud'], '#f74855',
           '#56707c'
         ],
         'text-halo-color': 'white',
@@ -503,9 +567,14 @@ map.on('load', async () => {
           ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
           ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
           ['==', ['get', 'category'], 'pastos'], 'pasto-poi-icon',
+          ['==', ['get', 'category'], 'salud'], 'salud-poi-icon',
           'misc-poi-icon'
         ],
-        'icon-size': 0.25,
+        'icon-size': [
+          'case',
+          ['==', ['get', 'category'], 'salud'], 0.203,
+          0.25
+        ],
         'icon-allow-overlap': true,
         'icon-ignore-placement': true
       },
@@ -534,6 +603,7 @@ map.on('load', async () => {
           ['==', ['get', 'category'], 'deporte'], '#0894ff',
           ['==', ['get', 'category'], 'comida'], '#fe8029',
           ['==', ['get', 'category'], 'pastos'], '#15a972',
+          ['==', ['get', 'category'], 'salud'], '#f74855',
           '#56707c'
         ],
         'text-halo-color': 'white',

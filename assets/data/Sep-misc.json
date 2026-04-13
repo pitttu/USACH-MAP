@@ -281,8 +281,6 @@
                 "type": "universidad educacion"
             }
         },
-
-
         {
             "type": "Feature",
             "id": 1063,
@@ -318,12 +316,11 @@
                 "descripcion": "Centro de Salud Amengual",
                 "etiqueta": "Salud",
                 "id": 1064,
-                "name": "Centro de Salud",
+                "name": "Centro de Salud USACH",
                 "subCategory": "Clínica",
                 "type": "salud medico"
             }
         },
-
         {
             "type": "Feature",
             "id": 1066,
@@ -404,7 +401,6 @@
                 "type": "biblioteca"
             }
         },
-
         {
             "type": "Feature",
             "id": 1073,
@@ -445,8 +441,6 @@
                 "type": "administrativo"
             }
         },
-
-
         {
             "type": "Feature",
             "id": 1078,
