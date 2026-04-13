@@ -1,0 +1,105 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": 1058,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6813604,
+                    -33.4503516
+                ]
+            },
+            "properties": {
+                "category": "cultura",
+                "descripcion": "Planetario USACH",
+                "etiqueta": "Planetario",
+                "id": 1058,
+                "name": "Planetario",
+                "subCategory": "Cultura",
+                "type": "museo planetario"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1051,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6796968,
+                    -33.4501987
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Pabellón Salas de Clases Forma",
+                "etiqueta": "Salas",
+                "id": 1051,
+                "name": "Pabellón Forma",
+                "subCategory": "Salas",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1074,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6866495,
+                    -33.4497399
+                ]
+            },
+            "properties": {
+                "category": "cultura",
+                "descripcion": "Aula Magna USACH",
+                "etiqueta": "Teatro",
+                "id": 1074,
+                "name": "Aula Magna",
+                "subCategory": "Cultura",
+                "type": "teatro eventos cultura"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1059,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6910666,
+                    -33.4502909
+                ]
+            },
+            "properties": {
+                "category": "deporte",
+                "descripcion": "Estadio USACH",
+                "etiqueta": "Estadio",
+                "id": 1059,
+                "name": "Estadio",
+                "subCategory": "Deportes",
+                "type": "deporte estadio"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1079,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.682831,
+                    -33.4466465
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Matemáticas y Computación",
+                "etiqueta": "Departamento",
+                "id": 1079,
+                "name": "Departamento de Matemáticas y Ciencia de la Computación",
+                "subCategory": "Ciencias",
+                "type": "universidad educacion"
+            }
+        }
+    ]
+}

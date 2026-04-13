@@ -6,7 +6,10 @@
       "id": 1038,
       "geometry": {
         "type": "Point",
-        "coordinates": [-70.68211273329982, -33.45107698053721]
+        "coordinates": [
+          -70.68211273329982,
+          -33.45107698053721
+        ]
       },
       "properties": {
         "category": "servicios",
@@ -23,7 +26,10 @@
       "id": 1039,
       "geometry": {
         "type": "Point",
-        "coordinates": [-70.68170417102996, -33.45111856491398]
+        "coordinates": [
+          -70.68170417102996,
+          -33.45111856491398
+        ]
       },
       "properties": {
         "category": "servicios",
@@ -40,7 +46,10 @@
       "id": 1040,
       "geometry": {
         "type": "Point",
-        "coordinates": [-70.68149796989465, -33.45111189649363]
+        "coordinates": [
+          -70.68149796989465,
+          -33.45111189649363
+        ]
       },
       "properties": {
         "category": "servicios",
@@ -57,7 +66,10 @@
       "id": 1041,
       "geometry": {
         "type": "Point",
-        "coordinates": [-70.68185240866832, -33.448007357517795]
+        "coordinates": [
+          -70.68185240866832,
+          -33.448007357517795
+        ]
       },
       "properties": {
         "category": "servicios",
@@ -74,7 +86,10 @@
       "id": 1042,
       "geometry": {
         "type": "Point",
-        "coordinates": [-70.68268837706484, -33.45106091830389]
+        "coordinates": [
+          -70.68268837706484,
+          -33.45106091830389
+        ]
       },
       "properties": {
         "category": "servicios",
@@ -88,10 +103,33 @@
     },
     {
       "type": "Feature",
+      "id": 1067,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6826233,
+          -33.4511799
+        ]
+      },
+      "properties": {
+        "category": "servicios",
+        "descripcion": "Impresiones H.M.C.",
+        "etiqueta": "Fotocopias",
+        "id": 1067,
+        "name": "H.M.C. Impresiones",
+        "subCategory": "Servicios",
+        "type": "impresiones fotocopias"
+      }
+    },
+    {
+      "type": "Feature",
       "id": 1043,
       "geometry": {
         "type": "Point",
-        "coordinates": [-70.68222894137628, -33.4511074393297]
+        "coordinates": [
+          -70.68222894137628,
+          -33.4511074393297
+        ]
       },
       "properties": {
         "category": "servicios",

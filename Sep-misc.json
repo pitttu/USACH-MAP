@@ -1,0 +1,745 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "id": 1044,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6812856,
+                    -33.448169
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Facultad de Química y Biología USACH",
+                "etiqueta": "Facultad",
+                "id": 1044,
+                "name": "Facultad de Química y Biología",
+                "subCategory": "Ciencias",
+                "type": "universidad educacion quimica biologia"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1045,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6829892,
+                    -33.4482328
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Facultad de Humanidades USACH",
+                "etiqueta": "Facultad",
+                "id": 1045,
+                "name": "Facultad de Humanidades",
+                "subCategory": "Humanidades",
+                "type": "universidad educacion fahu"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1046,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6824656,
+                    -33.4472509
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Facultad de Ingeniería USACH",
+                "etiqueta": "Facultad",
+                "id": 1046,
+                "name": "Facultad de Ingeniería",
+                "subCategory": "Ingeniería",
+                "type": "universidad educacion fing"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1047,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6814966,
+                    -33.4463844
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Departamento de Ingeniería Mecánica",
+                "etiqueta": "Departamento",
+                "id": 1047,
+                "name": "Ingeniería Mecánica",
+                "subCategory": "Mecánica",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1048,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.681655,
+                    -33.4455508
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Facultad de Ciencias Médicas",
+                "etiqueta": "Salas",
+                "id": 1048,
+                "name": "Ciencias Médicas",
+                "subCategory": "Medicina",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1049,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6827025,
+                    -33.4489471
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "descripcion": "Casa Central USACH",
+                "etiqueta": "Administración",
+                "id": 1049,
+                "name": "Casa Central",
+                "subCategory": "Edificio Principal",
+                "type": "administrativo"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1052,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6832194,
+                    -33.4463917
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Facultad de Derecho USACH",
+                "etiqueta": "Derecho",
+                "id": 1052,
+                "name": "Facultad de Derecho",
+                "subCategory": "Leyes",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1050,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6801973,
+                    -33.4495149
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Facultad de Administración y Economía",
+                "etiqueta": "FAE",
+                "id": 1050,
+                "name": "FAE (Antigua)",
+                "subCategory": "Administración",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1053,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6823919,
+                    -33.4461037
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "descripcion": "Centro de Eventos VIME",
+                "etiqueta": "VIME",
+                "id": 1053,
+                "name": "CENI - VIME",
+                "subCategory": "Eventos",
+                "type": "universidad institucional"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1054,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6822408,
+                    -33.448617
+                ]
+            },
+            "properties": {
+                "category": "servicios",
+                "descripcion": "Biblioteca Facultad de Humanidades",
+                "etiqueta": "Biblioteca",
+                "id": 1054,
+                "name": "Biblioteca Humanidades",
+                "subCategory": "Biblioteca",
+                "type": "biblioteca estudio fahu"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1055,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6825054,
+                    -33.447992
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Laboratorio de Idiomas",
+                "etiqueta": "Idiomas",
+                "id": 1055,
+                "name": "Lab Idiomas",
+                "subCategory": "Idiomas",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1056,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6819211,
+                    -33.4486495
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "descripcion": "Salón Paraninfo USACH",
+                "etiqueta": "Salón",
+                "id": 1056,
+                "name": "Paraninfo",
+                "subCategory": "Eventos",
+                "type": "universidad institucional"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1057,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6827555,
+                    -33.4463228
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Auditorio Armando Quezada",
+                "etiqueta": "Auditorio",
+                "id": 1057,
+                "name": "Auditorio Quezada",
+                "subCategory": "Eventos",
+                "type": "universidad"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1060,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6886875,
+                    -33.4503926
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Departamento de Ingeniería Industrial",
+                "etiqueta": "Industrial",
+                "id": 1060,
+                "name": "Ingeniería Industrial",
+                "subCategory": "Ingeniería",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1061,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6896134,
+                    -33.4503483
+                ]
+            },
+            "properties": {
+                "category": "deporte",
+                "descripcion": "Cancha Fútbol USACH",
+                "etiqueta": "Cancha",
+                "id": 1061,
+                "name": "Cancha Fútbol 1",
+                "subCategory": "Fútbol",
+                "type": "deporte cancha"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1062,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6903189,
+                    -33.4500877
+                ]
+            },
+            "properties": {
+                "category": "deporte",
+                "descripcion": "Canchas Tenis USACH",
+                "etiqueta": "Tenis",
+                "id": 1062,
+                "name": "Canchas Tenis",
+                "subCategory": "Tenis",
+                "type": "deporte tenis"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1063,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6848685,
+                    -33.4497451
+                ]
+            },
+            "properties": {
+                "category": "servicios",
+                "descripcion": "Salón Bulnes Informática",
+                "etiqueta": "Computación",
+                "id": 1063,
+                "name": "Salón Bulnes",
+                "subCategory": "Estudio",
+                "type": "computacion estudio"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1064,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6839593,
+                    -33.4497492
+                ]
+            },
+            "properties": {
+                "category": "salud",
+                "descripcion": "Centro de Salud Amengual",
+                "etiqueta": "Salud",
+                "id": 1064,
+                "name": "Centro de Salud",
+                "subCategory": "Clínica",
+                "type": "salud medico"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1065,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6854814,
+                    -33.4497241
+                ]
+            },
+            "properties": {
+                "category": "deporte",
+                "descripcion": "Gimnasio USACH",
+                "etiqueta": "Gimnasio",
+                "id": 1065,
+                "name": "Gimnasio",
+                "subCategory": "Deportes",
+                "type": "deporte gimnasio"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1066,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6864034,
+                    -33.4510102
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Escuelas de Periodismo y Psicología",
+                "etiqueta": "Escuela",
+                "id": 1066,
+                "name": "Periodismo y Psicología",
+                "subCategory": "Facultad",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1068,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.682179,
+                    -33.4487146
+                ]
+            },
+            "properties": {
+                "category": "servicios",
+                "descripcion": "Centro de Copiado USACH",
+                "etiqueta": "Fotocopias",
+                "id": 1068,
+                "name": "Centro Copiado",
+                "subCategory": "Servicios",
+                "type": "impresiones fotocopias"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1069,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6791767,
+                    -33.450399
+                ]
+            },
+            "properties": {
+                "category": "salud",
+                "descripcion": "Farmacia Simi",
+                "etiqueta": "Farmacia",
+                "id": 1069,
+                "name": "Farmacia Dr. Simi",
+                "subCategory": "Salud",
+                "type": "farmacia salud"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1070,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6832204,
+                    -33.4503225
+                ]
+            },
+            "properties": {
+                "category": "servicios",
+                "descripcion": "Biblioteca Central USACH",
+                "etiqueta": "Biblioteca",
+                "id": 1070,
+                "name": "Biblioteca Central",
+                "subCategory": "Estudio",
+                "type": "biblioteca"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1071,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6856819,
+                    -33.4505994
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "descripcion": "Casino Universitario",
+                "etiqueta": "Café",
+                "id": 1071,
+                "name": "Cafetería USACH",
+                "subCategory": "Casino",
+                "type": "comida cafe restaurant"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1073,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.685543,
+                    -33.4507361
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "descripcion": "Desarrollo Estudiantil",
+                "etiqueta": "VGDE",
+                "id": 1073,
+                "name": "VGDE USACH",
+                "subCategory": "Administración",
+                "type": "universidad"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1075,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6823585,
+                    -33.4506477
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "descripcion": "Dirección Finanzas",
+                "etiqueta": "Administración",
+                "id": 1075,
+                "name": "Finanzas",
+                "subCategory": "Finanzas",
+                "type": "administrativo"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1076,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6821526,
+                    -33.4481513
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "descripcion": "Comida rápida",
+                "etiqueta": "Comida",
+                "id": 1076,
+                "name": "Donde Pablo",
+                "subCategory": "Alimentación",
+                "type": "comida rapida colacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1077,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6819809,
+                    -33.4483102
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "descripcion": "Kiosco alimentos",
+                "etiqueta": "Comida",
+                "id": 1077,
+                "name": "Kiosco Historia",
+                "subCategory": "Alimentación",
+                "type": "comida rapida"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1078,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6830976,
+                    -33.4484814
+                ]
+            },
+            "properties": {
+                "category": "servicios",
+                "descripcion": "Estacionamiento bicicletas",
+                "etiqueta": "Transporte",
+                "id": 1078,
+                "name": "Bicicletero FAHU",
+                "subCategory": "Transporte",
+                "type": "bicicletero transporte"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1080,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.687241,
+                    -33.4498289
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Ingeniería Informática",
+                "etiqueta": "DIINF",
+                "id": 1080,
+                "name": "DIINF",
+                "subCategory": "Informática",
+                "type": "universidad educacion diinf"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1081,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6805646,
+                    -33.4488155
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Edificio Recicla USACH",
+                "etiqueta": "Sustentable",
+                "id": 1081,
+                "name": "Recicla",
+                "subCategory": "Edificio",
+                "type": "universidad"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1082,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6805908,
+                    -33.449659
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "descripcion": "Registro Académico",
+                "etiqueta": "Administración",
+                "id": 1082,
+                "name": "Registro Académico",
+                "subCategory": "Trámites",
+                "type": "administrativo"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1083,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6856685,
+                    -33.4504878
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "descripcion": "Federación Estudiantes",
+                "etiqueta": "Feusach",
+                "id": 1083,
+                "name": "Feusach",
+                "subCategory": "Estudiantil",
+                "type": "organizacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1084,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6869046,
+                    -33.4505824
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Departamento Obras Civiles",
+                "etiqueta": "Obras Civiles",
+                "id": 1084,
+                "name": "Obras Civiles",
+                "subCategory": "Ingeniería",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1085,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6805448,
+                    -33.4503641
+                ]
+            },
+            "properties": {
+                "category": "decorativo",
+                "descripcion": "Reloj de sol",
+                "etiqueta": "Hito",
+                "id": 1085,
+                "name": "Reloj de Sol",
+                "subCategory": "Ornato",
+                "type": "decorativo"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1086,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6851204,
+                    -33.4497266
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Programa Acceso Inclusivo",
+                "etiqueta": "PAIEP",
+                "id": 1086,
+                "name": "PAIEP",
+                "subCategory": "Apoyo",
+                "type": "educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1087,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6851966,
+                    -33.4510089
+                ]
+            },
+            "properties": {
+                "category": "servicios",
+                "descripcion": "Fotocopias Pacífico",
+                "etiqueta": "Fotocopias",
+                "id": 1087,
+                "name": "Pacífico",
+                "subCategory": "Servicios",
+                "type": "impresiones fotocopias"
+            }
+        }
+    ]
+}
