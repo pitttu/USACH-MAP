@@ -401,7 +401,7 @@ body {
   background-color: white;
   border-radius: 50%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-  background-image: url('MetroLogo.svg');
+  background-image: url('../assets/svg/MetroLogo.svg');
   background-size: 14px;
   background-position: center;
   background-repeat: no-repeat;
@@ -483,7 +483,7 @@ body {
 .active-pointer {
   width: 32px;
   height: 42px;
-  background-image: url('icons/pointer.png');
+  background-image: url('../assets/icons/pointer.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center bottom;

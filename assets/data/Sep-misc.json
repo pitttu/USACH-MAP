@@ -281,46 +281,8 @@
                 "type": "universidad educacion"
             }
         },
-        {
-            "type": "Feature",
-            "id": 1061,
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -70.6896134,
-                    -33.4503483
-                ]
-            },
-            "properties": {
-                "category": "deporte",
-                "descripcion": "Cancha Fútbol USACH",
-                "etiqueta": "Cancha",
-                "id": 1061,
-                "name": "Cancha Fútbol 1",
-                "subCategory": "Fútbol",
-                "type": "deporte cancha"
-            }
-        },
-        {
-            "type": "Feature",
-            "id": 1062,
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -70.6903189,
-                    -33.4500877
-                ]
-            },
-            "properties": {
-                "category": "deporte",
-                "descripcion": "Canchas Tenis USACH",
-                "etiqueta": "Tenis",
-                "id": 1062,
-                "name": "Canchas Tenis",
-                "subCategory": "Tenis",
-                "type": "deporte tenis"
-            }
-        },
+
+
         {
             "type": "Feature",
             "id": 1063,
@@ -361,26 +323,7 @@
                 "type": "salud medico"
             }
         },
-        {
-            "type": "Feature",
-            "id": 1065,
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -70.6854814,
-                    -33.4497241
-                ]
-            },
-            "properties": {
-                "category": "deporte",
-                "descripcion": "Gimnasio USACH",
-                "etiqueta": "Gimnasio",
-                "id": 1065,
-                "name": "Gimnasio",
-                "subCategory": "Deportes",
-                "type": "deporte gimnasio"
-            }
-        },
+
         {
             "type": "Feature",
             "id": 1066,
@@ -461,26 +404,7 @@
                 "type": "biblioteca"
             }
         },
-        {
-            "type": "Feature",
-            "id": 1071,
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -70.6856819,
-                    -33.4505994
-                ]
-            },
-            "properties": {
-                "category": "comida",
-                "descripcion": "Casino Universitario",
-                "etiqueta": "Café",
-                "id": 1071,
-                "name": "Cafetería USACH",
-                "subCategory": "Casino",
-                "type": "comida cafe restaurant"
-            }
-        },
+
         {
             "type": "Feature",
             "id": 1073,
@@ -521,46 +445,8 @@
                 "type": "administrativo"
             }
         },
-        {
-            "type": "Feature",
-            "id": 1076,
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -70.6821526,
-                    -33.4481513
-                ]
-            },
-            "properties": {
-                "category": "comida",
-                "descripcion": "Comida rápida",
-                "etiqueta": "Comida",
-                "id": 1076,
-                "name": "Donde Pablo",
-                "subCategory": "Alimentación",
-                "type": "comida rapida colacion"
-            }
-        },
-        {
-            "type": "Feature",
-            "id": 1077,
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -70.6819809,
-                    -33.4483102
-                ]
-            },
-            "properties": {
-                "category": "comida",
-                "descripcion": "Kiosco alimentos",
-                "etiqueta": "Comida",
-                "id": 1077,
-                "name": "Kiosco Historia",
-                "subCategory": "Alimentación",
-                "type": "comida rapida"
-            }
-        },
+
+
         {
             "type": "Feature",
             "id": 1078,
@@ -739,6 +625,126 @@
                 "name": "Pacífico",
                 "subCategory": "Servicios",
                 "type": "impresiones fotocopias"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1061,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6896134,
+                    -33.4503483
+                ]
+            },
+            "properties": {
+                "category": "deporte",
+                "descripcion": "Cancha Fútbol USACH",
+                "etiqueta": "Cancha",
+                "id": 1061,
+                "name": "Cancha Fútbol 1",
+                "subCategory": "Fútbol",
+                "type": "deporte cancha"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1062,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6903189,
+                    -33.4500877
+                ]
+            },
+            "properties": {
+                "category": "deporte",
+                "descripcion": "Canchas Tenis USACH",
+                "etiqueta": "Tenis",
+                "id": 1062,
+                "name": "Canchas Tenis",
+                "subCategory": "Tenis",
+                "type": "deporte tenis"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1065,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6854814,
+                    -33.4497241
+                ]
+            },
+            "properties": {
+                "category": "deporte",
+                "descripcion": "Gimnasio USACH",
+                "etiqueta": "Gimnasio",
+                "id": 1065,
+                "name": "Gimnasio",
+                "subCategory": "Deportes",
+                "type": "deporte gimnasio"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1071,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6856819,
+                    -33.4505994
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "descripcion": "Casino Universitario",
+                "etiqueta": "Café",
+                "id": 1071,
+                "name": "Cafetería USACH",
+                "subCategory": "Casino",
+                "type": "comida cafe restaurant"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1076,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6821526,
+                    -33.4481513
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "descripcion": "Comida rápida",
+                "etiqueta": "Comida",
+                "id": 1076,
+                "name": "Donde Pablo",
+                "subCategory": "Alimentación",
+                "type": "comida rapida colacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1077,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6819809,
+                    -33.4483102
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "descripcion": "Kiosco alimentos",
+                "etiqueta": "Comida",
+                "id": 1077,
+                "name": "Kiosco Historia",
+                "subCategory": "Alimentación",
+                "type": "comida rapida"
             }
         }
     ]

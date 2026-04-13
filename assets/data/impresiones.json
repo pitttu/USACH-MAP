@@ -140,6 +140,26 @@
         "subCategory": "Servicios",
         "type": "impresiones fotocopias"
       }
+    },
+    {
+      "type": "Feature",
+      "id": 1087,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -70.6851966,
+          -33.4510089
+        ]
+      },
+      "properties": {
+        "category": "servicios",
+        "descripcion": "Fotocopias Pacífico",
+        "etiqueta": "Fotocopias",
+        "id": 1087,
+        "name": "Pacífico",
+        "subCategory": "Servicios",
+        "type": "impresiones fotocopias"
+      }
     }
   ]
 }

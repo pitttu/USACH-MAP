@@ -41,9 +41,7 @@ let currentSheetState = 'REST';
 let isMapReady = false;
 let resourcesToLoad = 9;
 
-// Loaded Data
-let salasData = null;
-let accesosData = null;
+let salasData, accesosData, banosData, impresionesData, metroData, miscData, miscFixedData;
 let selectedId = null;
 let lastHiddenSprite = null;
 
@@ -56,9 +54,10 @@ function updateMapHighlights() {
       map.setPaintProperty(layerId, 'text-halo-width', 2.5);
       map.setPaintProperty(layerId, 'text-color', [
         'case',
-        ['==', ['get', 'id'], selectedId || -1],
-        '#b72522',
-        '#56707c'
+        ['==', ['get', 'id'], selectedId || -1], '#b72522',
+        ['==', ['get', 'category'], 'deporte'], '#0894ff',
+        ['==', ['get', 'category'], 'comida'], '#fe8029',
+        layerId === 'metro-labels' ? '#1a1a2e' : '#56707c'
       ]);
 
       const isFixed = layerId.includes('fixed') || layerId === 'metro-labels';
@@ -115,11 +114,6 @@ function updateMiscDistances() {
   });
 }
 
-let banosData = null;
-let impresionesData = null;
-let metroData = null;
-let miscData = null;
-let miscFixedData = null;
 let graph = null;
 let currentMarker = null;
 let userLocation = null;
@@ -302,16 +296,16 @@ map.on('load', async () => {
   });
 
   try {
-    const [salasRes, sectoresRes, pathsRes, accesosRes, banosRes, metroRes, impresionesRes, miscRes, miscFixedRes] = await Promise.all([
-      fetch('salas.json'),
-      fetch('SectoresColores.json'),
-      fetch('paths.json'),
-      fetch('Accesos.json'),
-      fetch('baños.json'),
-      fetch('metro.json'),
-      fetch('impresiones.json'),
-      fetch('Sep-misc.json'),
-      fetch('FixedMisc.json')
+    const [salasRes, sectoresRes, pathsRes, accesosRes, banosRes, metroRes, impresionesRes, miscRes, miscFixedRes, comidaRes] = await Promise.all([
+      fetch('assets/data/salas.json'),
+      fetch('assets/data/SectoresColores.json'),
+      fetch('assets/data/paths.json'),
+      fetch('assets/data/Accesos.json'),
+      fetch('assets/data/banos.json'),
+      fetch('assets/data/metro.json'),
+      fetch('assets/data/impresiones.json'),
+      fetch('assets/data/Sep-misc.json'),
+      fetch('assets/data/FixedMisc.json')
     ]);
 
     salasData = await salasRes.json();
@@ -325,7 +319,7 @@ map.on('load', async () => {
     miscFixedData = await miscFixedRes.json();
 
     await new Promise((resolve) => {
-      map.loadImage('icons/spritesheet-rm.png', (error, image) => {
+      map.loadImage('assets/icons/spritesheet-rm.png', (error, image) => {
         if (error) { console.error('Image load error', error); resolve(); return; }
         const canvas = document.createElement('canvas');
         canvas.width = 166;
@@ -333,6 +327,16 @@ map.on('load', async () => {
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         ctx.drawImage(image, 1328, 0, 166, 166, 0, 0, 166, 166);
         map.addImage('misc-poi-icon', ctx.getImageData(0, 0, 166, 166));
+
+        ctx.clearRect(0, 0, 166, 166);
+        ctx.drawImage(image, 664, 0, 166, 166, 0, 0, 166, 166);
+        map.addImage('comida-poi-icon', ctx.getImageData(0, 0, 166, 166));
+
+        // Sport Icon (index 5)
+        ctx.clearRect(0, 0, 166, 166);
+        ctx.drawImage(image, 830, 0, 166, 166, 0, 0, 166, 166);
+        map.addImage('deporte-poi-icon', ctx.getImageData(0, 0, 166, 166));
+
         resolve();
       });
     });
@@ -391,7 +395,7 @@ map.on('load', async () => {
         resolve();
       };
       img.onerror = () => resolve();
-      img.src = 'svg/MetroLogo.svg';
+      img.src = 'assets/svg/MetroLogo.svg';
     });
 
     map.addLayer({
@@ -436,7 +440,12 @@ map.on('load', async () => {
       'type': 'symbol',
       'source': 'misc-fixed',
       'layout': {
-        'icon-image': 'misc-poi-icon',
+        'icon-image': [
+          'case',
+          ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
+          ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
+          'misc-poi-icon'
+        ],
         'icon-size': 0.25,
         'icon-allow-overlap': true,
         'icon-ignore-placement': true
@@ -454,15 +463,21 @@ map.on('load', async () => {
         'text-field': ['get', 'name'],
         'text-font': ['DIN Pro Regular', 'Arial Unicode MS Regular'],
         'text-size': 13.5,
-        'text-offset': [1.2, 0],
-        'text-anchor': 'left',
-        'text-justify': 'left',
+        'text-offset': ['case', ['==', ['get', 'category'], 'deporte'], ['literal', [-1.2, 0]], ['literal', [1.2, 0]]],
+        'text-anchor': ['case', ['==', ['get', 'category'], 'deporte'], 'right', 'left'],
+        'text-justify': ['case', ['==', ['get', 'category'], 'deporte'], 'right', 'left'],
         'text-max-width': 10,
         'text-allow-overlap': true,
         'text-ignore-placement': true
       },
       'paint': {
-        'text-color': '#56707c',
+        'text-color': [
+          'case',
+          ['==', ['get', 'id'], selectedId || -1], '#b72522',
+          ['==', ['get', 'category'], 'deporte'], '#0894ff',
+          ['==', ['get', 'category'], 'comida'], '#fe8029',
+          '#56707c'
+        ],
         'text-halo-color': 'white',
         'text-halo-width': 2.5
       }
@@ -475,7 +490,12 @@ map.on('load', async () => {
       'type': 'symbol',
       'source': 'misc',
       'layout': {
-        'icon-image': 'misc-poi-icon',
+        'icon-image': [
+          'case',
+          ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
+          ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
+          'misc-poi-icon'
+        ],
         'icon-size': 0.25,
         'icon-allow-overlap': true,
         'icon-ignore-placement': true
@@ -492,15 +512,20 @@ map.on('load', async () => {
         'text-field': ['get', 'name'],
         'text-font': ['DIN Pro Regular', 'Arial Unicode MS Regular'],
         'text-size': 13.5,
-        'text-offset': [1.2, 0],
-        'text-anchor': 'left',
-        'text-justify': 'left',
+        'text-offset': ['case', ['==', ['get', 'category'], 'deporte'], ['literal', [-1.2, 0]], ['literal', [1.2, 0]]],
+        'text-anchor': ['case', ['==', ['get', 'category'], 'deporte'], 'right', 'left'],
+        'text-justify': ['case', ['==', ['get', 'category'], 'deporte'], 'right', 'left'],
         'text-max-width': 10,
         'text-allow-overlap': true,
         'text-ignore-placement': true
       },
       'paint': {
-        'text-color': '#56707c',
+        'text-color': [
+          'case',
+          ['==', ['get', 'category'], 'deporte'], '#0894ff',
+          ['==', ['get', 'category'], 'comida'], '#fe8029',
+          '#56707c'
+        ],
         'text-halo-color': 'white',
         'text-halo-width': 2.5,
         'text-opacity': ['coalesce', ['feature-state', 'opacity'], 0]
@@ -509,12 +534,12 @@ map.on('load', async () => {
 
 
     // Sprite Marker Helpers
-    window._spriteMarkers = { accesos: [], banos: [], impresiones: [] };
+    window._spriteMarkers = { accesos: [], banos: [], impresiones: [], comida: [] };
     function createSpriteMarker(spriteIndex, coords, onClickData, category) {
       const el = document.createElement('div');
       el.style.width = '50px';
       el.style.height = '55px';
-      el.style.backgroundImage = "url('icons/spritesheet-rm.png')";
+      el.style.backgroundImage = "url('assets/icons/spritesheet-rm.png')";
       el.style.backgroundSize = "900% auto";
       el.style.backgroundPosition = (spriteIndex / 8 * 100) + "% 0";
       el.style.backgroundRepeat = 'no-repeat';
@@ -539,6 +564,13 @@ map.on('load', async () => {
     accesosData.features.forEach(f => createSpriteMarker(0, f.geometry.coordinates, f, 'accesos'));
     banosData.features.forEach(f => createSpriteMarker(1, f.geometry.coordinates, f, 'banos'));
     impresionesData.features.forEach(f => createSpriteMarker(7, f.geometry.coordinates, f, 'impresiones'));
+
+    // Food Markers (now inside miscData)
+    miscData.features.forEach(f => {
+      if (f.properties.category === 'comida') {
+        createSpriteMarker(4, f.geometry.coordinates, f, 'comida');
+      }
+    });
 
     // Map Interaction
     const interactivePoilayers = [
@@ -576,12 +608,14 @@ function selectSala(feature, coords) {
   const container = document.createElement('div');
   container.className = 'active-pointer-container';
   const img = document.createElement('img');
-  img.src = 'icons/pointer.png';
+  img.src = 'assets/icons/pointer.png';
   img.className = 'active-pointer';
   container.appendChild(img);
 
   selectedId = feature.properties.id || null;
   updateMapHighlights();
+
+
 
   // Hide original HTML sprite marker if it matches current coordinates
   if (lastHiddenSprite) lastHiddenSprite.style.display = 'block';
