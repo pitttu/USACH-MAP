@@ -563,7 +563,7 @@ map.on('load', async () => {
     // Initialize Sprite Markers
     accesosData.features.forEach(f => createSpriteMarker(0, f.geometry.coordinates, f, 'accesos'));
     banosData.features.forEach(f => createSpriteMarker(1, f.geometry.coordinates, f, 'banos'));
-    impresionesData.features.forEach(f => createSpriteMarker(7, f.geometry.coordinates, f, 'impresiones'));
+    impresionesData.features.forEach(f => createSpriteMarker(6, f.geometry.coordinates, f, 'impresiones'));
 
     // Food Markers (now inside miscData)
     miscData.features.forEach(f => {
@@ -740,7 +740,7 @@ function openSheet(state) {
   const vh = window.innerHeight;
   const topUi = document.querySelector('.top-ui');
   if (topUi) { FULL_OFFSET = topUi.getBoundingClientRect().top; }
-  
+
   let targetY = vh - REST_OFFSET;
   if (state === 'MID') targetY = vh - MID_OFFSET;
   if (state === 'FULL') targetY = FULL_OFFSET;
@@ -827,7 +827,7 @@ searchInput.addEventListener('input', (e) => {
     };
     resultsContainer.appendChild(li);
   });
-  
+
   if (filtered.length > 0) {
     resultsContainer.classList.add('active');
   } else {
