@@ -29,6 +29,14 @@ const resultsContainer = document.getElementById('search-results');
 const categoryChips = document.querySelectorAll('.chip');
 const gpsButton = document.getElementById('gps-button');
 const btnClosePoi = document.getElementById('btn-close-poi');
+const searchSheetContent = document.getElementById('search-sheet-content');
+const originInput = document.getElementById('origin-input');
+const destinationInput = document.getElementById('destination-input');
+const historyListContainer = document.getElementById('search-history-list');
+const btnBackSearch = document.getElementById('btn-back-search');
+const btnUseLocation = document.getElementById('btn-use-location');
+const sheetSearchResults = document.getElementById('sheet-search-results');
+
 
 // State
 const REST_OFFSET = 120; // Default peek height
@@ -44,6 +52,60 @@ let resourcesToLoad = 9;
 let salasData, accesosData, banosData, impresionesData, metroData, miscData, miscFixedData;
 let selectedId = null;
 let lastHiddenSprite = null;
+let destinationPOI = null;
+let originPOI = null;
+
+const HistoryManager = {
+  KEY: 'usach_map_history',
+  get() {
+    try {
+      return JSON.parse(localStorage.getItem(this.KEY)) || [];
+    } catch { return []; }
+  },
+  add(poi) {
+    let history = this.get();
+    // Use unique ID or name+coords to identify
+    const poiId = poi.properties.id || (poi.properties.nombre + poi.geometry.coordinates.join(','));
+    history = history.filter(item => {
+      const itemId = item.properties.id || (item.properties.nombre + item.geometry.coordinates.join(','));
+      return itemId !== poiId;
+    });
+    history.unshift(poi);
+    if (history.length > 15) history.pop();
+    localStorage.setItem(this.KEY, JSON.stringify(history));
+  },
+  render() {
+    const history = this.get();
+    historyListContainer.innerHTML = '';
+    if (history.length === 0) {
+      historyListContainer.innerHTML = '<li style="padding: 20px; text-align: center; color: #888; font-size: 14px;">No hay búsquedas recientes</li>';
+      return;
+    }
+    history.forEach(poi => {
+      const li = document.createElement('li');
+      li.className = 'history-item';
+      li.innerHTML = `
+        <div class="history-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="history-info">
+          <div class="history-name">${poi.properties.nombre || poi.properties.name}</div>
+          <div class="history-details">${poi.properties.edificio || 'Campus'}</div>
+        </div>
+      `;
+      li.onclick = () => {
+        if (document.activeElement === destinationInput) {
+          setDestinationPOI(poi);
+        } else {
+          setOriginPOI(poi);
+        }
+      };
+
+      historyListContainer.appendChild(li);
+    });
+  }
+};
+
 
 function updateMapHighlights() {
   const labelIds = ['misc-labels', 'misc-fixed-labels', 'metro-labels'];
@@ -723,33 +785,115 @@ function selectSala(feature, coords) {
   defaultSheetContent.classList.add('hidden');
   poiSheetContent.classList.remove('hidden');
   routeSheetContent.classList.add('hidden');
+  searchSheetContent.classList.add('hidden');
   openSheet('MID');
+
 
   map.flyTo({ center: coords, zoom: 19, pitch: 45, duration: 2000 });
 
   if (btnNavigate) btnNavigate.style.display = 'flex'; // Ensure button is restored
 
   btnNavigate.onclick = () => {
+    destinationPOI = feature;
+    destinationInput.value = feature.properties.nombre || feature.properties.name || '';
+    
     if (!userLocation) {
       if (manualLocationMode && userLocationLocked) {
         drawDualRoute(userLocation, coords);
         return;
       }
-      geolocateControl.trigger();
-      pendingRouteCoords = coords;
-      showToast("Obteniendo tu ubicación...");
-
-      // Setup a fallback timer in case GPS is just unresponsive
-      setTimeout(() => {
-        if (!userLocation && !manualLocationMode) {
-          activarModoManual();
-        }
-      }, 4000);
+      
+      // Instead of just triggering GPS, let's offer the search UI
+      openSearchSheet();
       return;
     }
     drawDualRoute(userLocation, coords);
   };
 }
+
+function openSearchSheet() {
+  defaultSheetContent.classList.add('hidden');
+  poiSheetContent.classList.add('hidden');
+  routeSheetContent.classList.add('hidden');
+  searchSheetContent.classList.remove('hidden');
+  HistoryManager.render();
+  openSheet('FULL');
+  setTimeout(() => originInput.focus(), 300);
+}
+
+
+function setOriginPOI(poi) {
+  originPOI = poi;
+  originInput.value = poi.properties.nombre || poi.properties.name;
+  sheetSearchResults.classList.add('hidden');
+  HistoryManager.add(poi);
+  checkAndDrawRoute();
+}
+
+function setDestinationPOI(poi) {
+  destinationPOI = poi;
+  destinationInput.value = poi.properties.nombre || poi.properties.name;
+  sheetSearchResults.classList.add('hidden');
+  HistoryManager.add(poi);
+  checkAndDrawRoute();
+}
+
+function checkAndDrawRoute() {
+  if (originPOI && destinationPOI) {
+    drawDualRoute(originPOI.geometry.coordinates, destinationPOI.geometry.coordinates);
+  } else if (userLocation && destinationPOI) {
+    drawDualRoute(userLocation, destinationPOI.geometry.coordinates);
+  }
+}
+
+function performSearch(query, resultsElement, onSelect) {
+  if (query.length < 2) {
+    resultsElement.classList.add('hidden');
+    return;
+  }
+
+  const cleanQuery = query.toLowerCase().replace(/sala /g, '').replace(/edificio /g, '').replace(/usach/g, '').trim();
+  let allFeatures = [];
+  if (salasData) allFeatures = allFeatures.concat(salasData.features);
+  if (miscData) allFeatures = allFeatures.concat(miscData.features);
+  if (miscFixedData) allFeatures = allFeatures.concat(miscFixedData.features);
+  if (metroData) allFeatures = allFeatures.concat(metroData.features);
+
+  const filtered = allFeatures.filter(f => {
+    const n = String(f.properties.nombre || f.properties.name || '').toLowerCase();
+    const ed = String(f.properties.edificio || '').toLowerCase();
+    return (n && n.includes(cleanQuery)) || (ed && ed.includes(cleanQuery));
+  }).slice(0, 8);
+
+  resultsElement.innerHTML = '';
+  filtered.forEach(f => {
+    const li = document.createElement('li');
+    li.className = 'history-item'; // reusing same style
+    const displName = f.properties.nombre || f.properties.name || 'Ubicación';
+    const displEdi = f.properties.edificio ? ` <span style="font-size: 11px; color: #666;">(${f.properties.edificio})</span>` : '';
+    li.innerHTML = `
+      <div class="history-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      </div>
+      <div class="history-info">
+        <div class="history-name">${displName}</div>
+        <div class="history-details">${f.properties.edificio || 'Campus'}</div>
+      </div>
+    `;
+    li.onclick = () => {
+      onSelect(f);
+      resultsElement.classList.add('hidden');
+    };
+    resultsElement.appendChild(li);
+  });
+
+  if (filtered.length > 0) {
+    resultsElement.classList.remove('hidden');
+  } else {
+    resultsElement.classList.add('hidden');
+  }
+}
+
 
 function resetSheet(shouldClose = true) {
   selectedId = null;
@@ -764,15 +908,18 @@ function resetSheet(shouldClose = true) {
     poiSheetContent.classList.add('hidden');
     defaultSheetContent.classList.remove('hidden');
     routeSheetContent.classList.add('hidden');
+    searchSheetContent.classList.add('hidden');
     openSheet('REST');
   }
 }
+
 
 // --- Background Clicks and Global Logic ---
 
 function setManualOrigin(coords) {
   userLocation = coords;
   userLocationLocked = true;
+  manualLocationMode = false; // Exit manual mode
 
   if (customUserMarker) customUserMarker.remove();
   const el = document.createElement('div');
@@ -786,13 +933,25 @@ function setManualOrigin(coords) {
 
   showToast("Origen fijado manualmente.");
 
-  if (pendingRouteCoords) {
+  // Update logic to set originPOI for the new navigation system
+  originPOI = {
+    properties: { nombre: 'Ubicación seleccionada', name: 'Ubicación seleccionada', edificio: 'Mapa' },
+    geometry: { coordinates: coords }
+  };
+  originInput.value = 'Ubicación seleccionada';
+
+  // Return to the search/route view instead of resetting everything
+  if (destinationPOI) {
+    checkAndDrawRoute();
+  } else if (pendingRouteCoords) {
     drawDualRoute(userLocation, pendingRouteCoords);
     pendingRouteCoords = null;
   } else {
+    // If we just clicked map without a destination (unlikely in this flow)
     resetSheet();
   }
 }
+
 
 map.on('click', (e) => {
   if (manualLocationMode && !userLocationLocked) {
@@ -867,53 +1026,52 @@ document.addEventListener('touchend', () => {
   else openSheet('REST');
 });
 
-// Search and Category handling (Simplified for brevity, preserving IDs)
+// Search and Category handling
 searchInput.addEventListener('input', (e) => {
-  let rawQuery = e.target.value.toLowerCase().trim();
-  if (rawQuery.length < 2) {
-    resultsContainer.classList.remove('active');
-    return;
-  }
-
-  // Remove common noise words to allow direct matching with raw codes (like "100" matching when typing "Sala 100")
-  const query = rawQuery.replace(/sala /g, '').replace(/edificio /g, '').replace(/usach/g, '').trim();
-  if (!query) {
-    resultsContainer.classList.remove('active');
-    return;
-  }
-
-  let allFeatures = [];
-  if (salasData) allFeatures = allFeatures.concat(salasData.features);
-  if (miscData) allFeatures = allFeatures.concat(miscData.features);
-  if (miscFixedData) allFeatures = allFeatures.concat(miscFixedData.features);
-  if (metroData) allFeatures = allFeatures.concat(metroData.features);
-
-  const filtered = allFeatures.filter(f => {
-    const n = String(f.properties.nombre || f.properties.name || '').toLowerCase();
-    const ed = String(f.properties.edificio || '').toLowerCase();
-    return (n && n.includes(query)) || (ed && ed.includes(query));
-  }).slice(0, 8);
-
-  resultsContainer.innerHTML = '';
-  filtered.forEach(f => {
-    const li = document.createElement('li');
-    const displName = f.properties.nombre || f.properties.name || 'Ubicación';
-    const displEdi = f.properties.edificio ? ` <span style="font-size: 11px; color: #666;">(${f.properties.edificio})</span>` : '';
-    li.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${displName}${displEdi}`;
-    li.onclick = () => {
-      selectSala(f, f.geometry.coordinates);
-      resultsContainer.classList.remove('active');
-      searchInput.value = '';
-    };
-    resultsContainer.appendChild(li);
+  performSearch(e.target.value, resultsContainer, (f) => {
+    selectSala(f, f.geometry.coordinates);
+    searchInput.value = '';
   });
-
-  if (filtered.length > 0) {
-    resultsContainer.classList.add('active');
-  } else {
-    resultsContainer.classList.remove('active');
-  }
 });
+
+originInput.addEventListener('input', (e) => {
+  performSearch(e.target.value, sheetSearchResults, setOriginPOI);
+});
+
+destinationInput.addEventListener('input', (e) => {
+  performSearch(e.target.value, sheetSearchResults, setDestinationPOI);
+});
+
+btnBackSearch.onclick = () => {
+  if (destinationPOI) {
+    // Return to POI view if we came from there
+    searchSheetContent.classList.add('hidden');
+    poiSheetContent.classList.remove('hidden');
+    openSheet('MID');
+  } else {
+    resetSheet();
+  }
+};
+
+btnUseLocation.onclick = () => {
+  if (userLocation) {
+    originPOI = {
+      properties: { nombre: 'Tu ubicación', name: 'Tu ubicación', edificio: 'GPS' },
+      geometry: { coordinates: userLocation }
+    };
+    originInput.value = 'Tu ubicación';
+    checkAndDrawRoute();
+  } else {
+    geolocateControl.trigger();
+    showToast("Obteniendo ubicación...");
+  }
+};
+
+// Global History Load
+window.addEventListener('DOMContentLoaded', () => {
+  HistoryManager.render();
+});
+
 
 // Auto-select first result on Enter key
 searchInput.addEventListener('keydown', (e) => {
@@ -1003,7 +1161,9 @@ function drawDualRoute(start, end) {
   defaultSheetContent.classList.add('hidden');
   poiSheetContent.classList.add('hidden');
   routeSheetContent.classList.remove('hidden');
+  searchSheetContent.classList.add('hidden');
   if (routeInfo) {
+
     routeInfo.textContent = `${Math.round(turf.length(line) * 15)} min (${Math.round(turf.length(line) * 1000)}m)`;
   }
   openSheet('MID');
