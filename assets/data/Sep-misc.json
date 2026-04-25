@@ -842,6 +842,40 @@
                 "name": "Huerta Comunitaria",
                 "type": "area verde huerta"
             }
+        },
+        {
+            "type": "Feature",
+            "id": 1106,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68131567497333,
+                    -33.448837815783016
+                ]
+            },
+            "properties": {
+                "category": "radio",
+                "id": 1106,
+                "name": "Radio USACH",
+                "type": "estudio radio"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1107,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68245873666062,
+                    -33.44615918412143
+                ]
+            },
+            "properties": {
+                "category": "tienda",
+                "id": 1107,
+                "name": "Tienda USACH",
+                "type": "tienda souvenirs"
+            }
         }
     ]
 }

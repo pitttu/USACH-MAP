@@ -39,6 +39,7 @@ const sheetSearchResults = document.getElementById('sheet-search-results');
 const dualSearchInputs = document.getElementById('dual-search-inputs');
 const simpleSearchInputs = document.getElementById('simple-search-inputs');
 const sheetMainInput = document.getElementById('sheet-main-input');
+const sheetDate = document.getElementById('sheet-date');
 
 
 // ESTADOS DE LA BARRA
@@ -124,7 +125,9 @@ function updateMapHighlights() {
         'case',
         ['==', ['get', 'id'], selectedId || -1], '#b72522',
         ['==', ['get', 'category'], 'deporte'], '#0894ff',
+        ['==', ['get', 'category'], 'tienda'], '#0894ff',
         ['==', ['get', 'category'], 'comida'], '#fe8029',
+        ['==', ['get', 'category'], 'radio'], '#fe8029',
         ['==', ['get', 'category'], 'pastos'], '#15a972',
         ['==', ['get', 'category'], 'salud'], '#f74855',
         '#56707c'
@@ -412,6 +415,11 @@ map.on('load', async () => {
         ctx.drawImage(image, 1162, 0, 166, 166, 0, 0, 166, 166);
         map.addImage('pasto-poi-icon', ctx.getImageData(0, 0, 166, 166));
 
+        // Tienda Icon (index 2)
+        ctx.clearRect(0, 0, 166, 166);
+        ctx.drawImage(image, 332, 0, 166, 166, 0, 0, 166, 166);
+        map.addImage('tienda-poi-icon', ctx.getImageData(0, 0, 166, 166));
+
         resolve();
       });
     });
@@ -426,6 +434,11 @@ map.on('load', async () => {
         // Extract 6th icon (index 5)
         ctx.drawImage(image, 1020, 0, 204, 204, 0, 0, 204, 204);
         map.addImage('salud-poi-icon', ctx.getImageData(0, 0, 204, 204));
+
+        // Extract 5th icon (index 4) for Radio
+        ctx.clearRect(0, 0, 204, 204);
+        ctx.drawImage(image, 816, 0, 204, 204, 0, 0, 204, 204);
+        map.addImage('radio-poi-icon', ctx.getImageData(0, 0, 204, 204));
         resolve();
       });
     });
@@ -575,9 +588,11 @@ map.on('load', async () => {
         'icon-image': [
           'case',
           ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
+          ['==', ['get', 'category'], 'tienda'], 'tienda-poi-icon',
           ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
           ['==', ['get', 'category'], 'pastos'], 'pasto-poi-icon',
           ['==', ['get', 'category'], 'salud'], 'salud-poi-icon',
+          ['==', ['get', 'category'], 'radio'], 'radio-poi-icon',
           'misc-poi-icon'
         ],
         'icon-size': [
@@ -613,7 +628,9 @@ map.on('load', async () => {
           'case',
           ['==', ['get', 'id'], selectedId || -1], '#b72522',
           ['==', ['get', 'category'], 'deporte'], '#0894ff',
+          ['==', ['get', 'category'], 'tienda'], '#0894ff',
           ['==', ['get', 'category'], 'comida'], '#fe8029',
+          ['==', ['get', 'category'], 'radio'], '#fe8029',
           ['==', ['get', 'category'], 'pastos'], '#15a972',
           ['==', ['get', 'category'], 'salud'], '#f74855',
           '#56707c'
@@ -633,9 +650,11 @@ map.on('load', async () => {
         'icon-image': [
           'case',
           ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
+          ['==', ['get', 'category'], 'tienda'], 'tienda-poi-icon',
           ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
           ['==', ['get', 'category'], 'pastos'], 'pasto-poi-icon',
           ['==', ['get', 'category'], 'salud'], 'salud-poi-icon',
+          ['==', ['get', 'category'], 'radio'], 'radio-poi-icon',
           'misc-poi-icon'
         ],
         'icon-size': [
@@ -669,7 +688,9 @@ map.on('load', async () => {
         'text-color': [
           'case',
           ['==', ['get', 'category'], 'deporte'], '#0894ff',
+          ['==', ['get', 'category'], 'tienda'], '#0894ff',
           ['==', ['get', 'category'], 'comida'], '#fe8029',
+          ['==', ['get', 'category'], 'radio'], '#fe8029',
           ['==', ['get', 'category'], 'pastos'], '#15a972',
           ['==', ['get', 'category'], 'salud'], '#f74855',
           '#56707c'
@@ -1303,10 +1324,21 @@ function showToast(msg, error = false) {
   setTimeout(() => t.remove(), 3000);
 }
 
+function updateDate() {
+  if (!sheetDate) return;
+  const options = { weekday: 'long', day: 'numeric', month: 'long' };
+  const today = new Date();
+  let dateStr = today.toLocaleDateString('es-ES', options);
+  // Capitalize first letter
+  dateStr = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+  sheetDate.textContent = dateStr;
+}
+
 // Initial Position and Resize Handling
 function initSheet() {
   sheetY = window.innerHeight - REST_OFFSET;
   updateUIPositions(sheetY);
+  updateDate();
 }
 
 window.addEventListener('load', initSheet);
