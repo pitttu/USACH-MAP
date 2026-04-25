@@ -140,7 +140,7 @@
               <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
             </svg>
           </button>
-          <div class="search-inputs-group">
+          <div id="dual-search-inputs" class="search-inputs-group">
             <div class="input-row">
               <div class="dot-icon origin"></div>
               <input type="text" id="origin-input" placeholder="Elige la ubicación de partida" autocomplete="off">
@@ -149,6 +149,12 @@
             <div class="input-row">
               <div class="dot-icon destination"></div>
               <input type="text" id="destination-input" placeholder="Elige la llegada" autocomplete="off">
+            </div>
+          </div>
+          <div id="simple-search-inputs" class="search-inputs-group hidden">
+            <div class="input-row">
+              <div class="dot-icon destination"></div>
+              <input type="text" id="sheet-main-input" placeholder="Busca un lugar en la USACH" autocomplete="off">
             </div>
           </div>
         </div>

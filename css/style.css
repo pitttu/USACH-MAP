@@ -8,6 +8,7 @@
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   /* More subtle shadow */
   --glass-border: rgba(255, 255, 255, 0.4);
+  --sheet-y: 100vh;
 }
 
 * {
@@ -209,14 +210,14 @@ body {
 .location-btn {
   position: absolute;
   right: 16px;
-  bottom: 120px;
-  /* Initial fallback, will be JS-controlled */
+  /* Sync with sheet: 16px above sheet top edge, capped at 50vh */
+  bottom: min(calc(100vh - var(--sheet-y) + 16px), 50vh);
   width: 56px;
   height: 56px;
   border-radius: 12px;
   border: none;
   cursor: pointer;
-  z-index: 10;
+  z-index: 15;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -244,8 +245,7 @@ body {
   z-index: 20;
   transition: transform 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
   padding: 12px 24px 34px 24px;
-  transform: translateY(calc(100vh - 100px));
-  /* Rest state */
+  transform: translateY(var(--sheet-y));
   will-change: transform;
 }
 

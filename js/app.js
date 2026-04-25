@@ -36,9 +36,12 @@ const historyListContainer = document.getElementById('search-history-list');
 const btnBackSearch = document.getElementById('btn-back-search');
 const btnUseLocation = document.getElementById('btn-use-location');
 const sheetSearchResults = document.getElementById('sheet-search-results');
+const dualSearchInputs = document.getElementById('dual-search-inputs');
+const simpleSearchInputs = document.getElementById('simple-search-inputs');
+const sheetMainInput = document.getElementById('sheet-main-input');
 
 
-// State
+// ESTADOS DE LA BARRA
 const REST_OFFSET = 120; // Default peek height
 const MID_OFFSET = 350;  // Category height
 let FULL_OFFSET = 60;    // Will dynamically match top-ui
@@ -54,6 +57,7 @@ let selectedId = null;
 let lastHiddenSprite = null;
 let destinationPOI = null;
 let originPOI = null;
+let lastFocusedSearchInput = null;
 
 const HistoryManager = {
   KEY: 'usach_map_history',
@@ -94,10 +98,12 @@ const HistoryManager = {
         </div>
       `;
       li.onclick = () => {
-        if (document.activeElement === destinationInput) {
+        if (lastFocusedSearchInput === destinationInput) {
           setDestinationPOI(poi);
-        } else {
+        } else if (lastFocusedSearchInput === originInput) {
           setOriginPOI(poi);
+        } else {
+          selectSala(poi, poi.geometry.coordinates);
         }
       };
 
@@ -796,29 +802,35 @@ function selectSala(feature, coords) {
   btnNavigate.onclick = () => {
     destinationPOI = feature;
     destinationInput.value = feature.properties.nombre || feature.properties.name || '';
-    
-    if (!userLocation) {
-      if (manualLocationMode && userLocationLocked) {
-        drawDualRoute(userLocation, coords);
-        return;
-      }
-      
-      // Instead of just triggering GPS, let's offer the search UI
-      openSearchSheet();
-      return;
+
+    if (userLocation) {
+      drawDualRoute(userLocation, coords);
+    } else if (manualLocationMode && userLocationLocked) {
+      drawDualRoute(userLocation, coords);
+    } else {
+      openSearchSheet('route');
     }
-    drawDualRoute(userLocation, coords);
   };
 }
 
-function openSearchSheet() {
+function openSearchSheet(mode = 'simple') {
   defaultSheetContent.classList.add('hidden');
   poiSheetContent.classList.add('hidden');
   routeSheetContent.classList.add('hidden');
   searchSheetContent.classList.remove('hidden');
+
+  if (mode === 'route') {
+    dualSearchInputs.classList.remove('hidden');
+    simpleSearchInputs.classList.add('hidden');
+    setTimeout(() => originInput.focus(), 300);
+  } else {
+    dualSearchInputs.classList.add('hidden');
+    simpleSearchInputs.classList.remove('hidden');
+    setTimeout(() => sheetMainInput.focus(), 300);
+  }
+
   HistoryManager.render();
   openSheet('FULL');
-  setTimeout(() => originInput.focus(), 300);
 }
 
 
@@ -849,6 +861,10 @@ function checkAndDrawRoute() {
 function performSearch(query, resultsElement, onSelect) {
   if (query.length < 2) {
     resultsElement.classList.add('hidden');
+    resultsElement.classList.remove('active');
+    if (resultsElement.id === 'search-results') {
+      resultsElement.parentElement.classList.remove('active');
+    }
     return;
   }
 
@@ -883,14 +899,26 @@ function performSearch(query, resultsElement, onSelect) {
     li.onclick = () => {
       onSelect(f);
       resultsElement.classList.add('hidden');
+      resultsElement.classList.remove('active');
+      if (resultsElement.id === 'search-results') {
+        resultsElement.parentElement.classList.remove('active');
+      }
     };
     resultsElement.appendChild(li);
   });
 
   if (filtered.length > 0) {
     resultsElement.classList.remove('hidden');
+    resultsElement.classList.add('active');
+    if (resultsElement.id === 'search-results') {
+      resultsElement.parentElement.classList.add('active');
+    }
   } else {
     resultsElement.classList.add('hidden');
+    resultsElement.classList.remove('active');
+    if (resultsElement.id === 'search-results') {
+      resultsElement.parentElement.classList.remove('active');
+    }
   }
 }
 
@@ -991,11 +1019,8 @@ function openSheet(state) {
 }
 
 function updateUIPositions(y) {
-  const vh = window.innerHeight;
-  bottomSheet.style.transform = `translateY(${y}px)`;
-  const sheetVisibleHeight = vh - y;
-  const btnBottom = Math.min(sheetVisibleHeight + 16, vh / 2);
-  gpsButton.style.bottom = `${btnBottom}px`;
+  sheetY = y;
+  document.documentElement.style.setProperty('--sheet-y', `${y}px`);
 }
 
 // Interactivity
@@ -1026,7 +1051,12 @@ document.addEventListener('touchend', () => {
   else openSheet('REST');
 });
 
-// Search and Category handling
+searchInput.addEventListener('click', () => {
+  if (searchInput.value.length === 0) {
+    openSearchSheet('simple');
+  }
+});
+
 searchInput.addEventListener('input', (e) => {
   performSearch(e.target.value, resultsContainer, (f) => {
     selectSala(f, f.geometry.coordinates);
@@ -1034,13 +1064,30 @@ searchInput.addEventListener('input', (e) => {
   });
 });
 
+sheetMainInput.addEventListener('input', (e) => {
+  performSearch(e.target.value, sheetSearchResults, (f) => {
+    selectSala(f, f.geometry.coordinates);
+  });
+});
+sheetMainInput.addEventListener('focus', () => lastFocusedSearchInput = sheetMainInput);
+
+sheetMainInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const firstResult = sheetSearchResults.querySelector('li');
+    if (firstResult) firstResult.click();
+  }
+});
+
 originInput.addEventListener('input', (e) => {
   performSearch(e.target.value, sheetSearchResults, setOriginPOI);
 });
+originInput.addEventListener('focus', () => lastFocusedSearchInput = originInput);
 
 destinationInput.addEventListener('input', (e) => {
   performSearch(e.target.value, sheetSearchResults, setDestinationPOI);
 });
+destinationInput.addEventListener('focus', () => lastFocusedSearchInput = destinationInput);
 
 btnBackSearch.onclick = () => {
   if (destinationPOI) {
@@ -1111,37 +1158,12 @@ categoryChips.forEach(chip => {
       if (window._spriteMarkers[markerCat]) {
         window._spriteMarkers[markerCat].forEach(m => m.getElement().style.display = 'block');
       }
-
-      showCategoryInSheet(cat);
     } else {
       resetSheet();
     }
   });
 });
 
-function showCategoryInSheet(cat) {
-  resultsContainer.innerHTML = '';
-  let filtered = [];
-  if (cat === 'baños') filtered = banosData.features;
-  else if (cat === 'impresiones') filtered = impresionesData.features;
-  else if (cat === 'accesos') filtered = accesosData.features;
-  else {
-    filtered = salasData.features.filter(f => f.properties.category === cat || f.properties.subCategory === cat);
-  }
-
-  filtered.slice(0, 10).forEach(f => {
-    const div = document.createElement('div');
-    div.className = 'search-item';
-    div.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${f.properties.nombre || f.properties.name}`;
-    div.onclick = () => {
-      selectSala(f, f.geometry.coordinates);
-      resultsContainer.classList.add('hidden');
-    };
-    resultsContainer.appendChild(div);
-  });
-  resultsContainer.classList.remove('hidden');
-  openSheet('MID');
-}
 
 btnCloseRoute.onclick = () => {
   map.getSource('route').setData({ type: 'FeatureCollection', features: [] });
@@ -1167,6 +1189,15 @@ function drawDualRoute(start, end) {
     routeInfo.textContent = `${Math.round(turf.length(line) * 15)} min (${Math.round(turf.length(line) * 1000)}m)`;
   }
   openSheet('MID');
+
+  // Fly to overview
+  map.flyTo({
+    center: [-70.685117, -33.449467],
+    zoom: 15.5,
+    pitch: 0,
+    bearing: 0,
+    duration: 2000
+  });
 }
 
 function buildGraph(data) {
@@ -1272,7 +1303,25 @@ function showToast(msg, error = false) {
   setTimeout(() => t.remove(), 3000);
 }
 
-// Initial Position
-updateUIPositions(sheetY);
+// Initial Position and Resize Handling
+function initSheet() {
+  sheetY = window.innerHeight - REST_OFFSET;
+  updateUIPositions(sheetY);
+}
+
+window.addEventListener('load', initSheet);
+window.addEventListener('resize', () => {
+  // Mantain state on resize
+  if (currentSheetState === 'REST') sheetY = window.innerHeight - REST_OFFSET;
+  else if (currentSheetState === 'MID') sheetY = window.innerHeight - MID_OFFSET;
+  else if (currentSheetState === 'FULL') {
+    const topUi = document.querySelector('.top-ui');
+    if (topUi) FULL_OFFSET = topUi.getBoundingClientRect().top;
+    sheetY = FULL_OFFSET;
+  }
+  updateUIPositions(sheetY);
+});
+
+initSheet();
 
 btnClosePoi.onclick = () => resetSheet();
