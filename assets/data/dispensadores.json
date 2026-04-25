@@ -1,0 +1,243 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1200,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.69124816754972, -33.451056861008226]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1200,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1201,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68841451744215, -33.44989910949466]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1201,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1202,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68603974486994, -33.45129882092768]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1202,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1203,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68559014800634, -33.450226605406705]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1203,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1204,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68491777999286, -33.44980462670612]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1204,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1205,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68487880302595, -33.450327054382214]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1205,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1206,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6846607313227, -33.45000637138794]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1206,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1207,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68307641617358, -33.45036911215687]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1207,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1208,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68264346965299, -33.449825454864936]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1208,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1209,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.67949469453335, -33.45005756403853]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1209,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1210,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68045483936454, -33.44972213719983]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1210,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1211,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68204945013777, -33.44844920334238]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1211,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1212,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68137341388179, -33.44801557769664]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1212,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1213,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68241120233441, -33.4471529685409]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1213,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1214,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68325483682821, -33.44611512859273]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1214,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1215,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6823977781774, -33.44619479647827]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1215,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1216,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68123478389828, -33.44534173613528]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1216,
+        "name": "Dispensador de Agua",
+        "type": "dispensador"
+      }
+    }
+  ]
+}

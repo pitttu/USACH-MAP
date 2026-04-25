@@ -192,7 +192,7 @@
                 ]
             },
             "properties": {
-                "category": "servicios",
+                "category": "biblioteca",
                 "descripcion": "Biblioteca Facultad de Humanidades",
                 "etiqueta": "Biblioteca",
                 "id": 1054,
@@ -392,7 +392,7 @@
                 ]
             },
             "properties": {
-                "category": "servicios",
+                "category": "biblioteca",
                 "descripcion": "Biblioteca Central USACH",
                 "etiqueta": "Biblioteca",
                 "id": 1070,
@@ -572,7 +572,7 @@
                 ]
             },
             "properties": {
-                "category": "decorativo",
+                "category": "monumento",
                 "descripcion": "Reloj de sol",
                 "etiqueta": "Hito",
                 "id": 1085,
@@ -875,6 +875,244 @@
                 "id": 1107,
                 "name": "Tienda USACH",
                 "type": "tienda souvenirs"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1108,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68048786341208,
+                    -33.45066334825821
+                ]
+            },
+            "properties": {
+                "category": "monumento",
+                "id": 1108,
+                "name": "Alma Mater",
+                "type": "monumento estatua"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1109,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68216548734783,
+                    -33.4492351260788
+                ]
+            },
+            "properties": {
+                "category": "monumento",
+                "id": 1109,
+                "name": "Homenaje a\nVíctor Jara",
+                "type": "monumento estatua"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1110,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68633071694735,
+                    -33.450617517638904
+                ]
+            },
+            "properties": {
+                "category": "monumento",
+                "id": 1110,
+                "name": "Patio de los Perros",
+                "type": "monumento plaza"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1111,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68266670801468,
+                    -33.44871968575892
+                ]
+            },
+            "properties": {
+                "category": "pastos",
+                "id": 1111,
+                "name": "Patio de las Rosas",
+                "type": "area verde pasto"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1112,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68464607574523,
+                    -33.45023154062601
+                ]
+            },
+            "properties": {
+                "category": "pastos",
+                "id": 1112,
+                "name": "Plaza Julio Santibañez",
+                "type": "area verde plaza"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1113,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68288916191182,
+                    -33.45019548833406
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "id": 1113,
+                "name": "Faraón",
+                "type": "comida rapida"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1114,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68301189819444,
+                    -33.44951258886316
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "id": 1114,
+                "name": "Puestos de Comida",
+                "type": "comida variada"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1115,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68054614206419,
+                    -33.449836106561754
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "id": 1115,
+                "name": "Casino FAE",
+                "type": "casino universitario"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1116,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.67977409969738,
+                    -33.4491004972466
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "id": 1116,
+                "name": "Wallstreet FAE",
+                "type": "comida cafeteria"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1117,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.67976913922577,
+                    -33.44919800310697
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "id": 1117,
+                "name": "FAE",
+                "type": "edificio universitario"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1118,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6841065581581,
+                    -33.44871346078054
+                ]
+            },
+            "properties": {
+                "category": "deporte",
+                "id": 1118,
+                "name": "Cancha la Jaula",
+                "type": "cancha deportiva"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1119,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.69030726253575,
+                    -33.450837605581796
+                ]
+            },
+            "properties": {
+                "category": "deporte",
+                "id": 1119,
+                "name": "Cancha Handball",
+                "type": "cancha deportiva"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1120,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68866316318787,
+                    -33.450320307872175
+                ]
+            },
+            "properties": {
+                "category": "biblioteca",
+                "id": 1120,
+                "name": "Biblioteca Industrial",
+                "type": "biblioteca estudio"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1121,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6862614811973,
+                    -33.44980683343924
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "id": 1121,
+                "name": "Casino Central",
+                "type": "comida casino universitario"
             }
         }
     ]

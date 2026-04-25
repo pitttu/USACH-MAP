@@ -214,20 +214,21 @@ body {
   bottom: min(calc(100vh - var(--sheet-y) + 16px), 50vh);
   width: 56px;
   height: 56px;
-  border-radius: 12px;
+  border-radius: 20px;
   border: none;
   cursor: pointer;
   z-index: 15;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #007b8b;
-  transition: transform 0.2s, background 0.2s;
+  color: white;
+  background-color: #007b8b;
+  transition: transform 0.2s, background-color 0.2s;
 }
 
 .location-btn:active {
   transform: scale(0.95);
-  background: #f0f0f0;
+  background-color: #005f6b;
 }
 
 .location-btn svg {

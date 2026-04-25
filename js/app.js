@@ -53,7 +53,7 @@ let currentSheetState = 'REST';
 let isMapReady = false;
 let resourcesToLoad = 9;
 
-let salasData, accesosData, banosData, impresionesData, metroData, miscData, miscFixedData;
+let salasData, accesosData, banosData, impresionesData, metroData, miscData, miscFixedData, dispensadoresData;
 let selectedId = null;
 let lastHiddenSprite = null;
 let destinationPOI = null;
@@ -126,8 +126,11 @@ function updateMapHighlights() {
         ['==', ['get', 'id'], selectedId || -1], '#b72522',
         ['==', ['get', 'category'], 'deporte'], '#0894ff',
         ['==', ['get', 'category'], 'tienda'], '#0894ff',
+        ['==', ['get', 'category'], 'dispensador'], '#0894ff',
         ['==', ['get', 'category'], 'comida'], '#fe8029',
         ['==', ['get', 'category'], 'radio'], '#fe8029',
+        ['==', ['get', 'category'], 'biblioteca'], '#56707c',
+        ['==', ['get', 'category'], 'monumento'], '#b965ff',
         ['==', ['get', 'category'], 'pastos'], '#15a972',
         ['==', ['get', 'category'], 'salud'], '#f74855',
         '#56707c'
@@ -162,6 +165,14 @@ function updateMapHighlights() {
       }
     }
   });
+
+  if (map.getLayer('metro-efe-icons')) {
+    map.setPaintProperty('metro-efe-icons', 'icon-opacity', [
+      'case',
+      ['==', ['get', 'id'], selectedId || -1], 0,
+      1
+    ]);
+  }
 }
 
 function updateMiscDistances() {
@@ -369,7 +380,7 @@ map.on('load', async () => {
   });
 
   try {
-    const [salasRes, sectoresRes, pathsRes, accesosRes, banosRes, metroRes, impresionesRes, miscRes, miscFixedRes, comidaRes] = await Promise.all([
+    const [salasRes, sectoresRes, pathsRes, accesosRes, banosRes, metroRes, impresionesRes, miscRes, miscFixedRes, dispensadoresRes] = await Promise.all([
       fetch('assets/data/salas.json'),
       fetch('assets/data/SectoresColores.json'),
       fetch('assets/data/paths.json'),
@@ -378,7 +389,8 @@ map.on('load', async () => {
       fetch('assets/data/metro.json'),
       fetch('assets/data/impresiones.json'),
       fetch('assets/data/Sep-misc.json'),
-      fetch('assets/data/FixedMisc.json')
+      fetch('assets/data/FixedMisc.json'),
+      fetch('assets/data/dispensadores.json')
     ]);
 
     salasData = await salasRes.json();
@@ -390,6 +402,7 @@ map.on('load', async () => {
     impresionesData = await impresionesRes.json();
     miscData = await miscRes.json();
     miscFixedData = await miscFixedRes.json();
+    dispensadoresData = await dispensadoresRes.json();
 
     await new Promise((resolve) => {
       map.loadImage('assets/icons/spritesheet-rm.png', (error, image) => {
@@ -439,6 +452,21 @@ map.on('load', async () => {
         ctx.clearRect(0, 0, 204, 204);
         ctx.drawImage(image, 816, 0, 204, 204, 0, 0, 204, 204);
         map.addImage('radio-poi-icon', ctx.getImageData(0, 0, 204, 204));
+
+        // Extract 3rd icon (index 2) for Biblioteca
+        ctx.clearRect(0, 0, 204, 204);
+        ctx.drawImage(image, 408, 0, 204, 204, 0, 0, 204, 204);
+        map.addImage('biblioteca-poi-icon', ctx.getImageData(0, 0, 204, 204));
+
+        // Extract 1st icon (index 0) for Monumento
+        ctx.clearRect(0, 0, 204, 204);
+        ctx.drawImage(image, 0, 0, 204, 204, 0, 0, 204, 204);
+        map.addImage('monumento-poi-icon', ctx.getImageData(0, 0, 204, 204));
+
+        // Extract 4th icon (index 3) for Dispensador
+        ctx.clearRect(0, 0, 204, 204);
+        ctx.drawImage(image, 612, 0, 204, 204, 0, 0, 204, 204);
+        map.addImage('dispensador-poi-icon', ctx.getImageData(0, 0, 204, 204));
         resolve();
       });
     });
@@ -568,8 +596,8 @@ map.on('load', async () => {
         'text-anchor': 'left',
         'text-justify': 'left',
         'text-max-width': 10,
-        'text-allow-overlap': true,
-        'text-ignore-placement': true
+        'text-allow-overlap': false,
+        'text-ignore-placement': false
       },
       'paint': {
         'text-color': '#56707c',
@@ -589,6 +617,9 @@ map.on('load', async () => {
           'case',
           ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
           ['==', ['get', 'category'], 'tienda'], 'tienda-poi-icon',
+          ['==', ['get', 'category'], 'biblioteca'], 'biblioteca-poi-icon',
+          ['==', ['get', 'category'], 'monumento'], 'monumento-poi-icon',
+          ['==', ['get', 'category'], 'dispensador'], 'dispensador-poi-icon',
           ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
           ['==', ['get', 'category'], 'pastos'], 'pasto-poi-icon',
           ['==', ['get', 'category'], 'salud'], 'salud-poi-icon',
@@ -597,7 +628,7 @@ map.on('load', async () => {
         ],
         'icon-size': [
           'case',
-          ['==', ['get', 'category'], 'salud'], 0.203,
+          ['in', ['get', 'category'], ['literal', ['salud', 'radio', 'biblioteca', 'monumento', 'dispensador']]], 0.203,
           0.25
         ],
         'icon-allow-overlap': true,
@@ -620,8 +651,8 @@ map.on('load', async () => {
         'text-anchor': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], 'right', 'left'],
         'text-justify': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], 'right', 'left'],
         'text-max-width': 10,
-        'text-allow-overlap': true,
-        'text-ignore-placement': true
+        'text-allow-overlap': false,
+        'text-ignore-placement': false
       },
       'paint': {
         'text-color': [
@@ -629,6 +660,9 @@ map.on('load', async () => {
           ['==', ['get', 'id'], selectedId || -1], '#b72522',
           ['==', ['get', 'category'], 'deporte'], '#0894ff',
           ['==', ['get', 'category'], 'tienda'], '#0894ff',
+          ['==', ['get', 'category'], 'dispensador'], '#0894ff',
+          ['==', ['get', 'category'], 'biblioteca'], '#56707c',
+          ['==', ['get', 'category'], 'monumento'], '#b965ff',
           ['==', ['get', 'category'], 'comida'], '#fe8029',
           ['==', ['get', 'category'], 'radio'], '#fe8029',
           ['==', ['get', 'category'], 'pastos'], '#15a972',
@@ -651,6 +685,9 @@ map.on('load', async () => {
           'case',
           ['==', ['get', 'category'], 'deporte'], 'deporte-poi-icon',
           ['==', ['get', 'category'], 'tienda'], 'tienda-poi-icon',
+          ['==', ['get', 'category'], 'biblioteca'], 'biblioteca-poi-icon',
+          ['==', ['get', 'category'], 'monumento'], 'monumento-poi-icon',
+          ['==', ['get', 'category'], 'dispensador'], 'dispensador-poi-icon',
           ['==', ['get', 'category'], 'comida'], 'comida-poi-icon',
           ['==', ['get', 'category'], 'pastos'], 'pasto-poi-icon',
           ['==', ['get', 'category'], 'salud'], 'salud-poi-icon',
@@ -659,7 +696,7 @@ map.on('load', async () => {
         ],
         'icon-size': [
           'case',
-          ['==', ['get', 'category'], 'salud'], 0.203,
+          ['in', ['get', 'category'], ['literal', ['salud', 'radio', 'biblioteca', 'monumento', 'dispensador']]], 0.203,
           0.25
         ],
         'icon-allow-overlap': true,
@@ -681,14 +718,17 @@ map.on('load', async () => {
         'text-anchor': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], 'right', 'left'],
         'text-justify': ['case', ['in', ['get', 'category'], ['literal', ['deporte', 'pastos']]], 'right', 'left'],
         'text-max-width': 10,
-        'text-allow-overlap': true,
-        'text-ignore-placement': true
+        'text-allow-overlap': false,
+        'text-ignore-placement': false
       },
       'paint': {
         'text-color': [
           'case',
           ['==', ['get', 'category'], 'deporte'], '#0894ff',
           ['==', ['get', 'category'], 'tienda'], '#0894ff',
+          ['==', ['get', 'category'], 'dispensador'], '#0894ff',
+          ['==', ['get', 'category'], 'biblioteca'], '#56707c',
+          ['==', ['get', 'category'], 'monumento'], '#b965ff',
           ['==', ['get', 'category'], 'comida'], '#fe8029',
           ['==', ['get', 'category'], 'radio'], '#fe8029',
           ['==', ['get', 'category'], 'pastos'], '#15a972',
@@ -703,14 +743,15 @@ map.on('load', async () => {
 
 
     // Sprite Marker Helpers
-    window._spriteMarkers = { accesos: [], banos: [], impresiones: [], comida: [] };
-    function createSpriteMarker(spriteIndex, coords, onClickData, category) {
+    window._spriteMarkers = { accesos: [], banos: [], impresiones: [], comida: [], dispensador: [] };
+    function createSpriteMarker(spriteIndex, coords, onClickData, category, spritesheetUrl = 'assets/icons/spritesheet-rm.png', totalSprites = 9) {
       const el = document.createElement('div');
-      el.style.width = '50px';
-      el.style.height = '55px';
-      el.style.backgroundImage = "url('assets/icons/spritesheet-rm.png')";
-      el.style.backgroundSize = "900% auto";
-      el.style.backgroundPosition = (spriteIndex / 8 * 100) + "% 0";
+      el.style.width = '42px';
+      el.style.height = '42px';
+      el.style.backgroundImage = `url('${spritesheetUrl}')`;
+      el.style.backgroundSize = `${totalSprites * 100}% auto`;
+      const positionPercentage = totalSprites > 1 ? (spriteIndex / (totalSprites - 1) * 100) : 0;
+      el.style.backgroundPosition = `${positionPercentage}% 0`;
       el.style.backgroundRepeat = 'no-repeat';
       el.style.cursor = 'pointer';
       el.style.filter = 'drop-shadow(0px 2px 4px rgba(0,0,0,0.25))';
@@ -720,7 +761,7 @@ map.on('load', async () => {
       el.addEventListener('click', (e) => {
         e.stopPropagation();
         if (manualLocationMode && !userLocationLocked) {
-          setManualOrigin(coords);
+          setManualOrigin(coords, onClickData.properties.nombre || onClickData.properties.name);
           return;
         }
         selectSala(onClickData, coords);
@@ -741,6 +782,8 @@ map.on('load', async () => {
       }
     });
 
+    dispensadoresData.features.forEach(f => createSpriteMarker(3, f.geometry.coordinates, f, 'dispensador', 'assets/icons/spritesheet2-rm.png', 6));
+
     // Map Interaction
     const interactivePoilayers = [
       'misc-labels', 'misc-fixed-labels', 'metro-labels',
@@ -758,15 +801,22 @@ map.on('load', async () => {
 });
 
 function handleMiscClick(e) {
+  if (preventClick) return;
+
   if (manualLocationMode && !userLocationLocked) {
     if (e.features.length > 0) {
-      setManualOrigin(e.features[0].geometry.coordinates);
+      const f = e.features[0];
+      setManualOrigin(f.geometry.coordinates, f.properties.nombre || f.properties.name);
+      preventClick = true;
+      setTimeout(() => preventClick = false, 50);
     }
     return;
   }
   if (e.features.length > 0) {
     const f = e.features[0];
     selectSala(f, f.geometry.coordinates);
+    preventClick = true;
+    setTimeout(() => preventClick = false, 50);
   }
 }
 
@@ -965,7 +1015,7 @@ function resetSheet(shouldClose = true) {
 
 // --- Background Clicks and Global Logic ---
 
-function setManualOrigin(coords) {
+function setManualOrigin(coords, name = 'Ubicación seleccionada') {
   userLocation = coords;
   userLocationLocked = true;
   manualLocationMode = false; // Exit manual mode
@@ -978,16 +1028,17 @@ function setManualOrigin(coords) {
   el.style.borderRadius = '50%';
   el.style.border = '3px solid white';
   el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+  el.style.zIndex = "-1"; // Place below icons
   customUserMarker = new mapboxgl.Marker(el).setLngLat(userLocation).addTo(map);
 
   showToast("Origen fijado manualmente.");
 
   // Update logic to set originPOI for the new navigation system
   originPOI = {
-    properties: { nombre: 'Ubicación seleccionada', name: 'Ubicación seleccionada', edificio: 'Mapa' },
+    properties: { nombre: name, name: name, edificio: 'Mapa' },
     geometry: { coordinates: coords }
   };
-  originInput.value = 'Ubicación seleccionada';
+  originInput.value = name;
 
   // Return to the search/route view instead of resetting everything
   if (destinationPOI) {
@@ -1003,8 +1054,12 @@ function setManualOrigin(coords) {
 
 
 map.on('click', (e) => {
+  if (preventClick) return;
+
   if (manualLocationMode && !userLocationLocked) {
     setManualOrigin([e.lngLat.lng, e.lngLat.lat]);
+    preventClick = true;
+    setTimeout(() => preventClick = false, 50);
     return;
   }
 
@@ -1103,7 +1158,9 @@ sheetMainInput.addEventListener('keydown', (e) => {
 originInput.addEventListener('input', (e) => {
   performSearch(e.target.value, sheetSearchResults, setOriginPOI);
 });
-originInput.addEventListener('focus', () => lastFocusedSearchInput = originInput);
+originInput.addEventListener('focus', () => {
+  lastFocusedSearchInput = originInput;
+});
 
 destinationInput.addEventListener('input', (e) => {
   performSearch(e.target.value, sheetSearchResults, setDestinationPOI);
@@ -1175,7 +1232,10 @@ categoryChips.forEach(chip => {
       });
 
       // Show specific markers
-      const markerCat = cat === 'baños' ? 'banos' : (cat === 'banos' ? 'banos' : cat);
+      let markerCat = cat;
+      if (cat === 'baños' || cat === 'banos') markerCat = 'banos';
+      if (cat === 'dispensadores') markerCat = 'dispensador';
+
       if (window._spriteMarkers[markerCat]) {
         window._spriteMarkers[markerCat].forEach(m => m.getElement().style.display = 'block');
       }
