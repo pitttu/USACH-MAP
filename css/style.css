@@ -744,3 +744,33 @@ body {
   max-height: 400px;
   overflow-y: auto;
 }
+
+/* User Location Marker */
+.user-location-marker {
+  width: 20px;
+  height: 20px;
+  background-color: #4285F4;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 5;
+}
+
+.user-location-marker::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  background: rgba(66, 133, 244, 0.4);
+  animation: user-pulse 2s infinite;
+  z-index: -1;
+}
+
+@keyframes user-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}

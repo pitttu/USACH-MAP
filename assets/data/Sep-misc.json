@@ -1114,6 +1114,23 @@
                 "name": "Casino Central",
                 "type": "comida casino universitario"
             }
+        },
+        {
+            "type": "Feature",
+            "id": 1122,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68173477754269,
+                    -33.44753929347352
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "id": 1122,
+                "name": "Casino Heisenberg",
+                "type": "comida casino"
+            }
         }
     ]
 }

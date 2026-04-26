@@ -794,6 +794,33 @@ map.on('load', async () => {
       map.on('click', layerId, handleMiscClick);
     });
 
+    // Long Press Implementation
+    let longPressTimer;
+    const LONG_PRESS_DELAY = 600;
+
+    const startLongPress = (e) => {
+      if (e.originalEvent.touches && e.originalEvent.touches.length > 1) return;
+      clearTimeout(longPressTimer);
+      longPressTimer = setTimeout(() => {
+        selectCustomPoint([e.lngLat.lng, e.lngLat.lat]);
+      }, LONG_PRESS_DELAY);
+    };
+
+    const cancelLongPress = () => clearTimeout(longPressTimer);
+
+    map.on('mousedown', startLongPress);
+    map.on('touchstart', startLongPress);
+    
+    map.on('mousemove', cancelLongPress);
+    map.on('touchmove', cancelLongPress);
+    map.on('mouseup', cancelLongPress);
+    map.on('touchend', cancelLongPress);
+    map.on('dragstart', cancelLongPress);
+    map.on('contextmenu', (e) => {
+      e.preventDefault();
+      selectCustomPoint([e.lngLat.lng, e.lngLat.lat]);
+    });
+
     map.on('move', updateMiscDistances);
     updateMiscDistances(); // Initialize opacities
 
@@ -803,17 +830,21 @@ map.on('load', async () => {
 function handleMiscClick(e) {
   if (preventClick) return;
 
-  if (manualLocationMode && !userLocationLocked) {
-    if (e.features.length > 0) {
-      const f = e.features[0];
+  if (e.features.length > 0) {
+    const f = e.features[0];
+
+    if (f.source === 'misc') {
+      const state = map.getFeatureState({ source: 'misc', id: f.id });
+      if (!state || state.opacity < 0.1) return;
+    }
+
+    if (manualLocationMode && !userLocationLocked) {
       setManualOrigin(f.geometry.coordinates, f.properties.nombre || f.properties.name);
       preventClick = true;
       setTimeout(() => preventClick = false, 50);
+      return;
     }
-    return;
-  }
-  if (e.features.length > 0) {
-    const f = e.features[0];
+
     selectSala(f, f.geometry.coordinates);
     preventClick = true;
     setTimeout(() => preventClick = false, 50);
@@ -882,6 +913,55 @@ function selectSala(feature, coords) {
       openSearchSheet('route');
     }
   };
+}
+
+function selectCustomPoint(coords) {
+  resetSheet(false);
+
+  const container = document.createElement('div');
+  container.className = 'active-pointer-container';
+  const img = document.createElement('img');
+  img.src = 'assets/icons/pointer.png';
+  img.className = 'active-pointer';
+  container.appendChild(img);
+
+  selectedId = null;
+  updateMapHighlights();
+
+  if (lastHiddenSprite) lastHiddenSprite.style.display = 'block';
+  lastHiddenSprite = null;
+
+  currentMarker = new mapboxgl.Marker({ element: container, anchor: 'bottom', offset: [0, 25] }).setLngLat(coords).addTo(map);
+
+  sheetTitle.textContent = "Ubicación seleccionada";
+  document.getElementById('sheet-edificio').textContent = "Punto en el mapa";
+  document.getElementById('sheet-piso').textContent = "";
+  document.getElementById('sheet-capacidad').textContent = "";
+
+  defaultSheetContent.classList.add('hidden');
+  poiSheetContent.classList.remove('hidden');
+  routeSheetContent.classList.add('hidden');
+  searchSheetContent.classList.add('hidden');
+  openSheet('MID');
+
+  map.flyTo({ center: coords, zoom: 19, pitch: 45, duration: 2000 });
+
+  if (btnNavigate) {
+    btnNavigate.style.display = 'flex';
+    btnNavigate.onclick = () => {
+      destinationPOI = {
+        properties: { nombre: 'Ubicación seleccionada', name: 'Ubicación seleccionada', edificio: 'Punto en el mapa' },
+        geometry: { coordinates: coords }
+      };
+      destinationInput.value = 'Ubicación seleccionada';
+
+      if (userLocation || (manualLocationMode && userLocationLocked)) {
+        drawDualRoute(userLocation, coords);
+      } else {
+        openSearchSheet('route');
+      }
+    };
+  }
 }
 
 function openSearchSheet(mode = 'simple') {
@@ -1001,7 +1081,30 @@ function resetSheet(shouldClose = true) {
     lastHiddenSprite.style.display = 'block';
     lastHiddenSprite = null;
   }
-  if (currentMarker) currentMarker.remove();
+  
+  if (currentMarker) {
+    currentMarker.remove();
+    currentMarker = null;
+  }
+  if (customUserMarker) {
+    customUserMarker.remove();
+    customUserMarker = null;
+  }
+
+  // Siempre limpiar estado de ruta al resetear o cambiar selección
+  originPOI = null;
+  destinationPOI = null;
+  pendingRouteCoords = null;
+  userLocation = null;
+  userLocationLocked = false;
+  manualLocationMode = false;
+  
+  if (originInput) originInput.value = '';
+  if (destinationInput) destinationInput.value = '';
+  
+  if (map.getSource('route')) {
+    map.getSource('route').setData({ type: 'FeatureCollection', features: [] });
+  }
 
   if (shouldClose) {
     poiSheetContent.classList.add('hidden');
@@ -1022,13 +1125,7 @@ function setManualOrigin(coords, name = 'Ubicación seleccionada') {
 
   if (customUserMarker) customUserMarker.remove();
   const el = document.createElement('div');
-  el.style.width = '20px';
-  el.style.height = '20px';
-  el.style.backgroundColor = '#4285F4'; // Maps Blue
-  el.style.borderRadius = '50%';
-  el.style.border = '3px solid white';
-  el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
-  el.style.zIndex = "-1"; // Place below icons
+  el.className = 'user-location-marker';
   customUserMarker = new mapboxgl.Marker(el).setLngLat(userLocation).addTo(map);
 
   showToast("Origen fijado manualmente.");
@@ -1069,11 +1166,23 @@ map.on('click', (e) => {
   const features = map.queryRenderedFeatures(bbox);
 
   const interactiveLayers = [
-    'misc-labels', 'misc-fixed-labels',
-    'misc-icons-outer', 'misc-icons-inner',
-    'misc-fixed-icons-outer', 'misc-fixed-icons-inner'
+    'misc-labels', 'misc-fixed-labels', 'metro-labels',
+    'misc-icons', 'misc-fixed-icons', 'metro-icons'
   ];
-  if (features.some(f => f.layer && (interactiveLayers.includes(f.layer.id) || f.layer.id.includes('point')))) return;
+  
+  const clickedInteractive = features.some(f => {
+    if (!f.layer) return false;
+    const isInteractive = interactiveLayers.includes(f.layer.id) || f.layer.id.includes('point');
+    if (!isInteractive) return false;
+    
+    if (f.source === 'misc') {
+      const state = map.getFeatureState({ source: 'misc', id: f.id });
+      if (!state || state.opacity < 0.1) return false;
+    }
+    return true;
+  });
+
+  if (clickedInteractive) return;
 
   resetSheet();
 });
@@ -1247,7 +1356,6 @@ categoryChips.forEach(chip => {
 
 
 btnCloseRoute.onclick = () => {
-  map.getSource('route').setData({ type: 'FeatureCollection', features: [] });
   resetSheet();
 };
 
