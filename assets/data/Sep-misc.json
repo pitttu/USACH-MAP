@@ -1131,6 +1131,44 @@
                 "name": "Casino Heisenberg",
                 "type": "comida casino"
             }
+        },
+        {
+            "type": "Feature",
+            "id": 1123,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68690069919977,
+                    -33.451369663616624
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Edificio del Programa de Bachillerato USACH",
+                "etiqueta": "Bachillerato",
+                "id": 1123,
+                "name": "Edificio Programa Bachillerato",
+                "type": "universidad educacion bachillerato"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1124,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68586997175558,
+                    -33.45171311772512
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Facultad de Arquitectura USACH",
+                "etiqueta": "Arquitectura",
+                "id": 1124,
+                "name": "Facultad de Arquitectura",
+                "type": "universidad educacion arquitectura"
+            }
         }
     ]
 }
