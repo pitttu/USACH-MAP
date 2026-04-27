@@ -51,9 +51,9 @@ let isDragging = false;
 let startY, startSheetY;
 let currentSheetState = 'REST';
 let isMapReady = false;
-let resourcesToLoad = 9;
+let resourcesToLoad = 10;
 
-let salasData, accesosData, banosData, impresionesData, metroData, miscData, miscFixedData, dispensadoresData;
+let salasData, accesosData, banosData, impresionesData, metroData, miscData, miscFixedData, dispensadoresData, cajerosData;
 let selectedId = null;
 let lastHiddenSprite = null;
 let destinationPOI = null;
@@ -127,6 +127,7 @@ function updateMapHighlights() {
         ['==', ['get', 'category'], 'deporte'], '#0894ff',
         ['==', ['get', 'category'], 'tienda'], '#0894ff',
         ['==', ['get', 'category'], 'dispensador'], '#0894ff',
+        ['==', ['get', 'category'], 'cajero'], '#0894ff',
         ['==', ['get', 'category'], 'comida'], '#fe8029',
         ['==', ['get', 'category'], 'radio'], '#fe8029',
         ['==', ['get', 'category'], 'biblioteca'], '#56707c',
@@ -383,7 +384,7 @@ map.on('load', async () => {
   });
 
   try {
-    const [salasRes, sectoresRes, pathsRes, accesosRes, banosRes, metroRes, impresionesRes, miscRes, miscFixedRes, dispensadoresRes] = await Promise.all([
+    const [salasRes, sectoresRes, pathsRes, accesosRes, banosRes, metroRes, impresionesRes, miscRes, miscFixedRes, dispensadoresRes, cajerosRes] = await Promise.all([
       fetch('assets/data/salas.json'),
       fetch('assets/data/SectoresColores.json'),
       fetch('assets/data/paths.json'),
@@ -393,7 +394,8 @@ map.on('load', async () => {
       fetch('assets/data/impresiones.json'),
       fetch('assets/data/Sep-misc.json'),
       fetch('assets/data/FixedMisc.json'),
-      fetch('assets/data/dispensadores.json')
+      fetch('assets/data/dispensadores.json'),
+      fetch('assets/data/cajeros.json')
     ]);
 
     salasData = await salasRes.json();
@@ -406,6 +408,7 @@ map.on('load', async () => {
     miscData = await miscRes.json();
     miscFixedData = await miscFixedRes.json();
     dispensadoresData = await dispensadoresRes.json();
+    cajerosData = await cajerosRes.json();
 
     await new Promise((resolve) => {
       map.loadImage('assets/icons/spritesheet-rm.png', (error, image) => {
@@ -470,11 +473,16 @@ map.on('load', async () => {
         ctx.clearRect(0, 0, 204, 204);
         ctx.drawImage(image, 612, 0, 204, 204, 0, 0, 204, 204);
         map.addImage('dispensador-poi-icon', ctx.getImageData(0, 0, 204, 204));
+
+        // Extract 2nd icon (index 1) for Cajero
+        ctx.clearRect(0, 0, 204, 204);
+        ctx.drawImage(image, 204, 0, 204, 204, 0, 0, 204, 204);
+        map.addImage('cajero-poi-icon', ctx.getImageData(0, 0, 204, 204));
         resolve();
       });
     });
 
-    for (let i = 0; i < 8; i++) resourceLoaded();
+    for (let i = 0; i < 9; i++) resourceLoaded();
 
     graph = buildGraph(pathsData);
 
@@ -730,6 +738,7 @@ map.on('load', async () => {
           ['==', ['get', 'category'], 'deporte'], '#0894ff',
           ['==', ['get', 'category'], 'tienda'], '#0894ff',
           ['==', ['get', 'category'], 'dispensador'], '#0894ff',
+          ['==', ['get', 'category'], 'cajero'], '#0894ff',
           ['==', ['get', 'category'], 'biblioteca'], '#56707c',
           ['==', ['get', 'category'], 'monumento'], '#b965ff',
           ['==', ['get', 'category'], 'comida'], '#fe8029',
@@ -746,7 +755,7 @@ map.on('load', async () => {
 
 
     // Sprite Marker Helpers
-    window._spriteMarkers = { accesos: [], banos: [], impresiones: [], comida: [], dispensador: [] };
+    window._spriteMarkers = { accesos: [], banos: [], impresiones: [], comida: [], dispensador: [], cajero: [] };
     function createSpriteMarker(spriteIndex, coords, onClickData, category, spritesheetUrl = 'assets/icons/spritesheet-rm.png', totalSprites = 9) {
       const el = document.createElement('div');
       el.style.width = '42px';
@@ -786,6 +795,7 @@ map.on('load', async () => {
     });
 
     dispensadoresData.features.forEach(f => createSpriteMarker(3, f.geometry.coordinates, f, 'dispensador', 'assets/icons/spritesheet2-rm.png', 6));
+    cajerosData.features.forEach(f => createSpriteMarker(1, f.geometry.coordinates, f, 'cajero', 'assets/icons/spritesheet2-rm.png', 6));
 
     // Map Interaction
     const interactivePoilayers = [
@@ -1316,6 +1326,11 @@ searchInput.addEventListener('keydown', (e) => {
 // Category Chips
 categoryChips.forEach(chip => {
   chip.addEventListener('click', () => {
+    if (chip.id === 'btn-more') {
+      openSheet('FULL');
+      return;
+    }
+
     const wasActive = chip.classList.contains('active');
 
     // Clear all
@@ -1341,6 +1356,7 @@ categoryChips.forEach(chip => {
       let markerCat = cat;
       if (cat === 'baños' || cat === 'banos') markerCat = 'banos';
       if (cat === 'dispensadores') markerCat = 'dispensador';
+      if (cat === 'cajeros') markerCat = 'cajero';
 
       if (window._spriteMarkers[markerCat]) {
         window._spriteMarkers[markerCat].forEach(m => m.getElement().style.display = 'block');

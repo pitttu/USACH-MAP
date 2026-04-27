@@ -1,0 +1,33 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 2001,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6884474197698, -33.45043982363324]
+      },
+      "properties": {
+        "category": "cajero",
+        "id": 2001,
+        "name": "Cajero Automático",
+        "edificio": "Campus Central"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2002,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6805634346396, -33.449825202385924]
+      },
+      "properties": {
+        "category": "cajero",
+        "id": 2002,
+        "name": "Cajero Automático",
+        "edificio": "Sector Este"
+      }
+    }
+  ]
+}
