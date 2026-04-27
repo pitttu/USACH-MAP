@@ -303,10 +303,13 @@ geolocateControl.on('geolocate', (e) => {
   ) {
     userLocation = [lng, lat];
     manualLocationMode = false;
-    if (customUserMarker) {
-      customUserMarker.remove();
-      customUserMarker = null;
-    }
+    
+    // Mostrar el marcador azul personalizado
+    if (customUserMarker) customUserMarker.remove();
+    const el = document.createElement('div');
+    el.className = 'user-location-marker';
+    customUserMarker = new mapboxgl.Marker(el).setLngLat(userLocation).addTo(map);
+    
     if (pendingRouteCoords) {
       drawDualRoute(userLocation, pendingRouteCoords);
       pendingRouteCoords = null;
@@ -1086,17 +1089,11 @@ function resetSheet(shouldClose = true) {
     currentMarker.remove();
     currentMarker = null;
   }
-  if (customUserMarker) {
-    customUserMarker.remove();
-    customUserMarker = null;
-  }
 
-  // Siempre limpiar estado de ruta al resetear o cambiar selección
-  originPOI = null;
-  destinationPOI = null;
+  // Nota: No eliminamos customUserMarker ni userLocation aquí para que la posición 
+  // del usuario sea persistente mientras navega.
+  
   pendingRouteCoords = null;
-  userLocation = null;
-  userLocationLocked = false;
   manualLocationMode = false;
   
   if (originInput) originInput.value = '';
