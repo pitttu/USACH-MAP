@@ -707,18 +707,18 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -70.6821526,
-                    -33.4481513
+                    -70.6823401557991,
+                    -33.44808436484911
                 ]
             },
             "properties": {
-                "category": "comida",
-                "descripcion": "Comida rápida",
+                "category": "institucional",
+                "descripcion": "Centro de estudiantes Ingeniería en Estadistica",
                 "etiqueta": "Comida",
                 "id": 1076,
-                "name": "Donde Pablo",
-                "subCategory": "Alimentación",
-                "type": "comida rapida colacion"
+                "name": "CEEIE-USACH",
+                "subCategory": "estudiantes",
+                "type": "centro estudiantes sede"
             }
         },
         {
@@ -1168,6 +1168,82 @@
                 "id": 1124,
                 "name": "Facultad de Arquitectura",
                 "type": "universidad educacion arquitectura"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1125,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68272069440913,
+                    -33.449667208538116
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "descripcion": "Kiosko al paso, comida",
+                "etiqueta": "Comida",
+                "id": 1125,
+                "name": "Donde la Tía de la Feria",
+                "type": "comida rapida kiosko"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1126,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6820591418756,
+                    -33.44783378820136
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "descripcion": "Kiosko Bioquimica mejor comida vegan",
+                "etiqueta": "Comida",
+                "id": 1126,
+                "name": "Kiosko Bioquimica",
+                "type": "comida rapida kiosko vegan"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1127,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68246214802342,
+                    -33.44813091008641
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "descripcion": "Kiosko con las mejores donas con nutella",
+                "etiqueta": "Kiosko",
+                "id": 1127,
+                "name": "Kiosko de la Mariana",
+                "type": "comida rapida kiosko donas nutella"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1128,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.68274263841157,
+                    -33.44921507497909
+                ]
+            },
+            "properties": {
+                "category": "monumento",
+                "descripcion": "Monumento homenaje en honor al primer y único líder universitario elegido por claustro triestamental en Chile, Dr. Enrique Kirberg Baltiansky",
+                "etiqueta": "Memorial",
+                "id": 1128,
+                "name": "Memorial Rector Enrique Kirberg Baltiansky",
+                "type": "monumento enrique kirberg rector"
             }
         }
     ]
