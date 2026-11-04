@@ -173,9 +173,14 @@ En Tú el alumno importa su horario desde SIAC con su RUT y su clave, y la app l
 - *Probar con un horario de ejemplo*: un horario ficticio con salas reales, para probar sin cuenta.
 - `window.__tuNow = { dia: 2, min: 630 }` (martes 10:30) fija la hora, para capturas.
 
-**Importar.** El navegador no puede hablar con SIAC (otro dominio, sin CORS), así que la app hace
-`POST /api/siac/horario` con `{ rut, clave }` al mismo servidor que la sirve. Por ahora eso lo atiende solo
-`tools/serve-https.py` (el servidor de pruebas del celular), que usa `tools/siac.py`:
+**Importar.** El navegador no puede hablar con SIAC (otro dominio, sin CORS), así que la app manda `{ rut, clave }`
+a un servicio que lo hace por ella:
+
+- **App publicada (GitHub Pages):** el Cloudflare Worker de `../siac-worker/` (ver su README). Su dirección va en
+  `SIAC_WORKER`, al comienzo de `js/tu.js`. Mientras esté vacía, la app avisa que la importación web no está activa.
+- **Servidor local:** `POST /api/siac/horario` en `tools/serve-https.py`, que usa `tools/siac.py`.
+
+Los dos hacen lo mismo:
 
 1. Abre el login de SIAC, toma su token `cu` y envía el formulario como lo hace la página (RUT sin dígito, dígito
    aparte, clave en `passwd`; SIAC corta la clave a 9 caracteres).
@@ -188,8 +193,7 @@ En Tú el alumno importa su horario desde SIAC con su RUT y su clave, y la app l
 
 La clave no se guarda ni queda en el log; en el navegador queda solo el horario y el RUT (`localStorage`,
 `usach-map.horario`). Por `python3 -m http.server` (8765) la importación no funciona y la app lo dice; el horario de
-ejemplo sí. Para publicar en GitHub Pages hará falta el mismo endpoint en otro lado (p. ej. una función serverless) y
-cambiar `SIAC_API` en `tu.js`.
+ejemplo sí. Si SIAC cambia su página, hay que corregir `tools/siac.py` y `siac-worker/src/index.js` (leen igual).
 
 Probar el parser sin la app: `python3 tools/siac.py horario.html` (una página guardada) o, contra SIAC,
 `read -s P; RUT=12345678-9 P=$P python3 tools/siac.py`.

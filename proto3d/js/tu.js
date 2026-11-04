@@ -2,8 +2,9 @@
 // (guardados y recientes).
 //  - Es una vista de la hoja deslizable (#view-tu): su título (Tú + perfil) asoma en reposo; la barra inferior y el
 //    cambio de vista son de app.js.
-//  - Importar: el RUT y la clave van una sola vez a POST /api/siac/horario (tools/serve-https.py + siac.py), que
-//    inicia sesión en SIAC y devuelve el horario. La clave no se guarda; el horario queda solo en este navegador.
+//  - Importar: el RUT y la clave van una sola vez al servicio que inicia sesión en SIAC y devuelve el horario: en la
+//    app publicada (GitHub Pages), el Worker de Cloudflare (siac-worker/); en el servidor local, POST
+//    /api/siac/horario (tools/serve-https.py + siac.py). La clave no se guarda; el horario queda solo en este navegador.
 //  - Traslados: entre dos clases seguidas en salas distintas calcula la caminata (grafo de paths.json) y la compara
 //    con la ventana (tiempo libre) que hay entre ellas.
 //  - La tarjeta de la próxima clase también va en el título de Explorar (#next-class).
@@ -11,7 +12,10 @@
 import { h, fill, icon, fmtDist, fmtDur, walkMin, shortBuilding } from './ui.js';
 import { describe, saved, recents } from './places.js';
 
-const SIAC_API = '/api/siac/horario';
+// Dirección del Worker (la imprime `npx wrangler deploy` en siac-worker/). Vacía: la importación web no está activa.
+const SIAC_WORKER = '';
+const PUBLISHED = location.hostname.endsWith('github.io');
+const SIAC_API = PUBLISHED ? SIAC_WORKER && `${SIAC_WORKER.replace(/\/$/, '')}/horario` : '/api/siac/horario';
 const KEY = 'usach-map.horario';
 // bloques de SIAC, por si la página no trae la hora de alguno
 const BLOCKS = [['08:15', '09:35'], ['09:50', '11:10'], ['11:25', '12:45'], ['13:45', '15:05'], ['15:20', '16:40'],
@@ -393,6 +397,7 @@ form.addEventListener('submit', async (e) => {
   const rut = formatRut(rutInput.value), clave = claveInput.value;
   if (!validRut(rut)) { showError('Revisa el RUT: el dígito verificador no calza.'); rutInput.focus(); return; }
   if (clave.length < 4) { showError('Ingresa tu clave de SIAC.'); claveInput.focus(); return; }
+  if (!SIAC_API) { showError('La importación desde SIAC aún no está activada en la web. Prueba con el horario de ejemplo.'); return; }
   showError('');
   setBusy(true);
   const abort = new AbortController(), timer = setTimeout(() => abort.abort(), 45000);
