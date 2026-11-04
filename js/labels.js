@@ -3,8 +3,8 @@
 import * as THREE from 'three';
 import { toLocal } from './geo.js';
 
-const SHEET1 = { url: '../assets/icons/spritesheet-rm.png', n: 9 };
-const SHEET2 = { url: '../assets/icons/spritesheet2-rm.png', n: 6 };
+const SHEET1 = { url: 'assets/icons/spritesheet-rm.png', n: 9 };
+const SHEET2 = { url: 'assets/icons/spritesheet2-rm.png', n: 6 };
 const ICONS = {
   misc: [SHEET1, 8], comida: [SHEET1, 4], deporte: [SHEET1, 5], pastos: [SHEET1, 7], tienda: [SHEET1, 2],
   accesos: [SHEET1, 0], banos: [SHEET1, 1], impresiones: [SHEET1, 6],
@@ -15,7 +15,7 @@ const COLORS = {
   comida: '#fe8029', radio: '#fe8029', biblioteca: '#56707c', monumento: '#b965ff', pastos: '#15a972', salud: '#f74855',
 };
 const LEFT = new Set(['deporte', 'pastos']);
-const TEXT_OFFSET = 16; // px desde el centro del ícono hasta el texto (= text-offset 1.2em × 13.5 px en la versión Mapbox)
+const TEXT_OFFSET = 16; // px desde el centro del ícono hasta el texto (1.2 em de 13.5 px, como el text-offset de Mapbox)
 
 const v = new THREE.Vector3();
 // Posición en pantalla redondeada a pixeles FÍSICOS (no a pixeles CSS): si se redondea a enteros CSS, durante el
@@ -24,7 +24,7 @@ const px = (n) => Math.round(n * devicePixelRatio) / devicePixelRatio;
 
 export class Labels {
   constructor(container) {
-    // Dos capas, como en la versión Mapbox (misc-icons debajo, misc-labels encima): el texto de una etiqueta
+    // Dos capas (íconos debajo, textos encima): el texto de una etiqueta
     // pasa por ENCIMA del ícono de otra, aunque ese ícono no desaparezca.
     this.iconLayer = Object.assign(document.createElement('div'), { className: 'label-layer' });
     this.textLayer = Object.assign(document.createElement('div'), { className: 'label-layer' });
@@ -87,7 +87,7 @@ export class Labels {
       const prio = it.selected ? -1 : it.kind === 'misc' ? 2 : it.kind === 'metro' ? 0 : 1;
       visible.push({ it, sx, sy, op, prio });
     }
-    // Colisión como en la versión Mapbox: los íconos nunca se ocultan (icon-allow-overlap / icon-ignore-placement);
+    // Colisión al estilo de Mapbox: los íconos nunca se ocultan (icon-allow-overlap / icon-ignore-placement);
     // solo compiten los TEXTOS: el que queda tapado se desvanece y reaparece cuando nada lo tapa.
     // Primero las prioritarias, luego las más cercanas al centro de pantalla.
     visible.sort((a, b) => a.prio - b.prio || Math.hypot(a.sx - width / 2, a.sy - height / 2) - Math.hypot(b.sx - width / 2, b.sy - height / 2));

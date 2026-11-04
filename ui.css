@@ -70,7 +70,7 @@ button { cursor: pointer; background: none; border: 0; -webkit-tap-highlight-col
   align-items: center; justify-content: center; gap: 14px; transition: opacity 0.3s ease-out, visibility 0.3s;
 }
 .loader.hidden-loader { opacity: 0; visibility: hidden; }
-/* círculo de carga de la app original (material-design-spinner, sin su hoja: esa cambia el body) */
+/* círculo de carga de colores (de material-design-spinner, Fran Pérez, licencia MIT: https://codepen.io/mrrocks/pen/ExLovj) */
 .loader .spinner { animation: spinner-rotate 1.4s linear infinite; }
 .loader .spinner .path { stroke-dasharray: 187; stroke-dashoffset: 0; transform-origin: center; animation: spinner-dash 1.4s ease-in-out infinite, spinner-colors 5.6s ease-in-out infinite; }
 @keyframes spinner-rotate { to { transform: rotate(270deg); } }
@@ -125,7 +125,7 @@ button { cursor: pointer; background: none; border: 0; -webkit-tap-highlight-col
 .chip {
   flex: none; height: 34px; padding: 0 14px 0 10px; border-radius: 17px; background: var(--surface); box-shadow: var(--shadow-1);
   display: inline-flex; align-items: center; gap: 6px; color: var(--on-surface); white-space: nowrap;
-  font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 600; /* la tipografía de la app original, a pedido */
+  font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 600; /* Inter en las pastillas, a pedido */
   transition: background-color 0.15s, color 0.15s;
 }
 .chip .ms { font-size: 18px; color: var(--icon); }
@@ -133,9 +133,9 @@ button { cursor: pointer; background: none; border: 0; -webkit-tap-highlight-col
 .chip.active { background: var(--primary-container); color: var(--on-primary-container); }
 .chip.active .ms { color: var(--on-primary-container); }
 
-/* ---- parte superior clásica (la de la app original): buscador, pastillas, brújula y capas ----
+/* ---- parte superior clásica: buscador, pastillas, brújula y capas de vidrio esmerilado ----
    Con <html class="top-clasico"> (ver TOP_CLASICO en app.js, o ?top=nuevo / ?top=clasico en la URL) vuelven el
-   buscador y los botones de vidrio esmerilado, la tipografía Inter y los íconos de la app original. Lo demás no cambia. */
+   buscador y los botones de vidrio esmerilado, la tipografía Inter y los íconos SVG de las pastillas. Lo demás no cambia. */
 html:not(.top-clasico) .solo-clasico, html.top-clasico .solo-nuevo { display: none !important; }
 /* buscador: mezcla. Forma, íconos y posición de la nueva; color de vidrio esmerilado y texto de la clásica */
 html.top-clasico .searchbar {
@@ -570,7 +570,7 @@ button.info-row:active { background: rgba(31, 31, 31, 0.04); }
 /* ---- marcadores del mapa que la app dibuja (pin y ubicación; ver labels.js) ---- */
 @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 70% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 .active-pointer {
-  width: 32px; height: 42px; background: url('../assets/icons/pointer.png') center bottom / contain no-repeat;
+  width: 32px; height: 42px; background: url('assets/icons/pointer.png') center bottom / contain no-repeat;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3)); animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 .user-location-marker {

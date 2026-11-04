@@ -1,6 +1,6 @@
 # siac-worker
 
-Cloudflare Worker que importa el horario de SIAC para la app publicada en GitHub Pages (pestaña Tú de `proto3d/`).
+Cloudflare Worker que importa el horario de SIAC para la app publicada en GitHub Pages (pestaña Tú).
 Hace lo mismo que `tools/siac.py` en el servidor local: recibe `{ rut, clave }`, inicia sesión en SIAC, lee el horario,
 cierra la sesión y devuelve `{ alumno, carrera, periodo, cursos, clases }` (o `{ error }` con 400, 401, 403, 423,
 429 o 502).
@@ -20,7 +20,7 @@ npx wrangler login     # una vez: abre el navegador para autorizar
 npx wrangler deploy    # imprime la dirección: hoy https://usach-siac.siac-worker.workers.dev
 ```
 
-Esa dirección va en `SIAC_WORKER`, al comienzo de `proto3d/js/tu.js`. Luego se hace commit y push, y GitHub Pages
+Esa dirección va en `SIAC_WORKER`, al comienzo de `js/tu.js`. Luego se hace commit y push, y GitHub Pages
 la publica.
 
 ## Probar en el Mac

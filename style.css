@@ -7,21 +7,21 @@
 #labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 
 /* ---- etiquetas de POIs ----
-   Íconos y textos van en capas separadas (como misc-icons / misc-labels en la versión Mapbox):
+   Íconos y textos van en capas separadas (íconos debajo, textos encima):
    los textos siempre quedan encima de los íconos. */
 .label-layer { position: absolute; inset: 0; }
 .label-icon {
-  /* mismo tamaño que los marcadores de las pills (~42 px, como icon-size 0.25 en la versión Mapbox) */
+  /* mismo tamaño que los marcadores de las pills (~42 px) */
   --icon: 42px;
   position: absolute; left: 0; top: 0; width: var(--icon); height: var(--icon);
   margin: calc(var(--icon) / -2) 0 0 calc(var(--icon) / -2);
   background-repeat: no-repeat; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
   pointer-events: auto; cursor: pointer; visibility: hidden; will-change: transform;
 }
-/* metro: círculo blanco de 44 px × 0.6 en la versión Mapbox; EFE a su izquierda en Estación Central */
-.label-icon.metro { --icon: 26px; background: #fff url('../assets/svg/MetroLogo.svg') center / 14px no-repeat; border-radius: 50%; }
-.label-efe { position: absolute; left: -32px; top: 0; width: 26px; height: 26px; border-radius: 50%; background: #fff url('../assets/svg/efe.svg') center / 14px no-repeat; }
-/* el texto parte a 16 px del centro del ícono (text-offset 1.2em en la versión Mapbox); su x la pone labels.js */
+/* metro: círculo blanco de 26 px; EFE a su izquierda en Estación Central */
+.label-icon.metro { --icon: 26px; background: #fff url('assets/svg/MetroLogo.svg') center / 14px no-repeat; border-radius: 50%; }
+.label-efe { position: absolute; left: -32px; top: 0; width: 26px; height: 26px; border-radius: 50%; background: #fff url('assets/svg/efe.svg') center / 14px no-repeat; }
+/* el texto parte a 16 px del centro del ícono (1.2 em); su x la pone labels.js */
 .label-text {
   position: absolute; left: 0; top: 0; translate: 0 -50%; width: max-content; max-width: 150px;
   font-family: 'Inter', system-ui, sans-serif; font-size: 13.5px; font-weight: 500; line-height: 1.1;
