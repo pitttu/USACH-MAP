@@ -109,7 +109,9 @@ const course = (code) => {
 };
 const room = (sala) => (sala ? rooms.get(sala.trim().toUpperCase()) || null : null);
 
-// Clases de la semana ordenadas, uniendo bloques seguidos del mismo curso en la misma sala (09:50–12:45)
+// Clases de la semana ordenadas, uniendo bloques seguidos del mismo curso en la misma sala (09:50–12:45). Solo si los
+// separa una pausa corta: el almuerzo entre los bloques 3 y 4 (o la media hora entre el 6 y el 7) es tiempo libre.
+const MAX_BREAK_MIN = 15;
 function sessions() {
   const out = [];
   const list = [...data.clases].sort((a, b) => a.dia - b.dia || a.bloque - b.bloque);
@@ -117,7 +119,7 @@ function sessions() {
     const inicio = c.inicio || BLOCKS[c.bloque - 1]?.[0], fin = c.fin || BLOCKS[c.bloque - 1]?.[1];
     if (!inicio) continue;
     const p = out.at(-1);
-    if (p && p.dia === c.dia && p.curso === c.curso && p.tipo === c.tipo && p.sala === c.sala && p.hasta === c.bloque - 1) {
+    if (p && p.dia === c.dia && p.curso === c.curso && p.tipo === c.tipo && p.sala === c.sala && p.hasta === c.bloque - 1 && mins(inicio) - mins(p.fin) <= MAX_BREAK_MIN) {
       p.fin = fin;
       p.hasta = c.bloque;
       continue;

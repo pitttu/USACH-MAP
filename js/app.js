@@ -91,7 +91,6 @@ function go(view, state, { push = true } = {}) {
 }
 function back() {
   const prev = stack.pop() || { view: 'home', state: 'REST' };
-  if (sheet.view === 'pick') pick = null;
   sheet.show(prev.view, prev.state === 'FULL' ? 'MID' : prev.state);
   if (prev.view === 'home') renderHome();
   if (prev.view === 'tu') refreshTu();
@@ -99,7 +98,7 @@ function back() {
 }
 function goHome() {
   stack = [];
-  pick = null;
+  exploreSaved = null;
   sheet.show('home', 'REST');
   renderHome();
   syncMap();
@@ -107,10 +106,10 @@ function goHome() {
 
 function showTab(tab) {
   if (tab === 'tu') {
+    if (sheet.view === 'pick') back(); // la elección se cancela: lo que se guarda es lo que había debajo
     if (sheet.view === 'tu') { if (sheet.state === 'REST') sheet.open('MID'); return; }
     exploreSaved = { view: sheet.view, state: sheet.state, stack };
     stack = [];
-    pick = null;
     refreshTu();
     sheet.show('tu', 'MID');
   } else {
@@ -120,6 +119,7 @@ function showTab(tab) {
     stack = r.stack;
     sheet.show(r.view, r.state);
     if (r.view === 'home') renderHome();
+    if (r.view === 'category') renderCategory(); // pudo cambiar la ubicación mientras estaba guardada
   }
   syncMap();
 }
@@ -138,17 +138,25 @@ function syncNav(view) {
 let shownPin = null;
 function syncMap() {
   const v = sheet.view;
+  // se elige un punto solo con su vista en pantalla; salir por donde sea cancela la elección (el toque en el mapa la
+  // retira antes de volver, así que no pasa por aquí) y, si se pedía la ubicación, quien la espera recibe null
+  if (pick && v !== 'pick') {
+    const { asksLocation } = pick;
+    pick = null;
+    if (asksLocation) resolveLocation(null);
+  }
   const pinAt = v === 'place' ? currentPlace?.geometry.coordinates : v === 'route' ? currentRoute?.destination.coords : null;
   const key = pinAt ? pinAt.join(',') : null;
   if (key !== shownPin) { mapView.setPin(pinAt || null); shownPin = key; }
   mapView.setSelected(v === 'place' && currentPlace && places.isLabel(currentPlace) ? currentPlace.properties.id ?? null : null);
   mapView.setRoute(v === 'route' && currentRoute ? currentRoute.coords : null);
-  // la categoría sigue viva mientras su lista esté en Explorar (en pantalla, detrás de un lugar o guardada al pasar a Tú)
+  // la categoría sigue viva mientras su lista esté en pantalla, detrás de un lugar o guardada al pasar a Tú (aunque
+  // desde Tú se abra un lugar); sus marcadores y su pastilla solo se ven si no está guardada
   const inCat = (s) => s.view === 'category';
-  const alive = v === 'category' || stack.some(inCat) || (v === 'tu' && exploreSaved && (inCat(exploreSaved) || exploreSaved.stack.some(inCat)));
-  if (!alive) currentCategory = null;
-  mapView.showCategory(v !== 'tu' && currentCategory?.marker || null);
-  for (const c of $('chips').children) c.classList.toggle('active', !!currentCategory && c.dataset.cat === currentCategory.id);
+  const shown = v === 'category' || stack.some(inCat);
+  if (!shown && !(exploreSaved && (inCat(exploreSaved) || exploreSaved.stack.some(inCat)))) currentCategory = null;
+  mapView.showCategory(shown && currentCategory?.marker || null);
+  for (const c of $('chips').children) c.classList.toggle('active', shown && !!currentCategory && c.dataset.cat === currentCategory.id);
 }
 
 // --- carga ---
@@ -212,6 +220,7 @@ mapView.on('tap', ({ lngLat, poi, marker }) => {
     const coords = hit ? hit.feature.geometry.coordinates : lngLat;
     if (!coords) return;
     const p = pick;
+    pick = null;
     back();
     p.onPick(coords, hit ? places.describe(hit.feature).name : null);
     return;
@@ -488,7 +497,6 @@ function openCategory(c) {
   currentCategory = c;
   exploreSaved = null;
   stack = [{ view: 'home', state: 'REST' }];
-  pick = null;
   renderCategory();
   sheet.show('category', 'MID');
   syncMap();
@@ -545,18 +553,14 @@ function openBuilding(b) {
 $('building-close').addEventListener('click', back);
 
 // --- elegir un punto en el mapa ---
-function startPick(title, sub, onPick) {
-  pick = { onPick };
+function startPick(title, sub, onPick, asksLocation = false) {
+  pick = { onPick, asksLocation };
   $('pick-title').textContent = title;
   $('pick-sub').textContent = sub;
   go('pick', 'REST', { push: sheet.view !== 'pick' });
   mapView.flyTo({ ...OVERVIEW, duration: 1200 });
 }
-$('pick-close').addEventListener('click', () => {
-  const waiting = locateWaiters.length;
-  back();
-  if (waiting) resolveLocation(null);
-});
+$('pick-close').addEventListener('click', back);
 
 // un extremo de la ruta tocando el mapa (desde el planificador)
 function pickRouteStop(field, stops) {
@@ -589,11 +593,15 @@ gpsButton.addEventListener('click', () => {
 });
 
 // sigue la posición; la primera vez vuela a ella (salvo que alguien la esté esperando para otra cosa)
+const GPS_TIMEOUT_MS = 20000; // sin respuesta, se pide el punto a mano. Temporizador propio: el `timeout` de la API no
+let gpsTimer = null;          // corre mientras el aviso de permiso sigue abierto, y ese aviso se puede ignorar
 function triggerGeolocation(fly = false) {
   if (!navigator.geolocation) { onGeolocateError(); return; }
   if (gpsWatch !== null) navigator.geolocation.clearWatch(gpsWatch);
   let first = true;
   gpsButton.classList.add('searching');
+  clearTimeout(gpsTimer);
+  gpsTimer = setTimeout(onGeolocateError, GPS_TIMEOUT_MS);
   gpsWatch = navigator.geolocation.watchPosition((pos) => {
     onGeolocate([pos.coords.longitude, pos.coords.latitude], first && (fly || !locateWaiters.length));
     first = false;
@@ -601,6 +609,7 @@ function triggerGeolocation(fly = false) {
 }
 
 function onGeolocate(lngLat, fly) {
+  clearTimeout(gpsTimer);
   gpsButton.classList.remove('searching');
   if (mapView.isInside(lngLat)) {
     if (manualLocation) return; // el usuario fijó su ubicación a mano
@@ -614,7 +623,9 @@ function onGeolocate(lngLat, fly) {
 }
 
 function onGeolocateError() {
+  clearTimeout(gpsTimer);
   gpsButton.classList.remove('searching');
+  if (userLocation) return; // ya hay ubicación: un error pasajero no interrumpe, y el seguimiento sigue andando
   if (gpsWatch !== null) { navigator.geolocation.clearWatch(gpsWatch); gpsWatch = null; }
   askManualLocation('No pudimos usar tu GPS. Toca el mapa donde estás.');
 }
@@ -626,7 +637,7 @@ function askManualLocation(sub) {
     renderedAt = null;
     setUserLocation(coords);
     snackbar('Ubicación fijada. Tócala de nuevo en el botón de ubicación para cambiarla.');
-  });
+  }, true);
 }
 
 // Con el GPS andando llegan posiciones a cada rato: las listas se rehacen solo si se movió más de 15 m
