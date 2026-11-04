@@ -1,0 +1,33 @@
+{
+ "descripcion": "Edificios a revisar tras ajustar alturas con la fotogrametría (tools/fotogrametria/alturas.mjs). Con ?dev se pintan de color.",
+ "noExiste": [
+  "Edificio 008",
+  "Edificio 009",
+  "Edificio 082",
+  "Edificio 085",
+  "Canchas Tenis",
+  "Edificio 108",
+  "Cancha Handball",
+  "Edificio 116",
+  "Edificio 117",
+  "Edificio 121",
+  "Edificio 122",
+  "Edificio 128",
+  "Edificio 172",
+  "Edificio 241",
+  "Edificio 249",
+  "Edificio 448"
+ ],
+ "variasAlturas": [
+  "Edificio 201",
+  "Ingeniería Industrial",
+  "Edificio 302",
+  "Edificio 307",
+  "CEEIE-USACH",
+  "Edificio 391",
+  "Edificio 424",
+  "Edificio 429",
+  "Edificio 432",
+  "Edificio 437"
+ ]
+}
