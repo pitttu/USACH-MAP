@@ -185,6 +185,7 @@ async function init() {
 
   initTu({
     salas: data.salas.features,
+    metros: data.metro.features,
     findPath: (a, b) => findShortestPath(a, b),
     showRoom: (f) => openPlace(f),
     showPlace: (f) => openPlace(f),

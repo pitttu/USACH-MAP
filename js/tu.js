@@ -7,6 +7,7 @@
 //    /api/siac/horario (tools/serve-https.py + siac.py). La clave no se guarda; el horario queda solo en este navegador.
 //  - Traslados: entre dos clases seguidas en salas distintas calcula la caminata (grafo de paths.json) y la compara
 //    con la ventana (tiempo libre) que hay entre ellas.
+//  - Metro: sobre la primera clase del día, la estación que queda más cerca de su sala, a pie.
 //  - La tarjeta de la próxima clase también va en el título de Explorar (#next-class).
 // Todo lo que viene de SIAC se pone con textContent (h()), nunca como HTML.
 import { h, fill, icon, fmtDist, fmtDur, walkMin, shortBuilding } from './ui.js';
@@ -58,7 +59,7 @@ const errorBox = $('tu-error');
 const schedule = $('tu-schedule');
 const nextCard = $('next-class');
 
-// ctx (app.js): salas, findPath(a, b) -> { meters }, showRoom(f), routeTo(f), routeBetween(fa, fb), showPlace(f),
+// ctx (app.js): salas, metros, findPath(a, b) -> { meters }, showRoom(f), routeTo(f), routeBetween(fa, fb), showPlace(f),
 //   toast(msg, error), expand() (subir la hoja entera), onProfile() (cambió el alumno: avatar y saludo)
 let ctx = null;
 let data = load();
@@ -138,6 +139,23 @@ function transfer(a, b) {
     const fa = room(a.sala), fb = room(b.sala);
     const path = fa && fb && ctx?.findPath(fa.geometry.coordinates, fb.geometry.coordinates);
     transfers.set(key, path ? { from: fa, to: fb, meters: path.meters, min: walkMin(path.meters) } : null);
+  }
+  return transfers.get(key);
+}
+
+// La estación de metro desde la que se camina menos a la sala de una clase (por los caminos, no en línea recta: es la
+// misma cuenta de la ruta que se dibuja al tocarla). null si la sala no está en el mapa.
+function nearestMetro(s) {
+  const to = room(s.sala);
+  if (!to) return null;
+  const key = `metro>${s.sala}`;
+  if (!transfers.has(key)) {
+    let best = null;
+    for (const from of ctx?.metros || []) {
+      const path = ctx.findPath(from.geometry.coordinates, to.geometry.coordinates);
+      if (path && !(best?.meters <= path.meters)) best = { from, to, meters: path.meters, min: walkMin(path.meters) };
+    }
+    transfers.set(key, best);
   }
   return transfers.get(key);
 }
@@ -274,7 +292,7 @@ function renderDay(list) {
   $('tu-day-title').textContent = day === now().dia ? `Hoy, ${DAY[day].toLowerCase()}` : DAY[day];
   if (!items.length) { fill(box, h('li', { class: 'empty' }, 'Sin clases este día.')); return; }
   const { dia, min } = now(), isToday = day === dia;
-  const rows = [];
+  const rows = [metroRow(items[0], isToday && mins(items[0].inicio) <= min)];
   items.forEach((s, i) => {
     if (i) rows.push(transferRow(items[i - 1], s));
     const c = course(s.curso), past = isToday && mins(s.fin) <= min, live = isToday && mins(s.inicio) <= min && min < mins(s.fin);
@@ -288,6 +306,22 @@ function renderDay(list) {
         h('span', { class: 'tu-chevron' }, icon('chevron_right')))));
   });
   fill(box, rows);
+}
+
+// Sobre la primera clase del día, la estación más cercana. Se ve como un ramo más, con el logo en vez del punto: su
+// hora es la del trayecto (salir de la estación para llegar justo a la clase). Tocarla dibuja la ruta hasta la sala.
+function metroRow(s, past) {
+  const t = nearestMetro(s);
+  if (!t) return null;
+  const leave = mins(s.inicio) - t.min, hhmm = `${String(Math.floor(leave / 60)).padStart(2, '0')}:${String(leave % 60).padStart(2, '0')}`;
+  return h('li', { class: `tu-class tu-metro${past ? ' past' : ''}` },
+    h('button', { class: 'tu-class-btn', onclick: () => routeBetween(t), 'aria-label': `${t.from.properties.name}, el metro más cercano a ${s.sala}: ${t.min} minutos a pie. Ver la ruta en el mapa` },
+      h('span', { class: 'tu-time' }, h('b', {}, hhmm), h('span', {}, s.inicio)),
+      h('span', { class: 'tu-metro-logo', 'aria-hidden': 'true' }),
+      h('span', { class: 'tu-class-body' },
+        h('span', { class: 'tu-class-name' }, t.from.properties.name.replace(/^Metro /, '')),
+        h('span', { class: 'tu-class-meta' }, `Metro más cercano · ${t.min} min a pie`)),
+      h('span', { class: 'tu-chevron' }, icon('chevron_right'))));
 }
 
 // Fila entre dos clases: la ventana y, si cambian de sala, la caminata (tocar dibuja la ruta entre ambas salas)

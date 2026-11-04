@@ -36,7 +36,7 @@ La interfaz es propia, al estilo de Google Maps 2025 (ver *Interfaz*). El mapa e
 | `js/sheet.js` | **Hoja deslizable**: una sola hoja con vistas, tres alturas, título fijo por vista y el arrastre (ver *Interfaz*) |
 | `js/search.js` | **Búsqueda** a pantalla completa y **planificador de rutas** (partida → destino) |
 | `js/places.js` | **Lugares**: catálogo de categorías, cómo se muestra cada lugar, búsqueda, edificios con sus salas, guardados, recientes y distancias a pie |
-| `js/tu.js` | **Vista "Tú"** (beta): horario importado desde SIAC, próxima clase, traslados entre salas, guardados y recientes. Ver *Pestaña Tú* |
+| `js/tu.js` | **Vista "Tú"** (beta): horario importado desde SIAC, próxima clase, traslados entre salas, metro más cercano a la primera clase del día, guardados y recientes. Ver *Pestaña Tú* |
 | `js/ui.js` | Utilidades de la interfaz: crear elementos, íconos, avisos (snackbar), formatos |
 | `js/mapview.js` | **Motor**: escena, luz, sombras, cámara, etiquetas y marcadores. Exporta `mapView`, una API en lon/lat estilo Mapbox: `flyTo`, `jumpTo`, `resetNorth`, `setRoute`, `setPin`, `setUserLocation`, `setSelected`, `showCategory`, `addPOIs`, `addCategoryMarkers`, `setSectors`, `setBaseLayer` y los eventos `tap`, `longpress`, `move`. |
 | `js/devpanel.js` | Panel `?dev`: hora, clima y FPS |
@@ -185,6 +185,10 @@ En Tú el alumno importa su horario desde SIAC con su RUT y su clave, y la app l
   el **traslado**: minutos a pie y metros por el grafo de `paths.json` (4 km/h, igual que la ficha de ruta), contra
   la ventana (tiempo libre entre ambas). Verde si sobra tiempo, ámbar si queda menos de 5 min ("Justo"), rojo si no alcanza. Tocar un
   traslado dibuja la ruta de sala a sala; tocar una clase muestra su sala.
+- **Metro de la primera clase**: sobre la primera clase de cada día (solo ahí), la estación de `assets/data/metro.json`
+  desde la que se camina menos hasta su sala, con el mismo grafo y la misma velocidad. Se ve como un ramo más, con el
+  logo del Metro en vez del punto; su hora es la del trayecto (salir de la estación para llegar justo a la clase).
+  Tocarla dibuja la ruta desde la estación. Si la clase no tiene sala o su sala no está en el mapa, la fila no aparece.
 - *Probar con un horario de ejemplo*: un horario ficticio con salas reales, para probar sin cuenta.
 - `window.__tuNow = { dia: 2, min: 630 }` (martes 10:30) fija la hora, para capturas.
 

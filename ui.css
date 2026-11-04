@@ -445,6 +445,11 @@ button.info-row:active { background: rgba(31, 31, 31, 0.04); }
 .tu-chevron { flex: none; color: var(--muted); display: grid; }
 .tu-class.past .tu-class-btn { opacity: 0.5; }
 .tu-class.live .tu-time b { color: var(--ok); }
+/* metro de la primera clase: una fila de clase con el logo en vez del punto, y de él baja la línea hasta la clase */
+.tu-metro { position: relative; }
+.tu-metro::before { content: ''; position: absolute; left: 67px; top: 36px; bottom: -4px; border-left: 2px dotted #c4c7c5; }
+.tu-metro.past::before { opacity: 0.5; }
+.tu-metro-logo { width: 20px; height: 20px; margin: 1px 0 0 -4px; background: url('assets/svg/MetroLogo.svg') center / contain no-repeat; }
 
 .tu-transfer { position: relative; padding: 0 0 0 54px; }
 .tu-transfer::before { content: ''; position: absolute; left: 67px; top: -4px; bottom: -4px; border-left: 2px dotted #c4c7c5; }
