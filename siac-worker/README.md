@@ -17,7 +17,7 @@ Necesita una cuenta gratuita de Cloudflare.
 ```bash
 cd siac-worker
 npx wrangler login     # una vez: abre el navegador para autorizar
-npx wrangler deploy    # imprime la dirección, p. ej. https://usach-siac.<tu-subdominio>.workers.dev
+npx wrangler deploy    # imprime la dirección: hoy https://usach-siac.siac-worker.workers.dev
 ```
 
 Esa dirección va en `SIAC_WORKER`, al comienzo de `proto3d/js/tu.js`. Luego se hace commit y push, y GitHub Pages

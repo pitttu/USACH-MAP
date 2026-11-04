@@ -13,7 +13,7 @@ import { h, fill, icon, fmtDist, fmtDur, walkMin, shortBuilding } from './ui.js'
 import { describe, saved, recents } from './places.js';
 
 // Dirección del Worker (la imprime `npx wrangler deploy` en siac-worker/). Vacía: la importación web no está activa.
-const SIAC_WORKER = '';
+const SIAC_WORKER = 'https://usach-siac.siac-worker.workers.dev';
 const PUBLISHED = location.hostname.endsWith('github.io');
 const SIAC_API = PUBLISHED ? SIAC_WORKER && `${SIAC_WORKER.replace(/\/$/, '')}/horario` : '/api/siac/horario';
 const KEY = 'usach-map.horario';
