@@ -33,7 +33,10 @@ export class Labels {
     this.byEl = new WeakMap();
     this.selectedId = null;
     this.enabled = true; // apagadas desde el menú de capas: solo se ve la seleccionada
+    this.emphasized = null; // lugares de la categoría abierta: su ícono se ve desde lejos, su nombre como siempre
   }
+
+  emphasize(features) { this.emphasized = features ? new Set(features) : null; }
 
   add(features, { kind }) {
     for (const f of features) {
@@ -82,10 +85,13 @@ export class Labels {
       const selected = this.selectedId != null && it.f.properties.id === this.selectedId;
       if (selected) op = 1;
       if (selected !== !!it.selected) { it.icon.classList.toggle('selected', selected); it.text.classList.toggle('selected', selected); it.selected = selected; }
-      if (!this.enabled && !selected) { this._set(it, false); continue; }
+      const emphasized = !!this.emphasized?.has(it.f);
+      if (!this.enabled && !selected && !emphasized) { this._set(it, false); continue; }
+      const textOp = this.enabled || selected ? op : 0;
+      if (emphasized) op = 1;
       if (v.z > 1 || op <= 0.02 || sx < -100 || sx > width + 100 || sy < -50 || sy > height + 50) { this._set(it, false); continue; }
       const prio = it.selected ? -1 : it.kind === 'misc' ? 2 : it.kind === 'metro' ? 0 : 1;
-      visible.push({ it, sx, sy, op, prio });
+      visible.push({ it, sx, sy, op, textOp, prio });
     }
     // Colisión al estilo de Mapbox: los íconos nunca se ocultan (icon-allow-overlap / icon-ignore-placement);
     // solo compiten los TEXTOS: el que queda tapado se desvanece y reaparece cuando nada lo tapa.
@@ -95,14 +101,14 @@ export class Labels {
     this.occupied = []; // íconos + textos visibles (los usa StreetLabels para no pisarlos)
     for (const c of visible) {
       const { it } = c;
-      this._set(it, true, c.sx, c.sy, c.op);
+      this._set(it, true, c.sx, c.sy, c.op, c.textOp);
       const ih = it.kind === 'metro' ? 13 : 21;
       this.occupied.push([c.sx - ih, c.sy - ih, c.sx + ih, c.sy + ih]);
       // caja del texto: parte a TEXT_OFFSET px del centro del ícono (text-offset 1.2em de Mapbox)
       const w = it.tw || 100, h = it.th || 16;
       const x0 = LEFT.has(it.cat) ? c.sx - TEXT_OFFSET - w : c.sx + TEXT_OFFSET;
       const r = [x0, c.sy - h / 2, x0 + w, c.sy + h / 2];
-      const free = !placed.some((p) => r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]);
+      const free = c.textOp > 0.02 && !placed.some((p) => r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]);
       if (free) { placed.push(r); this.occupied.push(r); }
       this._setText(it, free);
     }
@@ -114,7 +120,7 @@ export class Labels {
     it.textShown = show;
   }
 
-  _set(it, show, x, y, op) {
+  _set(it, show, x, y, op, textOp) {
     if (!show) {
       if (it.shown !== false) { it.icon.style.visibility = it.text.style.visibility = 'hidden'; it.shown = false; }
       return;
@@ -127,8 +133,9 @@ export class Labels {
       it.text.style.transform = `translate3d(${LEFT.has(it.cat) ? tx - TEXT_OFFSET : tx + TEXT_OFFSET}px, ${ty}px, 0)`;
       it.tx = tx; it.ty = ty;
     }
-    const o = op.toFixed(2);
-    if (o !== it.op) { it.icon.style.opacity = it.text.style.opacity = o; it.op = o; }
+    const o = op.toFixed(2), t = textOp.toFixed(2);
+    if (o !== it.op) { it.icon.style.opacity = o; it.op = o; }
+    if (t !== it.textOp) { it.text.style.opacity = t; it.textOp = t; }
   }
 }
 

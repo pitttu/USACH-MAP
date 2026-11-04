@@ -700,6 +700,7 @@ export const mapView = {
   addPOIs(features, kind) { labels.add(features, { kind }); needsRender = cameraChanged = true; }, // kind: fixed | misc | metro
   addCategoryMarkers(category, features, icon) { catMarkers.add(category, features, icon); },
   showCategory(category) { catMarkers.visibleCat = category; needsRender = cameraChanged = true; },
+  emphasizePOIs(features) { labels.emphasize(features); needsRender = cameraChanged = true; }, // sus íconos se ven desde lejos
 
   // Selección: etiqueta en rojo y sin ícono (por id de feature)
   setSelected(id) { labels.selectedId = id ?? null; needsRender = cameraChanged = true; },

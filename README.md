@@ -88,10 +88,10 @@ la vista), **media altura** (44 % de la pantalla, como Google Maps) y **arriba**
   la hoja arriba el dedo desplaza el cuerpo; si llega al inicio y sigue bajando, el mismo gesto baja la hoja. Un gesto
   horizontal (carruseles) no la mueve. Al soltar va a la altura más cercana; un gesto rápido salta a la siguiente.
 - Tocar el título en reposo la sube a media altura. Con mouse se arrastra desde la manija o el título.
-- Con algo seleccionado (un lugar abierto o un edificio elegido) el mapa sigue a la hoja (`syncPadding` en `app.js`,
-  `mapView.setPadding`): lo seleccionado queda al centro de la pantalla con la hoja en reposo y al medio del espacio
+- Con un lugar, un edificio o una categoría abiertos el mapa sigue a la hoja (`syncPadding` en `app.js`,
+  `mapView.setPadding`): lo enfocado queda al centro de la pantalla con la hoja en reposo y al medio del espacio
   sobre la hoja a media altura; entre ambas se interpola cuadro a cuadro, también al arrastrar. Más arriba se queda
-  como a media altura. Sin nada seleccionado (inicio, Tú, listas, rutas), mover la hoja no mueve el mapa; al abrir o
+  como a media altura. En el resto (inicio, Tú, rutas), mover la hoja no mueve el mapa; al abrir o
   cerrar un lugar el ajuste entra o sale con una transición.
   `setPadding` corre el centro óptico de la cámara (`camera.setViewOffset`), no la cámara: picking, etiquetas y ruta
   siguen calzando.
@@ -114,7 +114,8 @@ no se cierran (se cierran con la X).
 - **Categoría**: los lugares de una pastilla o de la grilla de categorías, **los más cercanos primero** si hay
   ubicación (a pie por los caminos del campus). Los lugares con nombre repetido en los datos ("Baño Público",
   "Dispensador de Agua", "Impresiones y Fotocopias") se muestran con el lugar con nombre más cercano ("Cerca de
-  Biblioteca Central").
+  Biblioteca Central"). Al abrirla, la cámara encuadra sus lugares sobre la hoja. Las categorías sin pastilla destacan
+  sus etiquetas: el ícono se ve desde lejos y el nombre aparece como siempre, al acercarse (`Labels.emphasize`).
 - **Edificio**: sus salas por piso. Las salas se agrupan por edificio; las que en los datos no tienen ("Sin definir"),
   por el prefijo de su código (FDE, MIN...), con el nombre del edificio de ese prefijo si alguna sala lo tiene.
 - **Elegir en el mapa**: tu ubicación si no hay GPS (o estás fuera del campus), o un extremo de la ruta.

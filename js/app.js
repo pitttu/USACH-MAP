@@ -50,12 +50,12 @@ let buildingsExpanded = false;
 let sheet = null;
 sheet = createSheet($('bottom-sheet'), { navEl: nav, onChange: (state, view) => syncNav(view), onMove: (y) => syncPadding(y) });
 
-// Con algo seleccionado (un lugar abierto o un edificio elegido), el mapa lo mantiene al medio de lo que se ve: con la
+// Con un lugar, un edificio o una categoría abiertos, el mapa mantiene lo enfocado al medio de lo que se ve: con la
 // hoja en reposo, al centro de la pantalla; a media altura, al medio del espacio entre el borde de arriba y la hoja;
 // entre ambas se interpola, así el mapa baja o sube suave junto con la hoja. Más arriba se queda como a media altura.
-// Sin nada seleccionado (inicio, Tú, listas, rutas) mover la hoja no mueve el mapa. Al abrir o cerrar un lugar el
-// ajuste entra o sale con una transición, sin saltos.
-const PADDED_VIEWS = new Set(['place', 'building']);
+// En el resto (inicio, Tú, rutas) mover la hoja no mueve el mapa. Al abrir o cerrar una de esas vistas el ajuste entra
+// o sale con una transición, sin saltos.
+const PADDED_VIEWS = new Set(['place', 'building', 'category']);
 let padNow = 0, padActive = false, padTween = null;
 function setPad(v) { padNow = v; mapView.setPadding(v); }
 function syncPadding(y) {
@@ -156,6 +156,8 @@ function syncMap() {
   const shown = v === 'category' || stack.some(inCat);
   if (!shown && !(exploreSaved && (inCat(exploreSaved) || exploreSaved.stack.some(inCat)))) currentCategory = null;
   mapView.showCategory(shown && currentCategory?.marker || null);
+  // las categorías sin pastilla no tienen marcadores propios: se destacan sus etiquetas (ícono desde lejos)
+  mapView.emphasizePOIs(shown && currentCategory && !currentCategory.marker ? currentCategory.features : null);
   for (const c of $('chips').children) c.classList.toggle('active', shown && !!currentCategory && c.dataset.cat === currentCategory.id);
 }
 
@@ -471,17 +473,21 @@ $('route-to').addEventListener('click', () => openSearch({ mode: 'route', origin
 // Encuadra la ruta en vista cenital dentro del mapa que queda libre entre el buscador (y las pastillas) y la hoja
 function fitRoute(coords) {
   const pts = coords.map((c) => toLocal(...c));
+  const vh = window.innerHeight, pad = 56; // margen para el pin y el ancho de la línea
+  frame(pts, { bottom: sheet.snapY('REST') - pad / 2, focusY: vh / 2, pad });
+}
+
+// Encuadra puntos locales [x, z] en el hueco libre entre las pastillas y `bottom`. focusY: dónde cae en pantalla el
+// centro del mapa (si queda fuera del medio del hueco, se corre la cámara para que los puntos caigan en él).
+function frame(pts, { bottom, focusY, pad, maxZoom = 19, duration = 1500 }) {
   const xs = pts.map((p) => p[0]), zs = pts.map((p) => p[1]);
   const [x0, x1, z0, z1] = [Math.min(...xs), Math.max(...xs), Math.min(...zs), Math.max(...zs)];
-  const vw = window.innerWidth, vh = window.innerHeight, pad = 56; // margen para el pin y el ancho de la línea
   const top = ($('chips').firstElementChild?.getBoundingClientRect().bottom || 120) + pad;
-  const bottom = sheet.snapY('REST') - pad / 2;
-  const mppFit = Math.max((x1 - x0) / Math.max(vw - 2 * pad, 100), (z1 - z0) / Math.max(bottom - top, 100));
+  const mppFit = Math.max((x1 - x0) / Math.max(window.innerWidth - 2 * pad, 100), (z1 - z0) / Math.max(bottom - top, 100));
   const mppAt = (zoom) => 40075016.686 * Math.cos(CAMPUS_CENTER[1] * Math.PI / 180) / (512 * 2 ** zoom);
-  const zoom = Math.min(19, Math.max(14, Math.log2(mppAt(0) / Math.max(mppFit, 1e-6))));
-  // el centro de la pantalla queda bajo la hoja: se corre la cámara hacia el sur para que la ruta caiga en el hueco libre
-  const shiftPx = vh / 2 - (top + bottom) / 2;
-  mapView.flyTo({ center: toLonLat((x0 + x1) / 2, (z0 + z1) / 2 + shiftPx * mppAt(zoom)), zoom, pitch: 0, bearing: 0, duration: 1500 });
+  const zoom = Math.min(maxZoom, Math.max(14, Math.log2(mppAt(0) / Math.max(mppFit, 1e-6))));
+  const shiftPx = focusY - (top + bottom) / 2;
+  mapView.flyTo({ center: toLonLat((x0 + x1) / 2, (z0 + z1) / 2 + shiftPx * mppAt(zoom)), zoom, pitch: 0, bearing: 0, duration });
 }
 
 // botón "Cómo llegar" del mapa: al lugar abierto, o el planificador desde tu ubicación
@@ -500,7 +506,9 @@ function openCategory(c) {
   renderCategory();
   sheet.show('category', 'MID');
   syncMap();
-  mapView.flyTo(OVERVIEW);
+  // el campus rodea Villa Portales y es más ancho que la pantalla: se encuadran los lugares de la categoría
+  const mid = sheet.snapY('MID'); // a media altura, el centro del mapa queda al medio de lo que está sobre la hoja
+  frame(c.features.map((f) => toLocal(...f.geometry.coordinates)), { bottom: mid - 12, focusY: mid / 2, pad: 40, maxZoom: 16.5, duration: OVERVIEW.duration });
 }
 
 function renderCategory() {
