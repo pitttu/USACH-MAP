@@ -1245,6 +1245,106 @@
                 "name": "Memorial Rector Enrique Kirberg Baltiansky",
                 "type": "monumento enrique kirberg rector"
             }
+        },
+        {
+            "type": "Feature",
+            "id": 1129,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6844586,
+                    -33.4506429
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Departamento de Ingeniería Eléctrica",
+                "etiqueta": "DIE",
+                "id": 1129,
+                "name": "Ingeniería Eléctrica",
+                "subCategory": "Ingeniería",
+                "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1130,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6844515,
+                    -33.4500478
+                ]
+            },
+            "properties": {
+                "category": "biblioteca",
+                "descripcion": "Biblioteca de Eléctrica",
+                "etiqueta": "Biblioteca",
+                "id": 1130,
+                "name": "Biblioteca de Eléctrica",
+                "subCategory": "Ingeniería",
+                "type": "universidad biblioteca"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1131,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6842183,
+                    -33.4500489
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Laboratorio de Física",
+                "etiqueta": "Laboratorio",
+                "id": 1131,
+                "name": "Lab Física",
+                "subCategory": "Física",
+                "type": "universidad educacion laboratorio"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1132,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.682774,
+                    -33.448018
+                ]
+            },
+            "properties": {
+                "category": "cultura",
+                "descripcion": "Foro Griego, en el patio",
+                "etiqueta": "Foro",
+                "id": 1132,
+                "name": "Foro Griego",
+                "subCategory": "Patio",
+                "type": "cultura foro patio"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1133,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.684324,
+                    -33.451194
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Edificio de Innovación Docente",
+                "etiqueta": "Edificio",
+                "id": 1133,
+                "name": "Edificio de Innovación Docente",
+                "subCategory": "Docencia",
+                "type": "universidad educacion"
+            }
         }
     ]
 }
