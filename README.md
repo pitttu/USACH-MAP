@@ -464,6 +464,42 @@ solo los colores sino el tratamiento de la geometría.
   umbral al dintel del piso. Las dos entradas llevan la luz blanca.
 - Unos 8.900 triángulos.
 
+### Biblioteca Central
+
+`tools/biblioteca-central.mjs` genera la Biblioteca Central desde su ficha (`tools/modelos/biblioteca-central.json`) y
+la pone en lugar del objeto (pasa a `Modelos`). Es idempotente. La forma sale de la fotogrametría (planta y alturas):
+- Una espina norte-sur y cuatro módulos "corbatín": dos faldones que bajan de la espina (11,6 m) al alero de cada
+  fachada (5,6 m), angostos en el nudo y anchos afuera. Entre ellos, techos de enlace más bajos (8,7 m en la espina).
+- Al oriente, los módulos 2 y 3 se funden en la sala grande, con su ampliación hasta x 195,6. Al norte, un faldón
+  cierra la muesca entre las alas sobre el vestíbulo; al sur la muesca queda abierta, con una marquesina.
+- El edificio se describe como regiones de techo en planta, cada una con su plano de altura. Los muros salen de sus
+  bordes: hasta el suelo donde no hay región vecina, y de techo a techo (lucernarios) donde la vecina es más baja.
+  Las regiones vecinas deben compartir el borde completo (mismos extremos).
+- Ventanas hundidas 20 cm según el muro: bandas con montantes (dos filas), ojos de buey en los muros de enlace, muro
+  cortina en vestíbulo y marquesina, y paños vidriados en los lucernarios. Los muros de remate inclinado (hastiales
+  de las alas y diagonales de la muesca sur) son ciegos, como en la foto. También las fachadas de las regiones que
+  la ficha nombra en `ventanas.ciegos` (el módulo sur, a ambos lados).
+- Los faldones llegan 30 cm más abajo que los techos planos que tocan: ese escalón marca la arista (el sombreado suave
+  redondea los pliegues de menos de 35°).
+- 1.974 triángulos (muros 1.654, techos 72, vidrio 248); la caja anterior tenía 94.
+
+### Edificio de Innovación Docente
+
+Queda fuera del campus (al sur de Av. Víctor Jara) y el mapa no lo tenía. Lo genera `tools/volumenes.mjs` desde
+`tools/modelos/innovacion-docente.json`, con las medidas de la fotogrametría: una torre en L de ocho volúmenes de techo
+plano (28 a 36 m), con la barra norte–sur y el ala sur girada unos 14°. Las casas vecinas no se incluyen.
+
+- Cada volumen es una planta con su altura; donde se traslapan manda el más alto. De cada uno salen el techo durazno
+  con parapeto blanco y los muros, hasta el suelo o hasta el techo del volumen más bajo que tenga al lado.
+- Muro cortina (vidrio hundido por piso, losas cada 3,9 m a la misma altura en todo el edificio) donde la foto muestra
+  fachada oscura: norte y oriente de la torre, norte del volumen norponiente y del cuerpo oriente bajo, y sur del
+  ala entre sus dos cuerpos ciegos. Bandas de ventanas en el extremo poniente del ala. El resto es ciego.
+- 2.698 triángulos (muros 2.338, techos 24, vidrio 336).
+
+```
+cd tools && node volumenes.mjs modelos/innovacion-docente.json && node build-glb.mjs
+```
+
 ### Alturas de los edificios
 
 Muchos edificios del mapa vienen de OpenStreetMap sin altura y quedaron con una inventada (18–20 m).
