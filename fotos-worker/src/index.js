@@ -1,6 +1,7 @@
 // Fotos de la comunidad para el carrusel de los lugares de la app. Cloudflare Worker con R2 (los archivos) y D1 (los
 // envíos y el registro de decisiones).
 //   GET  /fotos                      fotos publicadas, por lugar (mismo formato que assets/data/fotos.json)
+//   GET  /estado                     { subidas }: si ya se pueden subir fotos (falso mientras no haya almacén R2)
 //   GET  /img/<id>.webp, <id>-m.webp una foto publicada (grande o miniatura; .jpg si llegó en JPEG)
 //   POST /subir                      sube una foto: queda pendiente hasta que la revise un administrador
 //   GET  /mias                       las fotos que subió quien llama, con su estado
@@ -38,6 +39,7 @@ export default {
     const json = (status, body, cache = 'no-store') => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': cache, ...cors } });
     if (request.method === 'OPTIONS') return new Response(null, { status: cors['Access-Control-Allow-Origin'] ? 204 : 403, headers: cors });
     try {
+      if (path === '/estado' && request.method === 'GET') return json(200, { subidas: !!env.FOTOS && !!env.GOOGLE_CLIENT_ID }, 'public, max-age=60');
       if (path === '/fotos' && request.method === 'GET') return json(200, await publicadas(env, url.origin), 'public, max-age=300');
       let m = path.match(/^\/img\/([0-9a-f-]{36})(-m)?\.(?:jpg|webp)$/);
       if (m && request.method === 'GET') return await imagen(env, m[1], !!m[2], false);

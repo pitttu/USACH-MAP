@@ -10,10 +10,10 @@
 // nombre y sus coordenadas (fotoKey), así cada uno tiene sus propias fotos.
 import { h, fill, icon, snackbar } from './ui.js';
 
-// Worker de fotos y cliente OAuth de Google (tipo "Aplicación web"; no es secreto). Sin el ID de cliente, "Agregar
-// fotos" solo avisa que viene pronto (ver fotos-worker/README.md).
+// Worker de fotos y cliente OAuth de Google (tipo "Aplicación web"; no es secreto). "Agregar fotos" solo avisa que
+// viene pronto mientras falte alguno, o mientras el Worker diga que aún no acepta subidas (GET /estado).
 const FOTOS_WORKER = 'https://usach-fotos.siac-worker.workers.dev';
-const GOOGLE_CLIENT_ID = '';
+const GOOGLE_CLIENT_ID = '781404416776-8o58a4sb4fbpsk5rhvnkk451dgig9jtl.apps.googleusercontent.com';
 const DOMINIO = 'usach.cl';
 const LICENCIA = { nombre: 'CC BY-NC-SA 4.0', url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es' };
 // en el Mac se puede probar contra `wrangler dev` con ?fotos-api=http://127.0.0.1:8787 (solo en localhost)
@@ -27,11 +27,12 @@ let current = null, currentName = '', currentKey = '', currentText = '';
 const fotoKey = (f, d) => (d.generic ? `${d.name} @${f.geometry.coordinates.map((v) => v.toFixed(5)).join(',')}` : d.name);
 
 // --- datos: Commons (estáticas) + comunidad (Worker); se piden la primera vez que se abre un lugar ---
-let staticP = null, communityP = null;
+let staticP = null, communityP = null, estadoP = null, estado = null;
 const getJSON = (url) => fetch(url).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
 async function photosOf(name) {
   staticP ||= getJSON('assets/data/fotos.json');
   communityP ||= API ? getJSON(`${API}/fotos`) : Promise.resolve({});
+  if (SUBIR) estadoP ||= getJSON(`${API}/estado`).then((e) => { estado = e; }); // antes del toque: el selector de archivos se abre en el mismo gesto
   const [a, b] = await Promise.all([staticP, communityP]);
   return [...(a[name] || []), ...(b[name] || [])];
 }
@@ -85,7 +86,7 @@ export async function renderPhotos(f, d) {
 }
 // mientras el Worker de fotos no esté publicado, el botón avisa que viene pronto
 function addPhoto() {
-  if (SUBIR) $('pu-file').click();
+  if (SUBIR && (estado?.subidas || PRUEBA)) $('pu-file').click();
   else snackbar('Muy pronto vas a poder agregar fotos de los lugares');
 }
 

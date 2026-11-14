@@ -8,7 +8,7 @@ workers_dev = true
 # orígenes desde donde se puede llamar (la app en GitHub Pages y el servidor local de pruebas)
 ALLOWED_ORIGINS = "https://pitttu.github.io,http://localhost:8765"
 # ID de cliente OAuth de Google (tipo "Aplicación web"; no es secreto). Debe ser el mismo de js/fotos.js
-GOOGLE_CLIENT_ID = ""
+GOOGLE_CLIENT_ID = "781404416776-8o58a4sb4fbpsk5rhvnkk451dgig9jtl.apps.googleusercontent.com"
 # solo cuentas de este dominio pueden subir fotos
 DOMINIO = "usach.cl"
 # Los correos de Google de quienes revisan (separados por coma) NO van aquí (el repositorio es público): son el

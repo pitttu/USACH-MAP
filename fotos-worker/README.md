@@ -40,11 +40,12 @@ Datos: R2 `usach-fotos` (archivos `<id>.webp` y `<id>-m.webp`, o `.jpg`) y D1 `u
 
 ## Estado (2026-11-14)
 
-- Publicado en <https://usach-fotos.siac-worker.workers.dev> (panel en `/admin`), con la base D1 creada y un
-  administrador en el secreto `ADMINS`.
-- **Falta:** el ID de cliente de Google (paso 1; sin él el panel no deja entrar) y activar R2 (paso 2; sin él subir
-  fotos responde 503). Al tenerlos: `GOOGLE_CLIENT_ID` en `wrangler.toml` y en `js/fotos.js`, crear el bucket, quitar
-  los `#` del bloque `[[r2_buckets]]`, `FOTOS_WORKER` en `js/fotos.js`, y publicar.
+- Publicado en <https://usach-fotos.siac-worker.workers.dev> (panel en `/admin`), con la base D1 creada, un
+  administrador en el secreto `ADMINS` y el cliente OAuth de Google (proyecto USACHMAP, en producción; página
+  principal y política de privacidad: `privacidad.html`).
+- **Falta:** activar R2 (paso 2). Mientras no esté, `GET /estado` dice `subidas: false` y la app muestra "muy
+  pronto" al tocar "Agregar fotos". Al activarlo: crear el bucket, quitar los `#` del bloque `[[r2_buckets]]` y
+  publicar el Worker; la app no necesita cambios.
 
 ## Poner en marcha
 

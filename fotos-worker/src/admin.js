@@ -93,6 +93,7 @@ function iniciar() {
     cargar();
   } });
   google.accounts.id.renderButton($('g'), { theme: 'outline', size: 'medium', text: 'signin_with', locale: 'es' });
+  $('lista').innerHTML = '<p class="vacio">Entra con tu cuenta de Google de administrador (arriba a la derecha) para revisar las fotos.</p>';
 }
 </script>
 <script src="https://accounts.google.com/gsi/client" async onload="iniciar()"></script>
