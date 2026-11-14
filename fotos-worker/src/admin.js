@@ -12,7 +12,7 @@ export const panel = (clientId) => `<!doctype html>
   [hidden] { display: none !important; }
   /* entrada */
   .entrar { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; box-sizing: border-box; }
-  .tarjeta { width: 100%; max-width: 380px; background: #fff; border-radius: 28px; padding: 40px 32px 28px; box-sizing: border-box; text-align: center; box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15); }
+  .tarjeta { width: 100%; max-width: 380px; text-align: center; }
   .marca { width: 64px; height: 64px; border-radius: 20px; background: var(--pc); display: grid; place-items: center; margin: 0 auto 20px; }
   .tarjeta h1 { font-size: 24px; line-height: 32px; font-weight: 500; margin: 0; }
   .tarjeta .sub { color: var(--t2); margin: 4px 0 24px; font-size: 15px; }
