@@ -78,6 +78,15 @@ muestra las iniciales del alumno), pastillas de categorías, capas y brújula a 
 de ubicación (blanco; azul cuando sigue el GPS) y **Cómo llegar** (turquesa: ruta al lugar abierto o el
 planificador). Abajo, la barra **Explorar / Tú**.
 
+**App instalable (PWA).** `manifest.webmanifest` (nombre "Mapa USACH", pantalla completa sin barra del navegador,
+íconos en `assets/app/`: pin blanco sobre el turquesa, uno normal y otro "maskable" con margen para los recortes de
+Android) y `sw.js`, el service worker, registrado al final de `js/app.js`. El service worker solo atiende pedidos del
+mismo sitio y siempre va primero a la red (la app nunca queda vieja). Guarda una copia de la página, el código, los
+estilos, los datos y los íconos para abrirla sin conexión desde la segunda visita, con lo último que vio. Los modelos
+3D los guarda `js/cache.js`; las fotos y lo de otros sitios pasan directo. Si cambias su forma de guardar, sube
+`CACHE` (`usach-app-v1`) para que borre lo anterior. En los navegadores sin servicios de Google (p. ej. Vanadium en
+GrapheneOS) no hay "Instalar": "Crear acceso directo" la abre igual a pantalla completa.
+
 **Hoja deslizable** (`sheet.js`). Es una sola y cambia de vista; se arrastra entre **reposo** (asoma solo el título de
 la vista), **media altura** (44 % de la pantalla, como Google Maps) y **arriba**.
 

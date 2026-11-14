@@ -770,6 +770,9 @@ document.addEventListener('keydown', (e) => {
 // la fecha y el saludo cambian con la hora
 setInterval(() => { if (sheet.view === 'home') { const t = $('home-title').textContent; renderHome(); if (t !== $('home-title').textContent) refreshWeather(); } }, 60000);
 
+// App instalable: el service worker permite instalarla (Agregar a la pantalla principal) y abrirla sin conexión
+if ('serviceWorker' in navigator) addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+
 if (DEV) import('./devpanel.js');
 init().catch((err) => {
   console.error(err);
