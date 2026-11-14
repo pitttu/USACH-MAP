@@ -9,6 +9,8 @@
 //  - Al soltar va a la altura más cercana; un gesto rápido salta a la siguiente en esa dirección.
 //  - Tocar el título con la hoja en reposo la sube a media altura. Con mouse se arrastra desde la manija o el título.
 // Fija en <html> las variables --vh, --sheet-y y --full-y (ui.css las usa para la hoja y los botones del mapa).
+import { appHeight } from './viewport.js';
+
 const HANDLE = 22; // = --handle-h
 const MID_FRACTION = 0.44; // alto visible a media altura, como en Google Maps
 const FLICK = 0.45; // px/ms: más rápido que esto es un gesto rápido
@@ -18,7 +20,7 @@ export function createSheet(el, { navEl, onChange, onMove } = {}) {
   const root = document.documentElement;
   const views = new Map([...el.querySelectorAll('.sheet-view')].map((v) => [v.dataset.view, v]));
   let view = [...views].find(([, v]) => !v.hidden)?.[0] || [...views.keys()][0];
-  let state = 'REST', y = innerHeight, drag = null, suppressClick = false;
+  let state = 'REST', y = appHeight(), drag = null, suppressClick = false;
   const probe = Object.assign(document.createElement('div'), { ariaHidden: 'true' });
   probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:env(safe-area-inset-top);visibility:hidden;pointer-events:none';
   document.body.append(probe);
@@ -26,13 +28,13 @@ export function createSheet(el, { navEl, onChange, onMove } = {}) {
   const part = (sel) => views.get(view)?.querySelector(sel);
 
   function snaps() {
-    const H = innerHeight, full = probe.offsetHeight + 10;
+    const H = appHeight(), full = probe.offsetHeight + 10;
     const rest = Math.max(full, H - navH() - HANDLE - (part('.sheet-header')?.offsetHeight || 0));
     const mid = Math.min(rest, Math.max(full + 120, H - navH() - Math.round(H * MID_FRACTION)));
     return { FULL: full, MID: mid, REST: rest };
   }
   function layout() {
-    root.style.setProperty('--vh', `${innerHeight}px`);
+    root.style.setProperty('--vh', `${appHeight()}px`); // alto estable: ver viewport.js
     root.style.setProperty('--full-y', `${snaps().FULL}px`);
   }
   // onMove(y) recibe el borde superior de la hoja en cada cuadro: al arrastrar y durante la animación (que es de CSS:
@@ -170,7 +172,11 @@ export function createSheet(el, { navEl, onChange, onMove } = {}) {
     open('MID');
   });
 
-  window.addEventListener('resize', () => { layout(); if (!drag) setY(snaps()[state], false); });
+  let altoPrevio = appHeight();
+  window.addEventListener('resize', () => { // nada que hacer si el alto de la app no cambió (viewport.js)
+    if (appHeight() === altoPrevio) return;
+    altoPrevio = appHeight(); layout(); if (!drag) setY(snaps()[state], false);
+  });
   // la página nunca se desplaza (el mapa y la hoja ocupan la pantalla): el foco de un campo o un scrollIntoView del
   // navegador la correría y todo quedaría descuadrado
   window.addEventListener('scroll', () => { if (window.scrollY || window.scrollX) window.scrollTo(0, 0); }, { passive: true });

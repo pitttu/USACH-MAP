@@ -191,6 +191,8 @@ function applyPadding() {
 }
 
 function resize() {
+  // cambiar el tamaño del lienzo lo borra (negro hasta el próximo cuadro): solo si de verdad cambió
+  if (stage.clientWidth === viewW && stage.clientHeight === viewH) return;
   viewW = stage.clientWidth; viewH = stage.clientHeight;
   renderer.setSize(viewW, viewH);
   routeRes.value.set(viewW, viewH);

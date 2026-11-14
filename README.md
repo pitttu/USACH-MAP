@@ -78,18 +78,26 @@ muestra las iniciales del alumno), pastillas de categorías, capas y brújula a 
 de ubicación (blanco; azul cuando sigue el GPS) y **Cómo llegar** (turquesa: ruta al lugar abierto o el
 planificador). Abajo, la barra **Explorar / Tú**.
 
-**App instalable (PWA).** `manifest.webmanifest` (nombre "Mapa USACH"; `display: standalone`: sin la barra del
-navegador y con la barra de estado del celular siempre visible. Una página no puede dibujar debajo de ella, así que se
-pinta del color de lo que hay arriba: el suelo del mapa `#fee5c8`, blanco con la hoja arriba o la búsqueda, negro en el
-visor de fotos (`syncStatusBar` en `js/app.js`, que cambia `<meta name="theme-color">`). Se probó `fullscreen`, pero
-al deslizar para ver la hora Android muestra una franja negra y la barra no se ve el resto del tiempo;
-íconos en `assets/app/`: pin blanco sobre el turquesa, uno normal y otro "maskable" con margen para los recortes de
-Android) y `sw.js`, el service worker, registrado al final de `js/app.js`. El service worker solo atiende pedidos del
-mismo sitio y siempre va primero a la red (la app nunca queda vieja). Guarda una copia de la página, el código, los
-estilos, los datos y los íconos para abrirla sin conexión desde la segunda visita, con lo último que vio. Los modelos
-3D los guarda `js/cache.js`; las fotos y lo de otros sitios pasan directo. Si cambias su forma de guardar, sube
-`CACHE` (`usach-app-v1`) para que borre lo anterior. En los navegadores sin servicios de Google (p. ej. Vanadium en
-GrapheneOS) no hay "Instalar": "Crear acceso directo" la abre igual a pantalla completa.
+**App instalable (PWA).** `manifest.webmanifest`: nombre "Mapa USACH", íconos en `assets/app/` (pin blanco sobre el
+turquesa; uno normal y otro "maskable" con margen para los recortes de Android) y **pantalla completa**
+(`display: fullscreen`, a pedido del usuario: el mapa ocupa también la franja de la barra de estado; la hora y la
+batería se ven deslizando desde arriba). La interfaz respeta el hoyo de la cámara con `env(safe-area-inset-*)`.
+- Al mostrar la barra de estado, Android achica la ventana un momento y la agranda al esconderla. Si la app se
+  rearmara, se verían franjas negras (el lienzo del mapa se borra al cambiar de tamaño). `js/viewport.js` da un alto
+  estable (`appHeight()`, y `--vh` en `<html>`): a pantalla completa solo crece, así que el achique pasajero se ignora
+  y la barra queda encima hasta que se va. Se vuelve a medir al cambiar el ancho (giro) y en el navegador sigue a la
+  ventana como siempre. La barra de abajo, los avisos y la hoja de capas van pegados a la app (`position: absolute`),
+  no a la ventana; `mapview.js` no rehace el lienzo si su tamaño no cambió. Para probarlo en el Mac:
+  `?pantalla-completa` en localhost (Chrome no deja simular el modo).
+- `sw.js`, el service worker (registrado al final de `js/app.js`), solo atiende pedidos del mismo sitio y siempre va
+  primero a la red (la app nunca queda vieja). Guarda una copia de la página, el código, los estilos, los datos y los
+  íconos para abrirla sin conexión desde la segunda visita. Los modelos 3D los guarda `js/cache.js`; las fotos y lo de
+  otros sitios pasan directo. Si cambias su forma de guardar, sube `CACHE` (`usach-app-v1`) para que borre lo anterior.
+- Barra de estado (cuando se ve: en el navegador o al deslizar): del color de lo que hay arriba (`syncStatusBar` en
+  `js/app.js`, que cambia `<meta name="theme-color">`): el suelo del mapa `#fee5c8`, blanco con la hoja arriba o la
+  búsqueda, negro en el visor de fotos.
+- En navegadores sin servicios de Google (p. ej. Vanadium en GrapheneOS) no hay "Instalar": "Crear acceso directo" la
+  abre igual a pantalla completa.
 
 **Hoja deslizable** (`sheet.js`). Es una sola y cambia de vista; se arrastra entre **reposo** (asoma solo el título de
 la vista), **media altura** (44 % de la pantalla, como Google Maps) y **arriba**.

@@ -4,6 +4,7 @@
 //  - Búsqueda y planificador de rutas: página aparte (search.js). Lugares, categorías, guardados, recientes y
 //    distancias a pie: places.js.
 //  - Lo que muestra el mapa (pin, ruta, marcadores de categoría) sale de la vista actual (syncMap).
+import { appHeight } from './viewport.js'; // primero: su aviso de cambio de tamaño va antes que los demás
 import { mapView, DEV } from './mapview.js';
 import { toLocal, toLonLat } from './geo.js';
 import { buildGraph, shortestPath, pathLength } from './routing.js';
@@ -78,7 +79,7 @@ function syncPadding(y) {
   const active = PADDED_VIEWS.has(sheet.view);
   const rest = sheet.snapY('REST'), mid = sheet.snapY('MID');
   const t = rest - mid > 1 ? Math.min(1, Math.max(0, (rest - y) / (rest - mid))) : 0;
-  const target = active ? (window.innerHeight - mid) * t : 0;
+  const target = active ? (appHeight() - mid) * t : 0;
   if (active !== padActive) { padActive = active; tweenPad(target); return; }
   if (padTween) padTween.to = target; // la transición sigue a la hoja mientras dura
   else setPad(target);
@@ -491,7 +492,7 @@ $('route-to').addEventListener('click', () => openSearch({ mode: 'route', origin
 // Encuadra la ruta en vista cenital dentro del mapa que queda libre entre el buscador (y las pastillas) y la hoja
 function fitRoute(coords) {
   const pts = coords.map((c) => toLocal(...c));
-  const vh = window.innerHeight, pad = 56; // margen para el pin y el ancho de la línea
+  const vh = appHeight(), pad = 56; // margen para el pin y el ancho de la línea
   frame(pts, { bottom: sheet.snapY('REST') - pad / 2, focusY: vh / 2, pad });
 }
 
