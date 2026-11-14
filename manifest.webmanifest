@@ -6,9 +6,9 @@
   "lang": "es-CL",
   "start_url": "./",
   "scope": "./",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#fee5c8",
   "categories": ["education", "navigation"],
   "icons": [
     { "src": "assets/app/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },

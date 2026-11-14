@@ -49,7 +49,21 @@ let buildingsExpanded = false;
 
 // --- hoja y navegación entre vistas ---
 let sheet = null;
-sheet = createSheet($('bottom-sheet'), { navEl: nav, onChange: (state, view) => syncNav(view), onMove: (y) => syncPadding(y) });
+// Barra de estado del celular (app instalada, y Chrome en Android): del color de lo que hay arriba, para que se vea
+// continua con la app. Una página no puede dibujar debajo de ella; lo más parecido es pintarla del color del suelo del
+// mapa (medido en pantalla), blanca con la hoja arriba o la búsqueda abierta, negra en el visor de fotos y oscurecida
+// con el velo de "Agregar foto".
+const statusBar = document.querySelector('meta[name="theme-color"]');
+const BAR = { mapa: '#fee5c8', blanco: '#ffffff', fotos: '#000000', velo: '#8f8376' };
+function syncStatusBar() {
+  const c = !$('photo-viewer').hidden ? BAR.fotos : !$('photo-upload').hidden ? BAR.velo
+    : !$('search-page').hidden || sheet?.state === 'FULL' ? BAR.blanco : BAR.mapa;
+  if (statusBar.content !== c) statusBar.content = c;
+}
+// (antes de crear la hoja: la hoja avisa su estado apenas se crea)
+new MutationObserver(syncStatusBar).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['hidden'] });
+sheet = createSheet($('bottom-sheet'), { navEl: nav, onChange: (state, view) => { syncNav(view); syncStatusBar(); }, onMove: (y) => syncPadding(y) });
+
 
 // Con un lugar, un edificio o una categoría abiertos, el mapa mantiene lo enfocado al medio de lo que se ve: con la
 // hoja en reposo, al centro de la pantalla; a media altura, al medio del espacio entre el borde de arriba y la hoja;

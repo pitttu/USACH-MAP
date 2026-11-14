@@ -78,9 +78,11 @@ muestra las iniciales del alumno), pastillas de categorías, capas y brújula a 
 de ubicación (blanco; azul cuando sigue el GPS) y **Cómo llegar** (turquesa: ruta al lugar abierto o el
 planificador). Abajo, la barra **Explorar / Tú**.
 
-**App instalable (PWA).** `manifest.webmanifest` (nombre "Mapa USACH"; `display: fullscreen`: el mapa ocupa toda la
-pantalla, también la franja de la barra de estado, a pedido del usuario; la hora y la batería se ven deslizando desde
-arriba. La interfaz respeta el hoyo de la cámara con `env(safe-area-inset-*)`;
+**App instalable (PWA).** `manifest.webmanifest` (nombre "Mapa USACH"; `display: standalone`: sin la barra del
+navegador y con la barra de estado del celular siempre visible. Una página no puede dibujar debajo de ella, así que se
+pinta del color de lo que hay arriba: el suelo del mapa `#fee5c8`, blanco con la hoja arriba o la búsqueda, negro en el
+visor de fotos (`syncStatusBar` en `js/app.js`, que cambia `<meta name="theme-color">`). Se probó `fullscreen`, pero
+al deslizar para ver la hora Android muestra una franja negra y la barra no se ve el resto del tiempo;
 íconos en `assets/app/`: pin blanco sobre el turquesa, uno normal y otro "maskable" con margen para los recortes de
 Android) y `sw.js`, el service worker, registrado al final de `js/app.js`. El service worker solo atiende pedidos del
 mismo sitio y siempre va primero a la red (la app nunca queda vieja). Guarda una copia de la página, el código, los
