@@ -7,8 +7,8 @@
 // administrador la revise en el panel del Worker (/admin). El token de Google solo se guarda en memoria.
 import { h, fill, icon, snackbar } from './ui.js';
 
-// Worker de fotos y cliente OAuth de Google (tipo "Aplicación web"; no es secreto). Sin ellos no aparece
-// "Agregar fotos" solo avisa que viene pronto, y el carrusel muestra solo las de Commons.
+// Worker de fotos y cliente OAuth de Google (tipo "Aplicación web"; no es secreto). Sin el ID de cliente, "Agregar
+// fotos" solo avisa que viene pronto (ver fotos-worker/README.md).
 const FOTOS_WORKER = 'https://usach-fotos.siac-worker.workers.dev';
 const GOOGLE_CLIENT_ID = '';
 const DOMINIO = 'usach.cl';
