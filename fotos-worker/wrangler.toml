@@ -15,11 +15,9 @@ DOMINIO = "usach.cl"
 # secreto ADMINS, que se fija con `npx wrangler secret put ADMINS`.
 
 # archivos de las fotos (grande y miniatura). Crear con: npx wrangler r2 bucket create usach-fotos
-# PENDIENTE: R2 aún no está activado en la cuenta (se activa en el panel de Cloudflare). Al activarlo, crear el bucket,
-# quitar los # de estas tres líneas y volver a publicar; mientras tanto, subir fotos responde 503.
-# [[r2_buckets]]
-# binding = "FOTOS"
-# bucket_name = "usach-fotos"
+[[r2_buckets]]
+binding = "FOTOS"
+bucket_name = "usach-fotos"
 
 # registro de envíos. Crear con: npx wrangler d1 create usach-fotos (y pegar aquí su database_id)
 [[d1_databases]]

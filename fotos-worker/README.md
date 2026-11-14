@@ -40,12 +40,10 @@ Datos: R2 `usach-fotos` (archivos `<id>.webp` y `<id>-m.webp`, o `.jpg`) y D1 `u
 
 ## Estado (2026-11-14)
 
-- Publicado en <https://usach-fotos.siac-worker.workers.dev> (panel en `/admin`), con la base D1 creada, un
-  administrador en el secreto `ADMINS` y el cliente OAuth de Google (proyecto USACHMAP, en producción; página
-  principal y política de privacidad: `privacidad.html`).
-- **Falta:** activar R2 (paso 2). Mientras no esté, `GET /estado` dice `subidas: false` y la app muestra "muy
-  pronto" al tocar "Agregar fotos". Al activarlo: crear el bucket, quitar los `#` del bloque `[[r2_buckets]]` y
-  publicar el Worker; la app no necesita cambios.
+**Funcionando.** Publicado en <https://usach-fotos.siac-worker.workers.dev> (panel en `/admin`), con R2 y D1 creados,
+el cliente OAuth de Google (proyecto USACHMAP, en producción; página principal y política de privacidad:
+`privacidad.html`) y un administrador en el secreto `ADMINS`. Probado contra el R2 y la D1 reales (subida desde la
+app, revisión, publicación y borrado); quedaron vacíos.
 
 ## Poner en marcha
 
