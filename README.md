@@ -78,7 +78,9 @@ muestra las iniciales del alumno), pastillas de categorías, capas y brújula a 
 de ubicación (blanco; azul cuando sigue el GPS) y **Cómo llegar** (turquesa: ruta al lugar abierto o el
 planificador). Abajo, la barra **Explorar / Tú**.
 
-**App instalable (PWA).** `manifest.webmanifest` (nombre "Mapa USACH", pantalla completa sin barra del navegador,
+**App instalable (PWA).** `manifest.webmanifest` (nombre "Mapa USACH"; `display: fullscreen`: el mapa ocupa toda la
+pantalla, también la franja de la barra de estado, a pedido del usuario; la hora y la batería se ven deslizando desde
+arriba. La interfaz respeta el hoyo de la cámara con `env(safe-area-inset-*)`;
 íconos en `assets/app/`: pin blanco sobre el turquesa, uno normal y otro "maskable" con margen para los recortes de
 Android) y `sw.js`, el service worker, registrado al final de `js/app.js`. El service worker solo atiende pedidos del
 mismo sitio y siempre va primero a la red (la app nunca queda vieja). Guarda una copia de la página, el código, los
