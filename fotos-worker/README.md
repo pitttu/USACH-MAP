@@ -13,22 +13,30 @@ las junta con las de Wikimedia Commons de `assets/data/fotos.json`.
   se puede retirar (y volver a publicar). Las rechazadas se borran (queda su fila y el registro).
 - **Auditoría:** la tabla `registro` guarda cada subida y cada decisión (quién, qué, cuándo, motivo). El panel la
   muestra.
-- **Privacidad:** la app achica la foto (1600 px y una miniatura de 520 px de alto) y la vuelve a codificar, y el Worker
-  igual le quita los metadatos (EXIF con ubicación GPS y cámara, XMP, comentarios). El correo solo lo ven los
+- **Privacidad:** la app achica la foto y la vuelve a codificar, y el Worker igual le quita los metadatos (EXIF con
+  ubicación GPS y cámara, XMP, ICC, comentarios), en JPEG y en WebP. El correo solo lo ven los
   administradores. Condiciones para la gente: `condiciones-fotos.html` en la app.
+- **Compresión:** la app manda **WebP** de 1280 px de lado mayor (calidad 0,70) y una miniatura de 520 px de alto
+  (0,62), unos 115 KB entre las dos; si el navegador no sabe codificar WebP, JPEG (0,72 y 0,68, unos 170 KB). Las dos
+  van en el mismo formato (`formato` en la tabla).
+- **Tope de espacio: 9,9 GB** (`TOPE_BYTES`), bajo los 10 GB gratis de R2. Cuenta lo que ocupan las fotos guardadas
+  (pendientes, publicadas y retiradas; las rechazadas se borran). Al llegar, subir responde "Se llenó el espacio". El
+  panel muestra el espacio usado. Caben unas **85.000 fotos** en WebP (unas 58.000 si todas fueran JPEG).
 - **Límites:** 10 fotos al día y 30 pendientes por persona; 10 subidas por minuto por IP; foto de a lo más 1600 px y
-  1,8 MB, miniatura de 520 px de alto y 400 KB, siempre JPEG.
+  1,2 MB, miniatura de 520 px de alto y 250 KB.
+- **Lugares:** cada foto va con la clave del lugar (`lugar`): su nombre, o nombre y coordenadas si el nombre se repite
+  (los 26 "Baño Público", los dispensadores…), y con el texto que ve el administrador (`lugar_texto`).
 
 | Ruta | Qué hace |
 |---|---|
 | `GET /fotos` | fotos publicadas por lugar (mismo formato que `assets/data/fotos.json`) |
-| `GET /img/<id>.jpg`, `/img/<id>-m.jpg` | una foto publicada, grande o miniatura |
-| `POST /subir` | sube una foto (formulario: `lugar`, `foto`, `mini`, `nombre` si/no, `acepto` si) |
+| `GET /img/<id>.webp`, `/img/<id>-m.webp` | una foto publicada, grande o miniatura (`.jpg` si llegó en JPEG) |
+| `POST /subir` | sube una foto (formulario: `lugar`, `lugarTexto`, `foto`, `mini`, `nombre` si/no, `acepto` si) |
 | `GET /mias` | las fotos de quien llama, con su estado |
 | `GET /admin` | panel de revisión |
 | `GET /admin/lista?estado=…`, `GET /admin/img/…`, `POST /admin/decidir` | lo que usa el panel (solo `ADMINS`) |
 
-Datos: R2 `usach-fotos` (archivos `<id>.jpg` y `<id>-m.jpg`) y D1 `usach-fotos` (`schema.sql`).
+Datos: R2 `usach-fotos` (archivos `<id>.webp` y `<id>-m.webp`, o `.jpg`) y D1 `usach-fotos` (`schema.sql`).
 
 ## Estado (2026-11-14)
 
@@ -64,7 +72,8 @@ Datos: R2 `usach-fotos` (archivos `<id>.jpg` y `<id>-m.jpg`) y D1 `usach-fotos` 
 ## Probar en el Mac
 
 Sin Google: `.dev.vars` (no se sube al repositorio) con `PRUEBA_SIN_GOOGLE=1`, `ADMINS=admin@usach.cl` y
-`GOOGLE_CLIENT_ID=prueba`. Así el Worker local acepta el token `prueba:<correo>:<nombre>`, solo si se le llama en
+`GOOGLE_CLIENT_ID=prueba` (y, para probar el tope, `TOPE_BYTES=600000`). Mientras R2 no esté activado en la cuenta,
+`wrangler dev` necesita una copia de `wrangler.toml` con el bloque `[[r2_buckets]]` sin `#` (`--config`). Así el Worker local acepta el token `prueba:<correo>:<nombre>`, solo si se le llama en
 `localhost` / `127.0.0.1` (el Worker publicado nunca lo acepta).
 
 ```bash

@@ -2,9 +2,12 @@
 //  - De Wikimedia Commons, con licencia libre: assets/data/fotos.json (ver tools/fotos-lugar.mjs).
 //  - De la comunidad: las publicadas del Worker de fotos (fotos-worker/), con licencia CC BY-NC-SA 4.0.
 // Subir: la persona entra con su cuenta de Google @usach.cl (Google Identity Services, que se carga recién al tocar
-// "Agregar foto"), elige si el crédito lleva su nombre o no y acepta la licencia. La foto se achica aquí (y el
-// navegador la vuelve a codificar, sin EXIF: sin ubicación ni datos de la cámara) y queda pendiente hasta que un
+// "Agregar foto"), elige si el crédito lleva su nombre o no y acepta la licencia. La foto se achica y se comprime aquí
+// (WebP de 1280 px y miniatura de 520 px de alto, unos 115 KB entre las dos; JPEG si el navegador no sabe hacer WebP),
+// y al volver a codificarla queda sin EXIF: sin ubicación ni datos de la cámara. Queda pendiente hasta que un
 // administrador la revise en el panel del Worker (/admin). El token de Google solo se guarda en memoria.
+// Cada lugar se identifica por su nombre; los de nombre repetido ("Baño Público", "Dispensador de Agua"…), por su
+// nombre y sus coordenadas (fotoKey), así cada uno tiene sus propias fotos.
 import { h, fill, icon, snackbar } from './ui.js';
 
 // Worker de fotos y cliente OAuth de Google (tipo "Aplicación web"; no es secreto). Sin el ID de cliente, "Agregar
@@ -20,7 +23,8 @@ const PRUEBA = LOCAL && new URLSearchParams(location.search).get('fotos-prueba')
 const SUBIR = !!(API && (GOOGLE_CLIENT_ID || PRUEBA));
 
 const $ = (id) => document.getElementById(id);
-let current = null, currentName = '';
+let current = null, currentName = '', currentKey = '', currentText = '';
+const fotoKey = (f, d) => (d.generic ? `${d.name} @${f.geometry.coordinates.map((v) => v.toFixed(5)).join(',')}` : d.name);
 
 // --- datos: Commons (estáticas) + comunidad (Worker); se piden la primera vez que se abre un lugar ---
 let staticP = null, communityP = null;
@@ -48,13 +52,14 @@ function columnas(n, azar) { // 'grande' (1 foto) o 'par' (2): empieza con una g
   }
   return r;
 }
-export async function renderPhotos(f, name) {
-  current = f; currentName = name;
+export async function renderPhotos(f, d) {
+  const name = d.name, key = fotoKey(f, d);
+  current = f; currentName = name; currentKey = key; currentText = d.sub ? `${name} · ${d.sub}` : name;
   const strip = $('place-photos'), src = $('place-photos-src');
   strip.hidden = src.hidden = true;
   fill(strip);
   if (f.properties.custom) return;
-  const fotos = await photosOf(name);
+  const fotos = await photosOf(key);
   if (current !== f) return;
   const tile = (p, i) => h('button', { class: 'photo-tile', type: 'button', 'aria-label': `Ver foto ${i + 1} de ${fotos.length}`, onclick: () => openViewer(name, fotos, i) },
     h('img', { src: p.mini, alt: p.descripcion || name, loading: i < 5 ? 'eager' : 'lazy', decoding: 'async' }));
@@ -114,23 +119,28 @@ function closeViewer({ fromHistory = false } = {}) {
 const dialog = $('photo-upload');
 let draft = null, session = null; // draft: { foto, mini, url }; session: { token, email, name, exp }
 const payload = (t) => JSON.parse(decodeURIComponent(escape(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')))));
-const blob = (canvas, q) => new Promise((ok) => canvas.toBlob(ok, 'image/jpeg', q));
-async function resize(file) { // dos tamaños, re-codificados (sin metadatos): 1600 px de lado mayor y 520 px de alto
+const blob = (canvas, type, q) => new Promise((ok) => canvas.toBlob(ok, type, q));
+// Dos tamaños, re-codificados (sin metadatos): 1280 px de lado mayor y 520 px de alto (la miniatura llena la foto
+// grande del carrusel en pantallas 2x). WebP (calidad 0,70 y 0,62); si el navegador no sabe codificar WebP (devuelve
+// otro tipo), JPEG (0,72 y 0,68).
+async function resize(file) {
   const img = await createImageBitmap(file, { imageOrientation: 'from-image' });
   const draw = (w, hgt) => { const c = document.createElement('canvas'); c.width = w; c.height = hgt; c.getContext('2d').drawImage(img, 0, 0, w, hgt); return c; };
-  const k = Math.min(1, 1600 / Math.max(img.width, img.height)), km = Math.min(1, 520 / img.height);
-  const out = { foto: await blob(draw(Math.round(img.width * k), Math.round(img.height * k)), 0.82), mini: await blob(draw(Math.round(img.width * km), Math.round(img.height * km)), 0.76) };
+  const k = Math.min(1, 1280 / Math.max(img.width, img.height)), km = Math.min(1, 520 / img.height);
+  const grande = draw(Math.round(img.width * k), Math.round(img.height * k)), chica = draw(Math.round(img.width * km), Math.round(img.height * km));
   img.close?.();
-  return out;
+  const foto = await blob(grande, 'image/webp', 0.7);
+  if (foto?.type === 'image/webp') return { foto, mini: await blob(chica, 'image/webp', 0.62), ext: 'webp' };
+  return { foto: await blob(grande, 'image/jpeg', 0.72), mini: await blob(chica, 'image/jpeg', 0.68), ext: 'jpg' };
 }
 async function pick(file) {
   if (!file) return;
   if (!/^image\//.test(file.type) || file.size > 30e6) { snackbar('Elige una foto (JPG, PNG o HEIC) de menos de 30 MB'); return; }
   try { draft = await resize(file); } catch { snackbar('No se pudo leer esa foto'); return; }
-  if (Math.min(...[draft.foto, draft.mini].map((b) => b.size)) === 0) { snackbar('No se pudo leer esa foto'); return; }
+  if ([draft.foto, draft.mini].some((b) => !b?.size)) { snackbar('No se pudo leer esa foto'); return; }
   draft.url = URL.createObjectURL(draft.mini);
   $('pu-preview').src = draft.url;
-  $('pu-place').textContent = currentName;
+  $('pu-place').textContent = currentText;
   $('pu-error').textContent = '';
   $('pu-accept').checked = false;
   dialog.hidden = false;
@@ -178,11 +188,12 @@ async function send() {
   if (!draft || !session) return;
   if (session.exp * 1000 < Date.now() + 30e3) { session = null; showStep(); return; }
   const btn = $('pu-send'), form = new FormData();
-  form.append('lugar', currentName);
+  form.append('lugar', currentKey);
+  form.append('lugarTexto', currentText);
   form.append('nombre', document.querySelector('input[name="pu-name"]:checked')?.value === 'si' ? 'si' : 'no');
   form.append('acepto', $('pu-accept').checked ? 'si' : 'no');
-  form.append('foto', draft.foto, 'foto.jpg');
-  form.append('mini', draft.mini, 'mini.jpg');
+  form.append('foto', draft.foto, `foto.${draft.ext}`);
+  form.append('mini', draft.mini, `mini.${draft.ext}`);
   btn.disabled = true; btn.textContent = 'Enviando…';
   try {
     const r = await fetch(`${API}/subir`, { method: 'POST', headers: { Authorization: `Bearer ${session.token}` }, body: form });

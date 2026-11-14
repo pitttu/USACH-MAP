@@ -126,11 +126,13 @@ no se cierran (se cierran con la X).
   - **Fotos de la comunidad** (`js/fotos.js` y `fotos-worker/`): al final del carrusel, **Agregar foto** (en un lugar
     sin fotos, una tarjeta "Sé el primero…"). Pide entrar con Google, **solo cuentas @usach.cl**. Después hay que
     elegir el crédito (el nombre de la cuenta o "Comunidad USACH"; sin apodos) y aceptar la licencia **CC BY-NC-SA
-    4.0** (dar crédito, sin fines de lucro, compartir igual). La foto se achica y se vuelve a codificar en el teléfono
-    (sin EXIF: sin ubicación ni cámara). Queda **pendiente** hasta que un administrador la publica en el panel del
+    4.0** (dar crédito, sin fines de lucro, compartir igual). La foto se achica y se comprime en el teléfono (WebP de
+    1280 px y miniatura de 520 px, unos 115 KB) y queda sin EXIF: sin ubicación ni cámara. Queda **pendiente** hasta que un administrador la publica en el panel del
     Worker (`/admin`), que guarda un registro de cada subida y decisión. Las publicadas se juntan en el carrusel con
     las de Commons; su crédito dice "aporte de la comunidad". Condiciones para la gente en `condiciones-fotos.html`.
-    Mientras `FOTOS_WORKER` y `GOOGLE_CLIENT_ID` (al comienzo de `js/fotos.js`) estén vacíos, el botón avisa que viene
+    El espacio tiene un tope de 9,9 GB (bajo los 10 GB gratis de R2): unas 85.000 fotos, unas 150 por lugar con los
+    516 lugares de hoy más un 5 %. Los lugares con nombre repetido (baños, dispensadores…) guardan sus fotos por nombre
+    y coordenadas. Mientras `GOOGLE_CLIENT_ID` (al comienzo de `js/fotos.js`) esté vacío, el botón avisa que viene
     "muy pronto". Cómo ponerlo en marcha: `fotos-worker/README.md`.
 - **Ruta**: minutos, metros y hora de llegada; tarjeta Desde / Hasta (tocar uno abre el planificador para cambiarlo) e
   intercambio. La cámara encuadra la ruta en el mapa que queda libre entre las pastillas y la hoja.

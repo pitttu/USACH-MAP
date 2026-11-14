@@ -358,7 +358,7 @@ function openPlace(f, { fly = true, record = true } = {}) {
   currentPlace = f;
   if (record && !f.properties.custom) places.recents.add(f);
   renderPlace();
-  renderPhotos(f, places.describe(f).name);
+  renderPhotos(f, places.describe(f));
   // desde otro lugar o una ruta, la X vuelve a lo de antes (la lista, Tú o el inicio), no al lugar anterior
   go('place', 'MID', { push: !['place', 'route', 'pick'].includes(sheet.view) });
   if (fly) mapView.flyTo({ center: f.geometry.coordinates, zoom: 19, pitch: 45, duration: 1600 });

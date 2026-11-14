@@ -28,7 +28,7 @@ export const panel = (clientId) => `<!doctype html>
   .vacio { color: var(--t2); }
   dialog { padding: 0; border: 0; background: #000; } dialog img { max-width: 95vw; max-height: 90vh; display: block; }
 </style></head><body>
-<header><h1>Fotos de la comunidad · revisión</h1><div id="g"></div><span id="quien"></span></header>
+<header><h1>Fotos de la comunidad · revisión</h1><small id="espacio"></small><div id="g"></div><span id="quien"></span></header>
 <main>
   <p id="msg"></p>
   <nav id="tabs"></nav>
@@ -48,8 +48,8 @@ async function api(path, opts = {}) {
   if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText);
   return r;
 }
-async function img(el, id, mini) {
-  try { el.src = URL.createObjectURL(await (await api('/admin/img/' + id + (mini ? '-m' : '') + '.jpg')).blob()); } catch { el.alt = 'sin archivo'; }
+async function img(el, f, mini) {
+  try { el.src = URL.createObjectURL(await (await api('/admin/img/' + f.id + (mini ? '-m' : '') + '.' + f.formato)).blob()); } catch { el.alt = 'sin archivo'; }
 }
 const TABS = { pendiente: 'Pendientes', publicada: 'Publicadas', retirada: 'Retiradas', rechazada: 'Rechazadas', todas: 'Todas' };
 function tabs() { $('tabs').innerHTML = Object.entries(TABS).map(([k, v]) => '<button data-e="' + k + '"' + (k === estado ? ' class="on"' : '') + '>' + v + '</button>').join(''); }
@@ -57,21 +57,22 @@ $('tabs').onclick = (e) => { const k = e.target.dataset?.e; if (k) { estado = k;
 async function cargar() {
   tabs(); $('msg').textContent = '';
   try {
-    const { fotos, registro } = await (await api('/admin/lista?estado=' + estado)).json();
+    const { fotos, registro, espacio } = await (await api('/admin/lista?estado=' + estado)).json();
+    $('espacio').textContent = 'Espacio usado: ' + (espacio.usado / 1e9).toFixed(2) + ' de ' + (espacio.tope / 1e9).toFixed(1) + ' GB';
     $('lista').innerHTML = fotos.length ? '' : '<p class="vacio">No hay fotos aquí.</p>';
     for (const f of fotos) {
       const c = document.createElement('div'); c.className = 'card';
-      c.innerHTML = '<img alt="">' + '<div class="d"><b>' + esc(f.lugar) + '</b>'
+      c.innerHTML = '<img alt="">' + '<div class="d"><b>' + esc(f.lugar_texto || f.lugar) + '</b>'
         + '<small>' + esc(f.email) + (f.nombre ? ' · ' + esc(f.nombre) : '') + '</small>'
         + '<small>Crédito: ' + (f.mostrar_nombre ? esc(f.nombre) : 'Comunidad USACH (sin nombre)') + '</small>'
-        + '<small>' + f.ancho + '×' + f.alto + ' · ' + Math.round(f.bytes / 1024) + ' KB · subida ' + fecha(f.creada) + '</small>'
+        + '<small>' + f.ancho + '×' + f.alto + ' ' + esc(f.formato) + ' · ' + Math.round(f.bytes / 1024) + ' KB · subida ' + fecha(f.creada) + '</small>'
         + '<small>Estado: ' + esc(f.estado) + (f.revisor ? ' por ' + esc(f.revisor) + ' ' + fecha(f.revisada) : '') + (f.motivo ? ' · ' + esc(f.motivo) : '') + '</small></div>'
         + '<div class="acc">'
         + (f.estado === 'pendiente' || f.estado === 'retirada' ? '<button class="pub" data-a="publicar">Publicar</button>' : '')
         + (f.estado === 'pendiente' ? '<button class="rec" data-a="rechazar">Rechazar (borra la foto)</button>' : '')
         + (f.estado === 'publicada' ? '<button class="ret" data-a="retirar">Retirar</button>' : '') + '</div>';
       const im = c.querySelector('img');
-      if (f.estado !== 'rechazada') { img(im, f.id, true); im.onclick = async () => { const d = $('ver'); await img(d.querySelector('img'), f.id, false); d.showModal(); }; }
+      if (f.estado !== 'rechazada') { img(im, f, true); im.onclick = async () => { const d = $('ver'); await img(d.querySelector('img'), f, false); d.showModal(); }; }
       c.querySelector('.acc').onclick = async (e) => {
         const accion = e.target.dataset?.a; if (!accion) return;
         const motivo = accion === 'publicar' ? '' : prompt('Motivo (opcional; lo verá quien la subió):') ?? null;
