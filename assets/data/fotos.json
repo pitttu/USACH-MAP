@@ -1,0 +1,103 @@
+{
+ "Planetario": [
+  {
+   "foto": "assets/fotos/planetario/01.jpg",
+   "mini": "assets/fotos/planetario/01-m.jpg",
+   "ancho": 1600,
+   "alto": 1066,
+   "autor": "Planetario Chile/ESO",
+   "licencia": "CC BY 4.0",
+   "licenciaUrl": "https://creativecommons.org/licenses/by/4.0",
+   "fuente": "https://commons.wikimedia.org/wiki/File:Planetario_de_Santiago_(annlocal17004b-es-cl).jpg",
+   "descripcion": "Planetario de Santiago"
+  },
+  {
+   "foto": "assets/fotos/planetario/02.jpg",
+   "mini": "assets/fotos/planetario/02-m.jpg",
+   "ancho": 1600,
+   "alto": 1200,
+   "autor": "ESO",
+   "licencia": "CC BY 4.0",
+   "licenciaUrl": "https://creativecommons.org/licenses/by/4.0",
+   "fuente": "https://commons.wikimedia.org/wiki/File:Planetarium_of_the_Universidad_de_Santiago_de_Chile_(fachada_planetario).jpg",
+   "descripcion": "The main entrance of the Planetarium of the Universidad de Santiago de Chile (USACH)."
+  },
+  {
+   "foto": "assets/fotos/planetario/03.jpg",
+   "mini": "assets/fotos/planetario/03-m.jpg",
+   "ancho": 1600,
+   "alto": 1200,
+   "autor": "Cristhian escu",
+   "licencia": "CC BY-SA 4.0",
+   "licenciaUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "fuente": "https://commons.wikimedia.org/wiki/File:Planetario-exterior--2014.jpg",
+   "descripcion": "Fachada de Planetario"
+  },
+  {
+   "foto": "assets/fotos/planetario/04.jpg",
+   "mini": "assets/fotos/planetario/04-m.jpg",
+   "ancho": 1200,
+   "alto": 1600,
+   "autor": "Jorge Barrios",
+   "licencia": "CC BY-SA 3.0",
+   "licenciaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "fuente": "https://commons.wikimedia.org/wiki/File:Planetario_USACH_2.jpg",
+   "descripcion": "El Planetario de la Universidad de Santiago de Chile (USACH). 22 de noviembre de 2008."
+  },
+  {
+   "foto": "assets/fotos/planetario/05.jpg",
+   "mini": "assets/fotos/planetario/05-m.jpg",
+   "ancho": 1200,
+   "alto": 1600,
+   "autor": "Jorge Barrios",
+   "licencia": "CC BY-SA 3.0",
+   "licenciaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "fuente": "https://commons.wikimedia.org/wiki/File:Planetario_USACH_1.jpg",
+   "descripcion": "La caída de agua del Planetario de la Universidad de Santiago de Chile (USACH). 22 de noviembre de 2008."
+  },
+  {
+   "foto": "assets/fotos/planetario/06.jpg",
+   "mini": "assets/fotos/planetario/06-m.jpg",
+   "ancho": 1600,
+   "alto": 1200,
+   "autor": "Jorge Barrios",
+   "licencia": "CC BY-SA 3.0",
+   "licenciaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "fuente": "https://commons.wikimedia.org/wiki/File:Planetario_USACH_3.JPG",
+   "descripcion": "La entrada del Planetario de la Universidad de Santiago de Chile (USACH). 22 de noviembre de 2008."
+  },
+  {
+   "foto": "assets/fotos/planetario/07.jpg",
+   "mini": "assets/fotos/planetario/07-m.jpg",
+   "ancho": 1200,
+   "alto": 1600,
+   "autor": "Jorge Barrios",
+   "licencia": "CC BY-SA 3.0",
+   "licenciaUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "fuente": "https://commons.wikimedia.org/wiki/File:Planetario_USACH_4.jpg",
+   "descripcion": "El Planetario de la Universidad de Santiago de Chile (USACH). 22 de noviembre de 2008."
+  },
+  {
+   "foto": "assets/fotos/planetario/08.jpg",
+   "mini": "assets/fotos/planetario/08-m.jpg",
+   "ancho": 1600,
+   "alto": 1600,
+   "autor": "Fundación Planetario",
+   "licencia": "CC BY 4.0",
+   "licenciaUrl": "https://creativecommons.org/licenses/by/4.0",
+   "fuente": "https://commons.wikimedia.org/wiki/File:Planetario_de_Santiago_(annlocal12011a-es-cl).jpg",
+   "descripcion": "El astrónomo ESO, Florian Gourgeot, dará charla en el Planetario de Santiago el martes 11 de diciembre a las 18:45 horas."
+  },
+  {
+   "foto": "assets/fotos/planetario/09.jpg",
+   "mini": "assets/fotos/planetario/09-m.jpg",
+   "ancho": 800,
+   "alto": 600,
+   "autor": "Daniel Kohan from Chile",
+   "licencia": "CC BY-SA 2.0",
+   "licenciaUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "fuente": "https://commons.wikimedia.org/wiki/File:Console_@_Planetario_USACH.jpg",
+   "descripcion": "Planetarium console @ Planetario USACH [1]"
+  }
+ ]
+}

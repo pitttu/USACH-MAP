@@ -12,6 +12,7 @@ import { h, fill, icon, snackbar, fmtDist, walkMin } from './ui.js';
 import * as places from './places.js';
 import { initSearch, openSearch, closeSearch, isSearchOpen, voiceSupported } from './search.js';
 import { initTu, refreshTu, profileInfo, classesIn, nextClass } from './tu.js';
+import { initFotos, renderPhotos } from './fotos.js';
 
 // Parte superior clásica (buscador, pastillas, brújula y capas de vidrio esmerilado) o la nueva, estilo Google Maps.
 // Para comparar: ?top=nuevo o ?top=clasico en la URL; para dejar una fija, cambia este valor.
@@ -357,6 +358,7 @@ function openPlace(f, { fly = true, record = true } = {}) {
   currentPlace = f;
   if (record && !f.properties.custom) places.recents.add(f);
   renderPlace();
+  renderPhotos(f, places.describe(f).name);
   // desde otro lugar o una ruta, la X vuelve a lo de antes (la lista, Tú o el inicio), no al lugar anterior
   go('place', 'MID', { push: !['place', 'route', 'pick'].includes(sheet.view) });
   if (fly) mapView.flyTo({ center: f.geometry.coordinates, zoom: 19, pitch: 45, duration: 1600 });
@@ -395,6 +397,7 @@ function renderPlace() {
   fill($('place-info'), rows);
 }
 
+initFotos(); // carrusel, visor y "Agregar foto" (js/fotos.js)
 $('place-close').addEventListener('click', back);
 $('place-go').addEventListener('click', () => routeToPlace(currentPlace));
 $('place-save').addEventListener('click', () => {

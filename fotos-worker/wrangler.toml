@@ -1,0 +1,37 @@
+# Cloudflare Worker de las fotos de la comunidad (ver README.md de esta carpeta).
+name = "usach-fotos"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+workers_dev = true
+
+[vars]
+# orígenes desde donde se puede llamar (la app en GitHub Pages y el servidor local de pruebas)
+ALLOWED_ORIGINS = "https://pitttu.github.io,http://localhost:8765"
+# ID de cliente OAuth de Google (tipo "Aplicación web"; no es secreto). Debe ser el mismo de js/fotos.js
+GOOGLE_CLIENT_ID = ""
+# solo cuentas de este dominio pueden subir fotos
+DOMINIO = "usach.cl"
+# Los correos de Google de quienes revisan (separados por coma) NO van aquí (el repositorio es público): son el
+# secreto ADMINS, que se fija con `npx wrangler secret put ADMINS`.
+
+# archivos de las fotos (grande y miniatura). Crear con: npx wrangler r2 bucket create usach-fotos
+# PENDIENTE: R2 aún no está activado en la cuenta (se activa en el panel de Cloudflare). Al activarlo, crear el bucket,
+# quitar los # de estas tres líneas y volver a publicar; mientras tanto, subir fotos responde 503.
+# [[r2_buckets]]
+# binding = "FOTOS"
+# bucket_name = "usach-fotos"
+
+# registro de envíos. Crear con: npx wrangler d1 create usach-fotos (y pegar aquí su database_id)
+[[d1_databases]]
+binding = "DB"
+database_name = "usach-fotos"
+database_id = "8bf5bbb8-fb8a-4995-96d9-e64b836aaacf"
+
+# a lo más 10 subidas por minuto por IP (además del tope diario por persona)
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1002"
+simple = { limit = 10, period = 60 }
+
+[observability]
+enabled = false

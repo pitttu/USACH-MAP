@@ -109,6 +109,29 @@ no se cierran (se cierran con la X).
 - **Lugar**: nombre y tipo (y minutos a pie si hay ubicación); botones **Cómo llegar**, **Guardar** (queda en Tú) y
   **Compartir** (enlace `?lugar=EAO514`, o `?punto=lon,lat` para puntos y lugares sin nombre propio; con el menú de
   compartir del teléfono o copiado); datos de la sala (edificio, piso, capacidad) y **tus clases en esa sala**.
+  - **Fotos**, si el lugar las tiene: bajo los botones, un carrusel como el de Google Maps que se desliza de lado.
+    Mezcla columnas de una foto grande y de dos chicas apiladas, al azar pero fijo por lugar (`columnas` en
+    `js/fotos.js`: empieza con una grande, nunca dos grandes seguidas ni más de dos pares). Al final, **Ver todo** (abre
+    el visor) y **Agregar fotos**; un lugar sin fotos muestra solo "Sé el primero en agregar una foto". Tocar una foto
+    abre el **visor** a pantalla completa (se desliza de lado; la X, Escape o el botón atrás del celular lo cierran),
+    con el autor y la licencia de cada foto enlazados a su fuente.
+  - Las fotos son de Wikimedia Commons, solo con licencia libre (CC BY o CC BY-SA, que piden dar el crédito).
+    `tools/fotos-lugar.mjs` las descarga desde la ficha del lugar (`tools/fotos/<x>.json`: el nombre que muestra la
+    hoja y los archivos de Commons en orden; el primero es el grande). Deja dos tamaños en `assets/fotos/<carpeta>/`
+    (`NN-m.jpg` de 520 px de alto para el carrusel y `NN.jpg` de 1600 px para el visor) y los créditos en
+    `assets/data/fotos.json`. La app pide ese archivo la primera vez que se abre un lugar.
+  - Por ahora, solo el **Planetario**: 9 fotos (ESO, Fundación Planetario, Jorge Barrios, Cristhian escu, Daniel Kohan),
+    2,1 MB en total. Las grandes se descargan solo al abrir el visor.
+    `cd tools && node fotos-lugar.mjs fotos/planetario.json`
+  - **Fotos de la comunidad** (`js/fotos.js` y `fotos-worker/`): al final del carrusel, **Agregar foto** (en un lugar
+    sin fotos, una tarjeta "Sé el primero…"). Pide entrar con Google, **solo cuentas @usach.cl**. Después hay que
+    elegir el crédito (el nombre de la cuenta o "Comunidad USACH"; sin apodos) y aceptar la licencia **CC BY-NC-SA
+    4.0** (dar crédito, sin fines de lucro, compartir igual). La foto se achica y se vuelve a codificar en el teléfono
+    (sin EXIF: sin ubicación ni cámara). Queda **pendiente** hasta que un administrador la publica en el panel del
+    Worker (`/admin`), que guarda un registro de cada subida y decisión. Las publicadas se juntan en el carrusel con
+    las de Commons; su crédito dice "aporte de la comunidad". Condiciones para la gente en `condiciones-fotos.html`.
+    Mientras `FOTOS_WORKER` y `GOOGLE_CLIENT_ID` (al comienzo de `js/fotos.js`) estén vacíos, el botón avisa que viene
+    "muy pronto". Cómo ponerlo en marcha: `fotos-worker/README.md`.
 - **Ruta**: minutos, metros y hora de llegada; tarjeta Desde / Hasta (tocar uno abre el planificador para cambiarlo) e
   intercambio. La cámara encuadra la ruta en el mapa que queda libre entre las pastillas y la hoja.
 - **Categoría**: los lugares de una pastilla o de la grilla de categorías, **los más cercanos primero** si hay
@@ -498,6 +521,92 @@ plano (28 a 36 m), con la barra norte–sur y el ala sur girada unos 14°. Las c
 
 ```
 cd tools && node volumenes.mjs modelos/innovacion-docente.json && node build-glb.mjs
+```
+
+### Facultad de Derecho
+
+También sale de `tools/volumenes.mjs`, desde `tools/modelos/facultad-derecho.json`, con las medidas de la fotogrametría
+(ortofoto, mapa de alturas y alzados con textura, girados 3,4° al eje del edificio). Reemplaza la caja de
+OpenStreetMap y pasa a `Modelos`.
+
+- Planta axial norte–sur con simetría de giro (180°). Un tambor de cuatro cuartos de círculo (15,3 m) partido por una
+  crujía norte–sur de 3,9 m (17 m).
+  - La mitad oriente está 3 m al norte de la poniente.
+  - En cada mitad, un cuarto es más grande y sobresale del otro: el nororiente (15,4 m de radio) y el surponiente
+    (16 m). Los otros dos tienen 13,3 m.
+  - Al centro, a cada lado de la crujía, un medio círculo de 6,2 m de radio sube a 17 m. En la foto es el techo
+    terracota; no es un patio más bajo.
+- Dos alas de 9,95 m de ancho y 14,4 m de alto, desfasadas: la norte va al poniente de la crujía y la sur al oriente.
+  La crujía es el ancho que comparten.
+- Ventanas hundidas 20 cm, como en los alzados:
+  - En el tambor, una ventana angosta (0,62 m) por cada tramo de unos 2 m del arco, en tres filas.
+  - En las alas, grupos de ventanas verticales en tres filas, más bajas que las del tambor, ubicados donde están en
+    cada fachada.
+  - La escalera del ala norte (cara poniente) tiene cuatro ranuras verticales: empiezan a la altura
+    del borde inferior de las ventanas del primer piso y terminan en el borde superior de las del tercero (1,7–12,2 m).
+    En el extremo norte está la puerta.
+- La entrada está en la cara oriente del ala sur, en su extremo norte (6 m de largo). La planta baja está metida
+  2 m bajo un cielo a 3,85 m, la altura del dintel de las ventanas de la planta baja. Al fondo tiene paños vidriados,
+  una sobreluz y la puerta (2,4 × 2,6 m) con el cono de luz
+  blanca de las puertas del pack, igual que en Periodismo y Psicología. Encima, los pisos 2 y 3 llevan un solo
+  ventanal cada uno, sin montantes.
+- El extremo sur (cara sur del ala sur) es ciego.
+- 5.004 triángulos (muros 4.332, techos 106, vidrio 562, luz 4); la caja anterior tenía 168.
+- Para esto, `volumenes.mjs` acepta tres cosas más en la ficha:
+  - Volúmenes en sector circular (`centro`, `radio`, `angulos`, `lados`), con caras `arco` y `radial`.
+  - Filas de ventanas explícitas por tipo (`filas`) y ventanas de ancho fijo (`ancho`).
+  - Caras con `grupos`: n ventanas entre dos coordenadas del marco a lo largo de la fachada (con filas propias u
+    otro tipo de ventana por grupo).
+  - `entradas` en los rectángulos: un tramo de planta baja metido hacia adentro, con frente vidriado y puerta con
+    su cono de luz (material `luz_puerta`).
+
+```
+cd tools && node volumenes.mjs modelos/facultad-derecho.json && node build-glb.mjs
+```
+
+### Laguna de la FAE
+
+La laguna artificial al sur de la FAE venía como un polígono de 19 lados con puntas, y repetido dos veces en el objeto
+`Agua` (las dos copias estaban corridas 0,6 m). `tools/laguna.mjs` la rehace desde `tools/modelos/laguna-fae.json`,
+que guarda el contorno original:
+
+- Forma suave:
+  - Redondea los entrantes con un cierre de 3 m (clipper, uniones redondas).
+  - Suaviza el borde entero con un promedio gaussiano a lo largo del contorno (sigma 3 m).
+  - Le devuelve el área que se comió el suavizado (414 m², igual que antes).
+  - Queda en tramos de 0,6 m (154 puntos).
+- El agua nueva reemplaza a las dos copias en el objeto `Agua`.
+- La baranda es un objeto aparte, `Baranda laguna FAE` (colección Modelos). Es un muro macizo blanco (`modelos_fff`)
+  sobre el borde, hacia afuera del agua, como las barandas de las azoteas pero más bajo: 0,25 × 0,4 m. Tiene 924
+  triángulos.
+- Es idempotente.
+
+```
+cd tools && node laguna.mjs modelos/laguna-fae.json && node build-glb.mjs
+```
+
+### Árboles de OpenStreetMap
+
+OpenStreetMap tiene 298 árboles como punto alrededor del campus (`natural=tree`, guardados en `tools/osm/arboles.json`,
+datos © OpenStreetMap, ODbL), muchos con especie. `tools/arboles-osm.mjs` agrega los que el mapa no tenía: los que no
+tienen ningún árbol del mapa a menos de 12 m (a menos de 12 m suele ser el mismo árbol, algo corrido).
+
+- Copia los modelos del pack del cruce de Las Sophoras con Avenida Central, al norte de Derecho, que es donde hay más
+  variedad: conífera (abeto en capas), pino (tronco alto con copas en capas, de varias piezas), alto (tronco ralo) y
+  redondo (copa ancha).
+- El tipo sale de la especie: las casuarinas son conífera o pino, mitad y mitad, como en Las Sophoras. Los cedros y
+  cipreses son conífera, las palmas son pino (el cruce no tiene palmeras), los álamos son alto, y el resto (y los sin
+  especie) son redondo o alto.
+- Cada copia va girada al azar, con un giro fijo por árbol, y se llama `Árbol OSM <id>` (id del punto en OSM).
+- Se salta los puntos que caen dentro de un edificio del mapa. Es idempotente.
+- Resultado (2026-11-14): 102 árboles nuevos, sobre todo en Las Sophoras (la doble fila de casuarinas entre Portales y
+  Avenida Central, y el tramo al sur de El Arrayán), Avenida Central, Matucana y Portales. Hay 11 puntos dentro de
+  edificios.
+- Los árboles pasan de 62 mil a 119 mil triángulos: los modelos del cruce son de los más detallados del pack (~560
+  triángulos cada uno).
+
+```
+cd tools && node arboles-osm.mjs && node build-glb.mjs
 ```
 
 ### Alturas de los edificios

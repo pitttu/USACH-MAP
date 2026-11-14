@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&family=Inter:wght@500;600&display=swap" rel="stylesheet">
   <!-- Íconos Material Symbols Rounded (los de Google Maps): solo los que usa la app, en orden alfabético.
        Si usas uno nuevo, agrégalo aquí (si no, se ve su nombre en texto): tools/check-icons.mjs lo revisa. -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&icon_names=account_balance,apartment,arrow_back,bookmark,calendar_month,chevron_right,clear_night,close,cloud,delete,directions,directions_walk,door_open,foggy,groups,history,info,layers,local_atm,local_library,location_on,location_searching,lock,medical_services,meeting_room,mic,more_horiz,museum,my_location,near_me,park,partly_cloudy_day,partly_cloudy_night,pedal_bike,person,pin_drop,print,radio,rainy,restaurant,school,share,sports_soccer,stairs,storefront,subway,sunny,swap_vert,sync,thunderstorm,trip_origin,visibility,visibility_off,water_drop,wc,weather_snowy&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&icon_names=account_balance,add_a_photo,apartment,arrow_back,bookmark,calendar_month,chevron_right,clear_night,close,cloud,delete,directions,directions_walk,door_open,foggy,groups,history,info,layers,local_atm,local_library,location_on,location_searching,lock,medical_services,meeting_room,mic,more_horiz,museum,my_location,near_me,park,partly_cloudy_day,partly_cloudy_night,pedal_bike,person,photo_library,pin_drop,print,radio,rainy,restaurant,school,share,sports_soccer,stairs,storefront,subway,sunny,swap_vert,sync,thunderstorm,trip_origin,visibility,visibility_off,water_drop,wc,weather_snowy&display=block" rel="stylesheet">
   <!-- interfaz (estilo Google Maps 2025) -->
   <link rel="stylesheet" href="ui.css">
   <!-- lo propio del motor 3D: etiquetas y marcadores del mapa, panel ?dev -->
@@ -182,6 +182,8 @@
           <button id="place-save" class="btn btn-tonal" type="button" aria-pressed="false"><span class="ms">bookmark</span><span>Guardar</span></button>
           <button id="place-share" class="btn btn-gray" type="button"><span class="ms">share</span>Compartir</button>
         </div>
+        <div id="place-photos" class="photo-strip" hidden></div>
+        <p id="place-photos-src" class="photo-source" hidden>Fotos de Wikimedia Commons · toca una para ver su autor</p>
         <div id="place-info" class="info-list"></div>
       </div>
     </section>
@@ -357,6 +359,50 @@
       <span class="nav-label">Tú</span>
     </button>
   </nav>
+
+  <!-- Fotos de un lugar, a pantalla completa: se deslizan de lado; abajo, el crédito de cada una -->
+  <section id="photo-viewer" class="photo-viewer" role="dialog" aria-modal="true" aria-label="Fotos" hidden>
+    <header class="pv-head">
+      <button id="pv-close" class="icon-btn" type="button" aria-label="Cerrar las fotos"><span class="ms">close</span></button>
+      <div class="pv-title"><b id="pv-place"></b><span id="pv-count"></span></div>
+    </header>
+    <div id="pv-track" class="pv-track"></div>
+    <p id="pv-credit" class="pv-credit"></p>
+  </section>
+
+  <!-- Agregar una foto a un lugar (cuenta @usach.cl; queda en revisión) -->
+  <section id="photo-upload" class="photo-upload" role="dialog" aria-modal="true" aria-labelledby="pu-title" hidden>
+    <div class="pu-card">
+      <header class="pu-head">
+        <div class="grow"><h2 id="pu-title">Agregar foto</h2><p id="pu-place"></p></div>
+        <button id="pu-close" class="icon-btn tonal" type="button" aria-label="Cancelar"><span class="ms">close</span></button>
+      </header>
+      <img id="pu-preview" class="pu-preview" alt="La foto que vas a enviar">
+      <div id="pu-login" class="pu-login">
+        <p>Para enviarla, entra con tu cuenta <b>@usach.cl</b>.</p>
+        <div id="pu-google"></div>
+      </div>
+      <div id="pu-form" hidden>
+        <p class="pu-who">Entraste como <b id="pu-email"></b> · <button id="pu-other" class="link-btn" type="button">usar otra cuenta</button></p>
+        <fieldset class="pu-credit">
+          <legend>Crédito de la foto</legend>
+          <label><input type="radio" name="pu-name" value="si" checked> <span>Con mi nombre: <b id="pu-name"></b></span></label>
+          <label><input type="radio" name="pu-name" value="no"> <span>Sin nombre (sale como "Comunidad USACH")</span></label>
+        </fieldset>
+        <label class="pu-check"><input type="checkbox" id="pu-accept"> <span>La foto es mía y la comparto con licencia
+          <a id="pu-licence" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>: se puede usar y adaptar dando crédito,
+          sin fines de lucro y compartiendo igual.</span></label>
+        <p class="pu-note">Antes de publicarse, la revisa un administrador. Se envía sin la ubicación ni los datos de la
+          cámara. <a href="condiciones-fotos.html" target="_blank" rel="noopener">Condiciones</a></p>
+        <div class="pu-actions">
+          <button id="pu-cancel" class="btn btn-gray" type="button">Cancelar</button>
+          <button id="pu-send" class="btn btn-filled" type="button" disabled>Enviar a revisión</button>
+        </div>
+      </div>
+      <p id="pu-error" class="pu-error" role="alert"></p>
+    </div>
+  </section>
+  <input type="file" id="pu-file" accept="image/*" hidden>
 
   <div id="snackbars" class="snackbars" aria-live="polite"></div>
 
