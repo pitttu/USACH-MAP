@@ -11,22 +11,23 @@ const REFRESH_MS = 15 * 60 * 1000; // Open-Meteo actualiza cada 15 min
 
 // cloud: 0 despejado .. 1 cubierto (luz gris, sin sol) · rain: intensidad 0..1 · drizzle: gota fina · storm: relámpagos
 // fog: niebla (acerca la niebla de distancia) · haze: bruma leve en altura, sin tocar la luz (nublado)
+// nubes: cúmulos a la deriva sobre la ciudad con sus sombras (clouds.js); el sol sigue (nublado)
 export const PRESETS = {
-  despejado: { label: 'Despejado', cloud: 0, rain: 0, drizzle: 0, storm: 0, fog: 0, haze: 0 },
-  nublado: { label: 'Nublado', cloud: 0, rain: 0, drizzle: 0, storm: 0, fog: 0, haze: 1 },
-  llovizna: { label: 'Llovizna', cloud: 1, rain: 0.35, drizzle: 1, storm: 0, fog: 0.2, haze: 0 },
-  lluvia: { label: 'Lluvia', cloud: 1, rain: 0.75, drizzle: 0, storm: 0, fog: 0.35, haze: 0 },
-  tormenta: { label: 'Tormenta', cloud: 1, rain: 1, drizzle: 0, storm: 1, fog: 0.5, haze: 0 },
+  despejado: { label: 'Despejado', cloud: 0, rain: 0, drizzle: 0, storm: 0, fog: 0, haze: 0, nubes: 0 },
+  nublado: { label: 'Nublado', cloud: 0, rain: 0, drizzle: 0, storm: 0, fog: 0, haze: 0.5, nubes: 1 },
+  llovizna: { nubes: 0, label: 'Llovizna', cloud: 1, rain: 0.35, drizzle: 1, storm: 0, fog: 0.2, haze: 0 },
+  lluvia: { nubes: 0, label: 'Lluvia', cloud: 1, rain: 0.75, drizzle: 0, storm: 0, fog: 0.35, haze: 0 },
+  tormenta: { nubes: 0, label: 'Tormenta', cloud: 1, rain: 1, drizzle: 0, storm: 1, fog: 0.5, haze: 0 },
 };
 
 // Códigos WMO (https://open-meteo.com/en/docs) -> estado
 function fromWMO(code, cover) {
   const cloud = THREE.MathUtils.clamp((cover - 40) / 50, 0, 1);
-  const s = (label, o) => ({ label, cloud, rain: 0, drizzle: 0, storm: 0, fog: 0, haze: 0, ...o });
+  const s = (label, o) => ({ label, cloud, rain: 0, drizzle: 0, storm: 0, fog: 0, haze: 0, nubes: 0, ...o });
   // sin lluvia, las nubes no cambian la luz: solo la bruma
-  if (code <= 1) return s(code === 0 ? 'Despejado' : 'Mayormente despejado', { cloud: 0, haze: cloud });
-  if (code === 2) return s('Parcialmente nublado', { cloud: 0, haze: cloud });
-  if (code === 3) return s('Nublado', { cloud: 0, haze: 1 });
+  if (code <= 1) return s(code === 0 ? 'Despejado' : 'Mayormente despejado', { cloud: 0, haze: cloud * 0.5, nubes: cloud * 0.4 });
+  if (code === 2) return s('Parcialmente nublado', { cloud: 0, haze: cloud * 0.5, nubes: 0.35 + 0.4 * cloud });
+  if (code === 3) return s('Nublado', { cloud: 0, haze: 0.5, nubes: 1 });
   if (code === 45 || code === 48) return s('Niebla', { cloud: 1, fog: 1 });
   if (code >= 51 && code <= 57) return s('Llovizna', { cloud: 1, rain: [0.25, 0.35, 0.45][Math.min(2, Math.floor((code - 51) / 2))], drizzle: 1, fog: 0.2 });
   if (code >= 61 && code <= 67) return s('Lluvia', { cloud: 1, rain: [0.5, 0.75, 1][Math.min(2, Math.floor((code - 61) / 2))], fog: 0.35 });
@@ -36,7 +37,7 @@ function fromWMO(code, cover) {
   return s('—');
 }
 
-const KEYS = ['cloud', 'rain', 'drizzle', 'storm', 'fog', 'haze'];
+const KEYS = ['cloud', 'rain', 'drizzle', 'storm', 'fog', 'haze', 'nubes'];
 const lum = (c) => 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
 // contrarresta el tinte cálido global (WARM en main.js) para que el día nublado se vea gris, no beige
 // (parcialmente: un día nublado en Santiago es gris tibio, no azul)

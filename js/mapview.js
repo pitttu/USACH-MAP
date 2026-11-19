@@ -11,6 +11,7 @@ import { sunPosition, sunDirection, lightingAt, paletteMaterialColor, NIGHT_STYL
 import { MapCamera } from './controls.js';
 import { Labels, StreetLabels, CategoryMarkers, Marker } from './labels.js';
 import { Weather } from './weather.js';
+import { Clouds, NUBES } from './clouds.js';
 
 const params = new URLSearchParams(location.search);
 const isMobile = matchMedia('(pointer: coarse)').matches;
@@ -44,12 +45,21 @@ if (/^(localhost|127\.|192\.168\.)/.test(location.hostname) && params.get('bruma
 const haze = {
   uHaze: { value: 0 }, uHazeD: { value: HAZE.densidad }, uHazeH: { value: HAZE.alto },
   uHazeColor: { value: new THREE.Color() }, uHazeSun: { value: new THREE.Color() }, uHazeSunDir: { value: new THREE.Vector3(0, 1, 0) },
+  // sombras de las nubes (clouds.js): su mapa de cobertura, proyectado hacia el sol desde la altura de las nubes
+  uNubes: { value: 0 }, uNubesMap: { value: null }, uNubesOff: { value: new THREE.Vector2() }, uNubesD: { value: 1 }, uNubesH: { value: 400 },
 };
 THREE.ShaderChunk.fog_pars_vertex = '#ifdef USE_FOG\nvarying float vFogDepth;\nvarying vec3 vFogWorld;\n#endif';
 THREE.ShaderChunk.fog_vertex = '#ifdef USE_FOG\nvFogDepth = - mvPosition.z;\nvFogWorld = cameraPosition + transpose(mat3(viewMatrix)) * mvPosition.xyz;\n#endif';
 THREE.ShaderChunk.fog_pars_fragment = THREE.ShaderChunk.fog_pars_fragment.replace('varying float vFogDepth;',
-  'varying float vFogDepth;\nvarying vec3 vFogWorld;\nuniform float uHaze, uHazeD, uHazeH;\nuniform vec3 uHazeColor, uHazeSun, uHazeSunDir;');
+  'varying float vFogDepth;\nvarying vec3 vFogWorld;\nuniform float uHaze, uHazeD, uHazeH;\nuniform vec3 uHazeColor, uHazeSun, uHazeSunDir;\nuniform float uNubes, uNubesD, uNubesH;\nuniform vec2 uNubesOff;\nuniform sampler2D uNubesMap;');
 THREE.ShaderChunk.fog_fragment = `#ifdef USE_FOG
+  if (uNubes > 0.001) { // sombra de las nubes que pasan entre este punto y el sol
+    vec3 q = vFogWorld + uHazeSunDir * ((uNubesH - vFogWorld.y) / max(uHazeSunDir.y, 0.15));
+    vec2 uv = (q.xz - uNubesOff) / uNubesD + 0.5;
+    float cob = texture2D(uNubesMap, vec2(uv.x, 1.0 - uv.y)).r;
+    // como la sombra del sol del mapa: más azulada que gris
+    gl_FragColor.rgb *= 1.0 - uNubes * smoothstep(0.04, 0.9, cob) * vec3(1.0, 0.92, 0.78);
+  }
   if (uHaze > 0.001) {
     vec3 rayo = vFogWorld - cameraPosition;
     float yc = max(cameraPosition.y, 0.0), yp = max(vFogWorld.y, 0.0), dy = yp - yc;
@@ -122,6 +132,8 @@ scene.add(sky);
 
 // ---------------------------------------------------------------- clima
 const weather = new Weather(scene, { drops: LOW ? 0 : isMobile ? 3500 : 7000 });
+const clouds = new Clouds(scene); // nubes del modo nublado (centradas en el campus, origen de la escena)
+haze.uNubesMap.value = clouds.coverage; haze.uNubesD.value = NUBES.dominio; haze.uNubesH.value = NUBES.alto;
 if (!FEATURES.weather) weather.mode = 'despejado';
 
 // ---------------------------------------------------------------- materiales
@@ -747,6 +759,14 @@ function frame(now) {
   }
   controls.tick(now);
   if (weather.tick(dt, now, camera, controls.target, controls.dist)) applyLighting(); // lluvia/transición/relámpago
+  { // nubes a la deriva (y sus sombras): mientras hay, se dibuja cada cuadro
+    const n = weather.cur.nubes || 0, dia = 1 - night.uNight.value;
+    if (clouds.update(n, dt, controls.camDist, dia, scene.fog.color)) {
+      haze.uNubesOff.value.copy(clouds.off);
+      haze.uNubes.value = NUBES.sombra * n * THREE.MathUtils.smoothstep(sunVec.y, 0.03, 0.15);
+      needsRender = true;
+    } else haze.uNubes.value = 0;
+  }
   if (!needsRender) return;
   needsRender = false;
 
