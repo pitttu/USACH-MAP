@@ -66,16 +66,56 @@ button { cursor: pointer; background: none; border: 0; -webkit-tap-highlight-col
 
 /* ---- pantalla de carga ---- */
 .loader {
-  position: fixed; inset: 0; z-index: 9999; background: #fff; display: flex; flex-direction: column;
+  position: fixed; inset: 0; z-index: 9999; display: flex; flex-direction: column; overflow: hidden;
   align-items: center; justify-content: center; gap: 14px; transition: opacity 0.3s ease-out, visibility 0.3s;
 }
 .loader.hidden-loader { opacity: 0; visibility: hidden; }
-/* círculo de carga de colores (de material-design-spinner, Fran Pérez, licencia MIT: https://codepen.io/mrrocks/pen/ExLovj) */
-.loader .spinner { animation: spinner-rotate 1.4s linear infinite; }
-.loader .spinner .path { stroke-dasharray: 187; stroke-dashoffset: 0; transform-origin: center; animation: spinner-dash 1.4s ease-in-out infinite, spinner-colors 5.6s ease-in-out infinite; }
-@keyframes spinner-rotate { to { transform: rotate(270deg); } }
-@keyframes spinner-dash { 0% { stroke-dashoffset: 187; } 50% { stroke-dashoffset: 46.75; transform: rotate(135deg); } 100% { stroke-dashoffset: 187; transform: rotate(450deg); } }
-@keyframes spinner-colors { 0%, 100% { stroke: #4285f4; } 25% { stroke: #de3e35; } 50% { stroke: #f7c223; } 75% { stroke: #1b9a59; } }
+/* Cielo con nubes mientras carga. Al llegar (.llegando, ver app.js), el cielo se desvanece y las nubes se abren hacia
+   los bordes mientras la cámara baja: las cercanas (--prof alta) crecen y se van antes. Solo gradientes, transform y
+   opacity (baratos en celulares lentos: nada de filter: blur). */
+.loader::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  /* dentro de las nubes: un manto blanco con zonas apenas más grises (sin cielo azul) */
+  background:
+    radial-gradient(closest-side, rgba(222,228,235,.9), rgba(222,228,235,0)) 15% 20% / 70% 45% no-repeat,
+    radial-gradient(closest-side, rgba(226,231,237,.85), rgba(226,231,237,0)) 85% 45% / 75% 50% no-repeat,
+    radial-gradient(closest-side, rgba(220,226,233,.8), rgba(220,226,233,0)) 30% 80% / 80% 45% no-repeat,
+    linear-gradient(180deg, #f1f4f7 0%, #f8f9fb 50%, #f2f5f8 100%);
+  transition: opacity 0.9s ease-out;
+}
+.loader .nubes { position: absolute; inset: 0; pointer-events: none; }
+.loader .nube {
+  position: absolute; left: var(--x); top: var(--y); width: var(--w); aspect-ratio: 2.1;
+  transform: translate(-50%, -50%); will-change: transform, opacity;
+  transition: transform 2.6s cubic-bezier(.55, 0, .75, .45), opacity 2.2s ease-in;
+}
+.loader .nube i {
+  position: absolute; inset: 0; animation: nube-deriva 6s ease-in-out infinite alternate;
+  background:
+    radial-gradient(closest-side, #fff 0%, rgba(255,255,255,.92) 45%, rgba(255,255,255,0) 100%) 8% 70% / 42% 62% no-repeat,
+    radial-gradient(closest-side, #fff 0%, rgba(255,255,255,.95) 50%, rgba(255,255,255,0) 100%) 38% 30% / 50% 90% no-repeat,
+    radial-gradient(closest-side, #fff 0%, rgba(255,255,255,.9) 45%, rgba(255,255,255,0) 100%) 68% 45% / 46% 78% no-repeat,
+    radial-gradient(closest-side, #fff 0%, rgba(255,255,255,.85) 40%, rgba(255,255,255,0) 100%) 94% 72% / 34% 54% no-repeat,
+    radial-gradient(closest-side, rgba(214,226,238,.9) 0%, rgba(214,226,238,0) 100%) 50% 88% / 90% 34% no-repeat;
+}
+/* deriva: cada nube se corre de lado --deriva (en vw: las cercanas, más; paralaje), sube o baja y respira, con
+   duraciones y desfases distintos para que no se muevan al unísono */
+@keyframes nube-deriva {
+  0% { transform: translate(calc(var(--deriva) * -1), 0) scale(1); }
+  50% { transform: translate(0, calc(var(--deriva) * -0.18)) scale(1.07); }
+  100% { transform: translate(var(--deriva), calc(var(--deriva) * 0.08)) scale(1); }
+}
+.loader .nube:nth-child(3n) i { animation-duration: 7s; animation-delay: -3s; }
+.loader .nube:nth-child(3n+1) i { animation-duration: 5s; animation-delay: -1.5s; }
+.loader .nube:nth-child(4n) i { animation-duration: 8s; animation-delay: -5s; }
+/* durante la llegada el velo (ya transparente) sigue atrapando los toques: tocar no interrumpe la bajada de la cámara */
+.loader.llegando::before { opacity: 0; }
+.loader.llegando .leon { opacity: 0; transition: opacity 0.3s; }
+.loader.llegando .nube {
+  opacity: 0;
+  transform: translate(-50%, -50%) translate(var(--sx, 0px), var(--sy, 0px)) scale(calc(1.6 + var(--prof)));
+}
+@media (prefers-reduced-motion: reduce) { .loader .nube i { animation: none; } }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ---- buscador y pastillas ---- */

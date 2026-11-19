@@ -7,7 +7,7 @@ import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
 import { fetchAsset } from './cache.js';
 import { LAT0, LON0, BOUNDS, FOV, toLocal, toLonLat, zoomToDistance } from './geo.js';
-import { sunPosition, sunDirection, lightingAt, paletteMaterialColor } from './sun.js';
+import { sunPosition, sunDirection, lightingAt, paletteMaterialColor, NIGHT_STYLES, NIGHT_DEFAULT, NIGHT_GROUND, NIGHT_GROUND_BASE, LIGHT_REF, MOON_DIR, NIGHT_FROM, NIGHT_TO, darkness } from './sun.js';
 import { MapCamera } from './controls.js';
 import { Labels, StreetLabels, CategoryMarkers, Marker } from './labels.js';
 import { Weather } from './weather.js';
@@ -34,6 +34,32 @@ stage.prepend(renderer.domElement);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(FOV, 1, 1, 5000);
 scene.fog = new THREE.Fog(0xffffff, 800, 3000);
+// Bruma de los días nublados: niebla "volumétrica" barata en todos los materiales (reemplaza los trozos de niebla de
+// three). La densidad cae con la altura (exponencial, escala HAZE.alto): se integra a lo largo del rayo de la cámara al
+// punto, así que se acumula cerca del suelo y en vistas inclinadas, y los techos quedan más limpios que la base de los
+// muros. Mirando hacia el sol se aclara (luz que dispersa la bruma). Con uHaze = 0 no hace nada; la luz no cambia.
+// ?bruma=densidad,alto,azul (en localhost) para calibrar.
+const HAZE = { densidad: 0.006, alto: 25, azul: 0.3 }; // densidad en el suelo (por metro), alto de caída (m), tinte del cielo
+if (/^(localhost|127\.|192\.168\.)/.test(location.hostname) && params.get('bruma')) [HAZE.densidad, HAZE.alto = HAZE.alto, HAZE.azul = HAZE.azul] = params.get('bruma').split(',').map(Number);
+const haze = {
+  uHaze: { value: 0 }, uHazeD: { value: HAZE.densidad }, uHazeH: { value: HAZE.alto },
+  uHazeColor: { value: new THREE.Color() }, uHazeSun: { value: new THREE.Color() }, uHazeSunDir: { value: new THREE.Vector3(0, 1, 0) },
+};
+THREE.ShaderChunk.fog_pars_vertex = '#ifdef USE_FOG\nvarying float vFogDepth;\nvarying vec3 vFogWorld;\n#endif';
+THREE.ShaderChunk.fog_vertex = '#ifdef USE_FOG\nvFogDepth = - mvPosition.z;\nvFogWorld = cameraPosition + transpose(mat3(viewMatrix)) * mvPosition.xyz;\n#endif';
+THREE.ShaderChunk.fog_pars_fragment = THREE.ShaderChunk.fog_pars_fragment.replace('varying float vFogDepth;',
+  'varying float vFogDepth;\nvarying vec3 vFogWorld;\nuniform float uHaze, uHazeD, uHazeH;\nuniform vec3 uHazeColor, uHazeSun, uHazeSunDir;');
+THREE.ShaderChunk.fog_fragment = `#ifdef USE_FOG
+  if (uHaze > 0.001) {
+    vec3 rayo = vFogWorld - cameraPosition;
+    float yc = max(cameraPosition.y, 0.0), yp = max(vFogWorld.y, 0.0), dy = yp - yc;
+    float ec = exp(-yc / uHazeH), ep = exp(-yp / uHazeH);
+    // densidad media a lo largo del rayo (relativa a la del suelo) por su largo
+    float prof = uHazeD * length(rayo) * (abs(dy) > 0.01 ? uHazeH * (ec - ep) / dy : ep);
+    float sol = pow(max(dot(normalize(rayo), uHazeSunDir), 0.0), 6.0);
+    gl_FragColor.rgb = mix(gl_FragColor.rgb, uHazeColor + uHazeSun * sol, (1.0 - exp(-prof)) * uHaze);
+  }
+` + THREE.ShaderChunk.fog_fragment.replace('#ifdef USE_FOG', '');
 
 // ---------------------------------------------------------------- luz
 const sun = new THREE.DirectionalLight(0xffffff, 1); // intensidad va en el color (ver sun.js)
@@ -52,6 +78,19 @@ scene.add(hemi);
 const fill = new THREE.DirectionalLight(0x000000, 1);
 scene.add(fill);
 const aoUniform = { value: 0.8 };
+const lightsUniform = { value: 0 }; // ventanas encendidas: 0 de día, 1 de noche (sun.js, clave "lights")
+const flatUniform = { value: new THREE.Color(1, 1, 1) }; // tono propio del suelo al atardecer y de noche (sun.js, "flat")
+// Paleta de noche de las construcciones (sun.js, NIGHT_STYLES): ?noche=A…F elige la variante (para compararlas)
+const nightStyle = NIGHT_STYLES[new URLSearchParams(location.search).get('noche')?.toUpperCase()] || NIGHT_STYLES[NIGHT_DEFAULT];
+const night = {
+  uNight: { value: 0 }, uNightRoof: { value: new THREE.Color(nightStyle.techo) }, uNightWall: { value: new THREE.Color(nightStyle.muro) },
+  uNightShadow: { value: new THREE.Color(nightStyle.sombra) }, uNightHue: { value: nightStyle.matiz }, uMoonDir: { value: MOON_DIR.clone() },
+};
+const nightGround = {
+  uNightGrass: { value: new THREE.Color(NIGHT_GROUND.pasto) }, uNightWater: { value: new THREE.Color(NIGHT_GROUND.agua) },
+  uNightPath: { value: new THREE.Color(NIGHT_GROUND.camino) }, uLightRef: { value: LIGHT_REF.clone() },
+};
+let sceneDarkness = 0;
 const selectedObject = { value: 0 }; // _id del edificio/modelo resaltado (0 = ninguno)
 // Marcas de revisión (?dev): color por objeto en una textura de 1 fila indexada por _id (alfa 0 = sin marca)
 const marksTex = { value: new THREE.DataTexture(new Uint8Array(4), 1, 1) }, marksW = { value: 1 };
@@ -90,10 +129,28 @@ if (!FEATURES.weather) weather.mode = 'despejado';
 // la sombra de un muro arranca unos decímetros afuera de su base
 const SHADOW_VS = THREE.ShaderChunk.shadowmap_vertex.replaceAll('directionalLightShadows[ i ].shadowNormalBias', '0.0');
 const SHADOW_FS = THREE.ShaderChunk.lights_fragment_begin.replaceAll('directionalLightShadow.shadowBias', '0.0');
+// (lo usan las capas planas: también les pone su tono de atardecer y noche, uFlat)
 function exactShadows(m) {
   m.onBeforeCompile = (sh) => {
+    Object.assign(sh.uniforms, haze);
+    sh.uniforms.uFlat = flatUniform;
+    sh.uniforms.uNight = night.uNight;
+    Object.assign(sh.uniforms, nightGround);
     sh.vertexShader = sh.vertexShader.replace('#include <shadowmap_vertex>', SHADOW_VS);
-    sh.fragmentShader = sh.fragmentShader.replace('#include <lights_fragment_begin>', SHADOW_FS);
+    sh.fragmentShader = sh.fragmentShader.replace('#include <lights_fragment_begin>', SHADOW_FS)
+      .replace('#include <common>', '#include <common>\nuniform vec3 uFlat;\nuniform float uNight;\nuniform vec3 uNightGrass, uNightWater, uNightPath, uLightRef;')
+      .replace('#include <opaque_fragment>', `outgoingLight *= uFlat;
+        // de noche: pasto, agua y caminos a su paleta (NIGHT_GROUND), reconocidos por su color de día
+        if (uNight > 0.001) {
+          vec3 dia = diffuseColor.rgb * uLightRef;
+          float pasto = smoothstep(0.06, 0.12, dia.g - max(dia.r, dia.b));
+          float agua = smoothstep(0.15, 0.25, dia.b - dia.r);
+          float camino = (1.0 - smoothstep(0.09, 0.15, dia.r - dia.b)) * (1.0 - pasto) * (1.0 - agua);
+          vec3 obj = outgoingLight;
+          obj = mix(obj, uNightGrass, pasto); obj = mix(obj, uNightWater, agua); obj = mix(obj, uNightPath, camino);
+          outgoingLight = mix(outgoingLight, obj / vec3(${WARM.map((v) => v.toFixed(3)).join(', ')}), uNight);
+        }
+        #include <opaque_fragment>`);
   };
   m.customProgramCacheKey = () => 'exactShadows';
   return m;
@@ -109,19 +166,43 @@ const FADED_SAT = 0.2, FADED_GAIN = 1.28; // calibrado contra Mapbox de cerca: t
 const WARM = [1.0, 0.89, 0.77];
 // Los vidrios (color azulado: azul muy sobre el rojo) esquivan parte del tinte cálido -> celeste más vivo, como Mapbox
 const GLASS_UNWARM = 0.7;
+// De noche las construcciones pasan a su paleta (night): techo, muro de cara a la luna o en sombra según la normal,
+// con un poco del matiz de cada material y su claridad; el vidrio y los árboles no (ES_ARBOL). Va antes del tinte
+// cálido global, que se compensa para que salgan los colores pedidos.
+const NIGHT_PALETTE = `
+        #ifndef ES_ARBOL
+        if (uNight > 0.001) {
+          vec3 nW = normalize((vec4(aoN, 0.0) * viewMatrix).xyz);
+          float cara = clamp(dot(nW, uMoonDir), 0.0, 1.0);
+          vec3 base = mix(mix(uNightShadow, uNightWall, cara), uNightRoof, smoothstep(0.55, 0.9, nW.y));
+          float lumA = dot(diffuseColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+          vec3 noche = base * mix(vec3(1.0), diffuseColor.rgb / max(lumA, 0.04), uNightHue) * mix(1.0, lumA / 0.75, 0.3);
+          outgoingLight = mix(outgoingLight, noche / vec3(${WARM.map((v) => v.toFixed(3)).join(', ')}), uNight * (1.0 - glassMask));
+        }
+        #endif`;
+// Ventanas encendidas al atardecer y de noche: de día el vidrio es celeste; al oscurecer, todas las ventanas pasan
+// juntas a un mismo blanco cálido, como luz de adentro (uLights: 0 de día, 1 de noche). Solo el vidrio de verdad
+// (_ventana = 1, ver build-glb.mjs): los letreros celestes no se prenden. El color va antes del tinte cálido global.
+const WINDOW_LIGHT = `
+        if (uLights > 0.001 && vWin > 0.5)
+          outgoingLight = mix(outgoingLight, vec3(1.0, 0.86, 0.64) / vec3(${WARM.map((v) => v.toFixed(3)).join(', ')}), uLights);`;
 const FADED = `outgoingLight = mix(outgoingLight, vec3(dot(outgoingLight, vec3(0.2126, 0.7152, 0.0722))), ${FADED_SAT.toFixed(3)}) * ${FADED_GAIN.toFixed(3)};`;
 THREE.ShaderChunk.opaque_fragment = `outgoingLight *= vec3(${WARM.map((v) => v.toFixed(3)).join(', ')});\n` + THREE.ShaderChunk.opaque_fragment;
-function mapboxLook(opts = {}) {
+function mapboxLook(opts = {}, { arbol = false } = {}) {
   const m = new THREE.MeshLambertMaterial({ vertexColors: true, ...opts });
+  if (arbol) m.defines = { ES_ARBOL: '' };
   m.onBeforeCompile = (sh) => {
+    Object.assign(sh.uniforms, haze);
     sh.uniforms.uAO = aoUniform;
+    sh.uniforms.uLights = lightsUniform;
+    Object.assign(sh.uniforms, night);
     sh.uniforms.uSel = selectedObject;
     sh.uniforms.uMarks = marksTex; sh.uniforms.uMarksW = marksW;
     sh.vertexShader = sh.vertexShader
-      .replace('#include <common>', '#include <common>\nvarying float vWorldY;\nattribute float _id;\nvarying float vObjId;')
-      .replace('#include <project_vertex>', '#include <project_vertex>\nvWorldY = (modelMatrix * vec4(transformed, 1.0)).y;\nvObjId = _id;');
+      .replace('#include <common>', '#include <common>\nvarying float vWorldY;\nattribute float _id;\nvarying float vObjId;\nattribute float _ventana;\nvarying float vWin;')
+      .replace('#include <project_vertex>', '#include <project_vertex>\nvWorldY = (modelMatrix * vec4(transformed, 1.0)).y;\nvObjId = _id;\nvWin = _ventana;');
     sh.fragmentShader = sh.fragmentShader
-      .replace('#include <common>', '#include <common>\nvarying float vWorldY;\nuniform float uAO;\nfloat glassMask;\nvarying float vObjId;\nuniform float uSel;\nuniform sampler2D uMarks;\nuniform float uMarksW;')
+      .replace('#include <common>', '#include <common>\nvarying float vWorldY;\nuniform float uAO;\nuniform float uLights;\nuniform float uNight;\nuniform vec3 uNightRoof;\nuniform vec3 uNightWall;\nuniform vec3 uNightShadow;\nuniform float uNightHue;\nuniform vec3 uMoonDir;\nvarying float vWin;\nfloat glassMask;\nvarying float vObjId;\nuniform float uSel;\nuniform sampler2D uMarks;\nuniform float uMarksW;')
       .replace('#include <color_fragment>', `#include <color_fragment>
         glassMask = smoothstep(0.25, 0.45, diffuseColor.b - diffuseColor.r);
         vec4 mark = texture2D(uMarks, vec2((vObjId + 0.5) / uMarksW, 0.5));
@@ -130,8 +211,8 @@ function mapboxLook(opts = {}) {
         vec3 aoN = normalize(cross(dFdx(vViewPosition), dFdy(vViewPosition)));
         float aoWall = 1.0 - smoothstep(0.5, 0.8, abs(dot(aoN, normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz))));
         diffuseColor.rgb *= mix(1.0, mix(uAO, 1.0, smoothstep(0.0, 3.5, vWorldY)), aoWall);`)
-      .replace('#include <opaque_fragment>', `${FADED}
-        outgoingLight *= mix(vec3(1.0), 1.0 / vec3(${WARM.map((v) => v.toFixed(3)).join(', ')}), glassMask * ${GLASS_UNWARM.toFixed(2)});
+      .replace('#include <opaque_fragment>', `${FADED}${NIGHT_PALETTE}
+        outgoingLight *= mix(vec3(1.0), 1.0 / vec3(${WARM.map((v) => v.toFixed(3)).join(', ')}), glassMask * ${GLASS_UNWARM.toFixed(2)});${WINDOW_LIGHT}
         #include <opaque_fragment>`);
   };
   return m;
@@ -148,6 +229,7 @@ const flat = () => wettable(lambert({ depthWrite: false, side: THREE.DoubleSide,
 function lightMaterial() {
   const m = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, depthWrite: false, side: THREE.DoubleSide });
   m.onBeforeCompile = (sh) => {
+    Object.assign(sh.uniforms, haze);
     sh.vertexShader = sh.vertexShader
       .replace('#include <common>', '#include <common>\nattribute vec3 color;\nvarying float vLight;')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvLight = color.r;');
@@ -162,10 +244,14 @@ const LAYERS = {
   base: { order: 1, mat: flat },
   areas: { order: 2, mat: flat },
   roads: { order: 4, mat: flat },
+  // máscara del suelo (graderia.mjs): las capas planas no escriben profundidad, así que lo que está bajo el suelo (el
+  // graderío hundido de Matemáticas) se vería a través de ellas; esta capa invisible, apenas bajo el suelo alrededor
+  // del hueco, escribe profundidad después del suelo y antes de los edificios, y solo deja verlo por su boca
+  mask: { order: 5, mat: () => new THREE.MeshBasicMaterial({ colorWrite: false }) },
   buildings: { order: 10, mat: () => mapboxLook({ flatShading: true }), cast: true },
   // modelos con normales suavizadas (el cono del planetario no se ve facetado)
   models: { order: 10, mat: () => mapboxLook(), cast: true, smooth: true },
-  trees: { order: 10, mat: () => mapboxLook({ flatShading: true }), cast: true },
+  trees: { order: 10, mat: () => mapboxLook({ flatShading: true }, { arbol: true }), cast: true },
   lights: { order: 11, mat: lightMaterial },
 };
 
@@ -176,7 +262,8 @@ groundPlane.receiveShadow = true;
 scene.add(groundPlane);
 
 // ---------------------------------------------------------------- cámara
-const controls = new MapCamera(camera, stage, { bounds: BOUNDS, minDist: 40, maxDist: 2600, maxPitch: 62 });
+const MAX_DIST = 2600;
+const controls = new MapCamera(camera, stage, { bounds: BOUNDS, minDist: 40, maxDist: MAX_DIST, maxPitch: 62 });
 let viewW = 1, viewH = 1;
 const distForZoom = (z) => zoomToDistance(z, viewH);
 const zoomForDist = (d) => 15.5 + Math.log2(distForZoom(15.5) / d);
@@ -231,6 +318,12 @@ function applyLighting() {
   skyUniforms.sunColor.value.copy(L.sun).multiplyScalar(sunVec.y > -0.05 ? 0.3 : 0);
   scene.fog.color.copy(L.skyHorizon);
   fogScale = fx.fogScale;
+  // bruma: blanco lechoso un poco azulado, entre el horizonte y el cielo (de noche, oscura como ellos); hacia el sol,
+  // más clara y cálida
+  haze.uHaze.value = fx.haze;
+  haze.uHazeColor.value.copy(L.skyHorizon).lerp(L.skyTop, HAZE.azul);
+  haze.uHazeSun.value.copy(L.sun).multiplyScalar(sunVec.y > 0 ? 0.08 : 0);
+  haze.uHazeSunDir.value.copy(sunVec);
   // relleno: desde donde está el sol, pero alto (≥ 55°), como la zona clara de un cielo cubierto
   fill.color.copy(L.fill || new THREE.Color(0));
   const fd = new THREE.Vector3(sunVec.x, 0, sunVec.z);
@@ -238,6 +331,11 @@ function applyLighting() {
   fd.normalize().multiplyScalar(Math.cos(Math.PI * 0.3)).setY(Math.sin(Math.PI * 0.3));
   fill.position.copy(fd);
   aoUniform.value = L.ao ?? 0.8;
+  lightsUniform.value = L.lights ?? 0;
+  flatUniform.value.copy(L.flat || new THREE.Color(1, 1, 1));
+  sceneDarkness = darkness(L, sunVec.y);
+  night.uNight.value = THREE.MathUtils.smoothstep(sceneDarkness, NIGHT_FROM, NIGHT_TO);
+  for (const n of sectorFilters) n.visible = night.uNight.value > 0; // de día no se dibuja (ni redondea)
   // suelo mojado: más oscuro y apenas más frío
   for (const { m, base } of wetMaterials) m.color.copy(base).multiply(new THREE.Color(1 - 0.2 * fx.wet, 1 - 0.18 * fx.wet, 1 - 0.13 * fx.wet));
   needsRender = true;
@@ -275,7 +373,54 @@ const pin = new Marker(labelsLayer, 'pin', '<div class="active-pointer"></div>')
 const userMarker = new Marker(labelsLayer, 'user', '<div class="user-location-marker"></div>');
 
 // ---------------------------------------------------------------- sectores y ruta
-let sectorsGroup = null, sectorsOn = true; // sectorsOn: el usuario los puede apagar (menú de capas)
+let sectorsGroup = null, sectorsOn = true, sectorFilters = []; // sectorsOn: el usuario los puede apagar (menú de capas)
+// De día el sector es un velo al 25% sobre el suelo. De noche ese velo taparía el suelo, el pasto y los caminos con un
+// color propio (y amarillo sobre azul da verde), así que se apaga y entra otro: un filtro que solo tiñe lo que hay
+// debajo (multiplica el color de la pantalla por un factor por canal, sin taparlo). El factor sale de la diferencia de
+// color que el sector hace de día sobre el suelo (en OKLab, perceptual), llevada al suelo de noche: el mismo matiz,
+// con la intensidad SECTOR_NIGHT.croma, y sin oscurecer (claridad: cambio de claridad en OKLab, 0 = igual al suelo).
+const SECTOR_NIGHT = { croma: 1.6, claridad: 0 };
+{ // para comparar en el Mac: ?sectores=croma,claridad (solo en localhost)
+  const q = ['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).get('sectores');
+  if (q) [SECTOR_NIGHT.croma, SECTOR_NIGHT.claridad = 0] = q.split(',').map(Number);
+}
+const oklab = (c) => { // THREE.Color (lineal) -> [L, a, b]
+  const [l, m, s] = [[0.4122214708, 0.5363325363, 0.0514459929], [0.2119034982, 0.6806995451, 0.1073969566], [0.0883024619, 0.2817188376, 0.6299787005]]
+    .map(([x, y, z]) => Math.cbrt(x * c.r + y * c.g + z * c.b));
+  return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s];
+};
+const fromOklab = ([L, a, b]) => {
+  const [l, m, s] = [L + 0.3963377774 * a + 0.2158037573 * b, L - 0.1055613458 * a - 0.0638541728 * b, L - 0.0894841775 * a - 1.2914855480 * b].map((v) => v ** 3);
+  return new THREE.Color(4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s, -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s);
+};
+function sectorMaterial(color) {
+  const m = new THREE.MeshLambertMaterial({ color, transparent: true, opacity: 0.25, depthWrite: false });
+  m.onBeforeCompile = (sh) => {
+    Object.assign(sh.uniforms, haze);
+    sh.uniforms.uNight = night.uNight;
+    sh.fragmentShader = sh.fragmentShader
+      .replace('#include <common>', '#include <common>\nuniform float uNight;')
+      .replace('#include <opaque_fragment>', 'diffuseColor.a *= 1.0 - uNight;\n#include <opaque_fragment>');
+  };
+  m.customProgramCacheKey = () => 'sector';
+  return m;
+}
+function sectorNightMaterial(hex) {
+  const dia = new THREE.Color('#f9e1cb'), sobre = dia.clone().lerp(new THREE.Color(hex), 0.25); // como se ve de día
+  const [, da, db] = oklab(sobre).map((v, i) => v - oklab(dia)[i]);
+  const suelo = new THREE.Color(NIGHT_GROUND_BASE), [L, a, b] = oklab(suelo);
+  const meta = fromOklab([L + SECTOR_NIGHT.claridad, a + SECTOR_NIGHT.croma * da, b + SECTOR_NIGHT.croma * db]);
+  // factor en lo que guarda la pantalla (sRGB); el color de salida es la mitad y la mezcla lo duplica (rango 0–2)
+  const s = suelo.getRGB({}, THREE.SRGBColorSpace), t = meta.getRGB({}, THREE.SRGBColorSpace);
+  const factor = new THREE.Vector3(...['r', 'g', 'b'].map((k) => THREE.MathUtils.clamp(Math.max(t[k], 0) / s[k], 0, 2)));
+  return new THREE.ShaderMaterial({
+    uniforms: { uNight: night.uNight, uFactor: { value: factor } },
+    vertexShader: 'void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: 'uniform float uNight; uniform vec3 uFactor; void main() { gl_FragColor = vec4(mix(vec3(1.0), uFactor, uNight) * 0.5, 1.0); }',
+    transparent: true, depthWrite: false,
+    blending: THREE.CustomBlending, blendEquation: THREE.AddEquation, blendSrc: THREE.DstColorFactor, blendDst: THREE.SrcColorFactor,
+  });
+}
 function addSectors(geo) {
   const group = sectorsGroup = new THREE.Group();
   group.visible = baseLayer === 'mapa' && sectorsOn;
@@ -288,10 +433,14 @@ function addSectors(geo) {
       const g = new THREE.ShapeGeometry(shape).rotateX(-Math.PI / 2);
       // color del sector al 25% sobre el suelo (calibrado contra el mapa de Mapbox), compensado para la luz cálida
       const color = new THREE.Color(f.properties.color).multiply(paletteMaterialColor());
-      const m = new THREE.Mesh(g, wettable(new THREE.MeshLambertMaterial({ color, transparent: true, opacity: 0.25, depthWrite: false })));
+      const m = new THREE.Mesh(g, wettable(sectorMaterial(color)));
       m.renderOrder = 3;
       m.receiveShadow = true;
-      group.add(m);
+      const n = new THREE.Mesh(g, sectorNightMaterial(f.properties.color)); // el filtro de noche
+      n.renderOrder = 3;
+      n.visible = night.uNight.value > 0;
+      sectorFilters.push(n);
+      group.add(m, n);
     }
   }
   scene.add(group);
@@ -445,7 +594,7 @@ let campusRoot = null, photoRoot = null, photoLoading = null, baseLayer = 'mapa'
 function photoMaterial(map) {
   // con sol: el color compensa la luz cálida (como las capas planas), así un techo al sol queda del tono de la foto
   const m = PHOTO_SUN ? new THREE.MeshLambertMaterial({ map, color: paletteMaterialColor() }) : new THREE.MeshBasicMaterial({ map });
-  m.onBeforeCompile = (sh) => { sh.fragmentShader = sh.fragmentShader.replace('#include <opaque_fragment>', `${FADED}\n#include <opaque_fragment>`); };
+  m.onBeforeCompile = (sh) => { Object.assign(sh.uniforms, haze); sh.fragmentShader = sh.fragmentShader.replace('#include <opaque_fragment>', `${FADED}\n#include <opaque_fragment>`); };
   m.customProgramCacheKey = () => 'photo';
   return m;
 }
@@ -661,6 +810,8 @@ export const mapView = {
     controls.apply();
   },
   resetNorth() { controls.flyTo({ bearing: 0, pitch: 0, duration: 800 }); },
+  // la llegada (app.js) parte más alto que el límite normal de la cámara; sin argumento, vuelve al límite normal
+  setMaxDist(d) { controls.maxDist = d ?? MAX_DIST; },
   // px de abajo tapados por la interfaz: el centro del mapa queda al medio del resto
   setPadding(bottom) {
     const v = Math.max(0, Math.min(bottom, viewH * 0.8));
@@ -745,4 +896,5 @@ export const mapView = {
 window.__app = {
   scene, camera, controls, renderer, weather, mapView,
   get flat() { return flatP; }, set flat(p) { flatP = flatTarget = p; applyFlat(); }, // avance 3D (0) -> plano (1)
+  get noche() { return { oscuridad: +sceneDarkness.toFixed(3), paleta: +night.uNight.value.toFixed(2), variante: nightStyle.nombre }; },
 };

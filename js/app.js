@@ -226,10 +226,38 @@ async function init() {
   renderAvatar();
   renderHome();
   refreshWeather();
-  $('loader-overlay').classList.add('hidden-loader');
-  mapView.jumpTo({ center: CAMPUS_CENTER, zoom: 14.6 });
-  mapView.flyTo({ center: CAMPUS_CENTER, zoom: 15.5, pitch: 45, bearing: -20, duration: 2200 });
+  llegada();
   openSharedLink();
+}
+
+// --- llegada: la cámara baja desde lo alto atravesando las nubes de la pantalla de carga hasta la vista inicial ---
+// (con "reducir movimiento", el acercamiento corto de antes). La vista final no cambia: zoom 15.5, pitch 45, bearing -20.
+const VISTA_INICIAL = { center: CAMPUS_CENTER, zoom: 15.5, pitch: 45, bearing: -20 }, ALTO_LLEGADA = 7000, DURACION_LLEGADA = 3400; // m de cámara al partir, ms de bajada
+function llegada() {
+  const loader = $('loader-overlay');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    loader.classList.add('hidden-loader');
+    mapView.jumpTo({ center: CAMPUS_CENTER, zoom: 14.6 });
+    mapView.flyTo({ ...VISTA_INICIAL, duration: 2200 });
+    return;
+  }
+  mapView.setMaxDist(ALTO_LLEGADA);
+  mapView.jumpTo({ center: CAMPUS_CENTER, zoom: 10, pitch: 0, bearing: 0 }); // sobre las nubes, mirando abajo
+  // cada nube sale hacia su borde de la pantalla: más lejos cuanto más cerca está de la cámara
+  for (const n of loader.querySelectorAll('.nube')) {
+    const x = parseFloat(n.style.getPropertyValue('--x')) - 50, y = parseFloat(n.style.getPropertyValue('--y')) - 50;
+    const prof = parseFloat(n.style.getPropertyValue('--prof')), r = Math.hypot(x, y) || 1, k = 0.9 * (0.6 + prof * 0.5);
+    n.style.setProperty('--sx', `${(x / r) * k * innerWidth * 0.6}px`);
+    n.style.setProperty('--sy', `${(y / r) * k * innerHeight * 0.6}px`);
+    n.style.transitionDuration = `${3.2 - prof * 0.45}s, ${2.8 - prof * 0.4}s`;
+  }
+  // dos cuadros para que el mapa ya esté dibujado detrás del cielo antes de empezar
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    loader.classList.add('llegando');
+    mapView.flyTo({ ...VISTA_INICIAL, duration: DURACION_LLEGADA });
+    // el velo de la carga (ya transparente) tapa la pantalla hasta que la cámara llega: los toques no cortan la bajada
+    setTimeout(() => { loader.classList.add('hidden-loader'); mapView.setMaxDist(); }, DURACION_LLEGADA + 50);
+  }));
 }
 
 // --- mapa ---

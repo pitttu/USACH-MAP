@@ -95,21 +95,34 @@ function landmarkNear(f) {
 export const isLabel = (f) => labelIds.has(placeId(f));
 
 // --- búsqueda ---
-// Cada palabra escrita debe aparecer en el nombre, el subtítulo o la descripción. Primero los nombres exactos, los
-// que empiezan con lo escrito y los que tienen todas las palabras en el nombre.
+// Cada palabra escrita debe aparecer en el nombre, el subtítulo, la descripción o uno de sus otros nombres ("alias":
+// p. ej. un edificio con varios nombres, o los centros que tiene adentro). Primero los nombres exactos, los que
+// empiezan con lo escrito y los que tienen todas las palabras en el nombre; después, lo mismo con los otros nombres.
+const searchTokens = (q) => norm(q).replace(/\b(sala|edificio|usach)\b/g, ' ').split(/[\s,.;:/-]+/).filter(Boolean);
+// el otro nombre que calza con lo escrito, si el nombre principal no tiene todas las palabras (para mostrarlo)
+export function aliasFor(f, q) {
+  const tokens = searchTokens(q), name = norm(describe(f).name);
+  if (!tokens.length || tokens.every((t) => name.includes(t))) return null;
+  return (f.properties.alias || []).find((a) => tokens.every((t) => norm(a).includes(t))) || null;
+}
 export function search(q, limit = 12) {
-  const tokens = norm(q).replace(/\b(sala|edificio|usach)\b/g, ' ').split(/[\s,.;:/-]+/).filter(Boolean);
+  const tokens = searchTokens(q);
   if (!tokens.length) return [];
   const full = tokens.join(' '), wordStart = tokens.map((t) => new RegExp(`(^|[\\s(])${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`));
   const out = [];
   for (const f of searchable) {
     const d = describe(f), name = norm(d.name);
-    const hay = `${name} ${norm(d.sub)} ${norm(f.properties.descripcion)}`;
+    const alias = (f.properties.alias || []).map(norm);
+    const hay = `${name} ${norm(d.sub)} ${norm(f.properties.descripcion)} ${alias.join(' ')}`;
     if (!tokens.every((t) => hay.includes(t))) continue;
     let score = -name.length / 100;
-    if (name === full || name.replace(/\s/g, '') === full.replace(/\s/g, '')) score += 100;
+    const same = (a) => a === full || a.replace(/\s/g, '') === full.replace(/\s/g, '');
+    if (same(name)) score += 100;
+    else if (alias.some(same)) score += 80;
     if (name.startsWith(full)) score += 50;
+    else if (alias.some((a) => a.startsWith(full))) score += 40;
     if (tokens.every((t) => name.includes(t))) score += 20;
+    else if (alias.some((a) => tokens.every((t) => a.includes(t)))) score += 15;
     if (wordStart.every((r) => r.test(name))) score += 10;
     out.push({ f, score });
   }

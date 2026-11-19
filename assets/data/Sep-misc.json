@@ -47,8 +47,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -70.6824656,
-                    -33.4472509
+                    -70.682870,
+                    -33.447203
                 ]
             },
             "properties": {
@@ -1268,6 +1268,26 @@
         },
         {
             "type": "Feature",
+            "id": 1136,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.681383,
+                    -33.447429
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Departamento de Ingeniería Química",
+                "etiqueta": "DIQ",
+                "id": 1136,
+                "name": "Ingeniería Química",
+                "subCategory": "Ingeniería",
+                "type": "universidad educacion quimica"
+            }
+        },
+        {
+            "type": "Feature",
             "id": 1130,
             "geometry": {
                 "type": "Point",
@@ -1344,6 +1364,59 @@
                 "name": "Edificio de Innovación Docente",
                 "subCategory": "Docencia",
                 "type": "universidad educacion"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1134,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.682355,
+                    -33.450119
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Edificio GEO: Ingeniería Geoespacial",
+                "etiqueta": "GEO",
+                "id": 1134,
+                "name": "Ingeniería Geoespacial",
+                "subCategory": "Ingeniería",
+                "type": "universidad educacion geo geoespacial geografica"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1135,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.681639,
+                    -33.4498
+                ]
+            },
+            "properties": {
+                "alias": [
+                    "Edificio Rector Eduardo Morales Santos",
+                    "Edificio de Investigación REMS",
+                    "REMS",
+                    "VRIIC",
+                    "CBA",
+                    "Centro de Biotecnología Acuícola",
+                    "CEDENNA",
+                    "Centro para el Desarrollo de la Nanociencia y la Nanotecnología",
+                    "SMAT-C",
+                    "Soft Matter Research and Technology Center"
+                ],
+                "category": "educacion",
+                "descripcion": "Centros de investigación: CBA, CEDENNA y SMAT-C.",
+                "edificio": "Edificio Rector Eduardo Morales Santos (REMS)",
+                "etiqueta": "Investigación",
+                "id": 1135,
+                "name": "Vicerrectoría de Investigación, Innovación y Creación",
+                "subCategory": "Investigación",
+                "type": "universidad investigacion vicerrectoria rems"
             }
         }
     ]

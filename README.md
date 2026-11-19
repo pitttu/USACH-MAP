@@ -171,6 +171,12 @@ recientes (se pueden quitar uno a uno o todos) y, al escribir, categorías suger
 con lo escrito resaltado y la distancia si hay ubicación. Enter elige el primero. En modo ruta, dos campos (partida y
 destino) con "Tu ubicación" y "Elegir en el mapa". El botón atrás del teléfono la cierra.
 
+**Otros nombres** (`alias` en los puntos de interés, `assets/data/Sep-misc.json`): un lugar con varios nombres, o con
+otros lugares adentro, se muestra con uno solo pero se encuentra por todos (`places.search`, un poco detrás del nombre
+principal). Si calzó por otro nombre, el resultado lo muestra como subtítulo (`aliasFor`). Ej.: la Vicerrectoría de
+Investigación, Innovación y Creación también sale buscando "Edificio Rector Eduardo Morales Santos", "REMS", "VRIIC" o
+sus centros (CBA, CEDENNA, SMAT-C).
+
 **Cerca de ti**: una sola pasada de Dijkstra desde el nodo del grafo más cercano al usuario da la distancia a todos los
 lugares (`places.walk`); con el GPS andando, las listas se rehacen solo si se movió más de 15 m.
 
@@ -632,6 +638,86 @@ tienen ningún árbol del mapa a menos de 12 m (a menos de 12 m suele ser el mis
 cd tools && node arboles-osm.mjs && node build-glb.mjs
 ```
 
+### Edificio GEO (Ingeniería Geoespacial)
+
+`tools/edificio-simple.mjs` rehace un edificio simple del mapa (material `edificio`, sin ventanas) desde su ficha:
+planta extruida con patios (anillos de puntos de escena; un arco se escribe como `{ "arco": … }`) y, si la ficha lo
+pide, árboles del pack en los patios (`tools/arboles-pack.mjs`, los mismos modelos que usa `arboles-osm.mjs`).
+
+- `tools/modelos/geo.json`: el GEO (antes `Edificio 381`, ahora `Ingeniería Geoespacial`). El ala central no llega
+  al ala sur: termina redondeada a unos 10 m de ella y deja un solo patio en U, como en la fotogrametría.
+- 28 árboles en el patio (`Árbol GEO N`), redondos y altos, a 2,8 m o más de los muros.
+- Punto de interés "Ingeniería Geoespacial" (etiqueta GEO) en `assets/data/Sep-misc.json`.
+
+### Centro de Salud
+
+`tools/techo-molinete.mjs` genera el Centro de Salud USACH desde `tools/modelos/centro-salud.json` (reemplaza las dos
+cajas que había: la del mismo nombre y `Edificio 359`).
+
+- Planta de 55,2 × 29,1 m girada 2,8°, en dos módulos. El techo de cada módulo son 8 triángulos rectángulos desde su
+  centro (hacia las esquinas y los puntos medios de los lados), cada uno con una punta levantada (8,4 m) y el cateto
+  opuesto horizontal más abajo (5,7 m). Alrededor del centro alternan los levantados en el centro (cateto bajo en la
+  fachada) y los levantados en la esquina (cateto bajo del centro al punto medio): un molinete. Se midió ajustando un
+  plano a cada triángulo en el mapa de alturas de la fotogrametría.
+- Los saltos entre triángulos vecinos y en la junta de los dos módulos se cierran con muros verticales blancos de dos
+  caras (las franjas blancas de la foto).
+- Tres entradas metidas (frente vidriado, puerta y cono de luz): al centro de la cara sur, al centro de la poniente y
+  en la norte a 1/4 del largo desde el oriente (donde termina el primer triángulo).
+
+### Auditorio de Matemáticas
+
+`tools/graderia.mjs` genera el graderío hundido al norte del Departamento de Matemáticas (`tools/modelos/auditorio-
+matematicas.json`), entre su bloque norte y la barra, alineado con el edificio (girado 4°). Es al aire libre: la
+fotogrametría muestra las filas.
+
+- Baja un piso, de 0 en el borde norte a −3,8 m en el escenario, junto a la barra. Dos bloques de filas con un pasillo
+  más ancho al medio y bancos blancos corridos al fondo de cada fila. Las filas van de borde a borde y se doblan hacia
+  el escenario en el lado este, como en la foto, hasta el borde este, que va inclinado (75° con el borde sur: su
+  extremo sur queda más al oeste; clave "este" de la ficha). La franja entre el bloque norte y el hoyo (2,6 m) está a nivel de
+  calle: no es parte del graderío. Baranda blanca en los bordes norte, este y oeste.
+- **Máscara del suelo.** Las capas planas no escriben profundidad (su orden de dibujo decide qué queda encima), así
+  que lo que está bajo el suelo se vería a través de él desde cualquier lado. El graderío lleva un anillo invisible
+  apenas bajo el suelo (material `mascara_suelo` → capa `mask` en `build-glb.mjs`; en `mapview.js`,
+  `colorWrite: false`, dibujado después del suelo y antes de los edificios) alrededor de su boca: solo se ve por ella.
+
+### Edificio Rector Eduardo Morales Santos (REMS)
+
+Edificio de la Vicerrectoría de Investigación, Innovación y Creación, con `tools/volumenes.mjs`
+(`tools/modelos/rems.json`). Reemplaza las cajas `Edificio 413` y `414`. La forma general se midió con cortes
+horizontales de la malla de la fotogrametría cada 2 m (`tools/fotogrametria/cortes.mjs`), y se verificó superponiendo
+los cortes del modelo: calzan en todos los niveles.
+
+- Barra este–oeste con cuerpos vidriados en las caras norte (1,6 m de fondo, 23 m de alto: una franja de vidrio corrida
+  por piso con aletas verticales blancas delante, como la celosía de la FAE: cada 1,2 m, de 16 cm, salen 0,5 m; tipo
+  `corrida con aletas`, clave `"aletas"` del tipo de ventana) y sur (2 m,
+  22 m: una franja de vidrio corrida por piso, sin separaciones verticales, tipo `corrida`; a su poniente y a su oriente,
+  una ventana por piso, iguales entre sí y a la misma altura y alto que las franjas, como su extensión: 4 × 3 m,
+  tipo `ventanita`). Arriba, un solo cuerpo principal de 26 m, retirado de la cara norte, que termina al oriente donde la cara
+  norte empieza a doblarse (x = 330,5); la franja sur del techo y la punta oriente llegan a 23 m. Sala de máquinas de
+  25 m sobre el techo de la punta, con su cara sur al ras de la fachada sur.
+- Los techos de la misma altura se juntan (`volumenes.mjs`): un solo parapeto corrido por el borde de la azotea, sin
+  parapetos interiores que sigan las formas de abajo (el hueco, la junta con el cuerpo norte). Un volumen elevado
+  apoyado en un techo que además sobresale de él (el dintel del hueco sobre el cuerpo) lo corta, así que el techo del
+  cuerpo que sale del hueco es un triángulo cerrado con su parapeto. Uno entero dentro del techo (la sala de máquinas)
+  no lo corta.
+- Pasaje a nivel de suelo que cruza el edificio de norte a sur, de 3,6 m de alto: en la cara norte de x = 307 a 330,5
+  (bajo todo el cuerpo vidriado norte) y en la sur de 313,5 a 330,5 (bajo el cuerpo vidriado sur). Ahí el edificio y
+  sus cuerpos vidriados parten a 3,6 m (volúmenes con `"base"`); el bloque poniente y la punta llegan al suelo. Medido
+  en perfiles verticales de la fotogrametría: los dos cuerpos vidriados terminan abajo en una losa a 3,6 m y bajo ella
+  la malla baja en diagonal (la piel con que tapa lo que no ve). La foto no muestra pilares dentro del pasaje.
+- La punta oriente es aguda vista desde arriba. Su cara noreste es una diagonal recta hasta los 4 m. De ahí hasta los
+  22 m tiene un hueco del que sale un cuerpo alineado con el edificio (no con la diagonal), con ocho ranuras
+  horizontales en su cara norte (una por piso, en una sola columna; el frente va de la jamba poniente del hueco al
+  costado este) y su costado este todo de vidrio, igual que la jamba poniente del hueco, que mira al este (tipo de
+  ventana `vidriado`: un solo paño por cara, sin pisos). Ese cuerpo parte a los 4 m (`"base"`: volumen elevado de `volumenes.mjs`, con cara
+  inferior). Arriba, la diagonal vuelve a ser recta (un dintel: otro volumen elevado, de 22 a 23 m).
+- La punta es hueca bajo su losa (22–23 m): visto desde arriba, un triángulo cuya hipotenusa es la cara norte (el muro
+  diagonal, que sigue hasta la punta como un muro de 0,4 m), un cateto la cara sur, que no existe (abierta), y el otro
+  una cara norte–sur a x = 348, lisa (el quiebre del borde sur en los cortes; la malla de la fotogrametría cierra
+  el hueco con una piel). Su piso es un volumen de 0,5 m con las normas de un techo (durazno hundido dentro de un
+  parapeto blanco), cuyo borde une oriente y poniente en la cara sur abierta. Cada muro se ve donde no lo tapa un vecino, contando cada volumen desde su base hasta su techo: bajo un volumen elevado el muro se ve (y lleva sus ventanas, si su cara las tiene).
+- Falta: la entrada con su letrero.
+
 ### Alturas de los edificios
 
 Muchos edificios del mapa vienen de OpenStreetMap sin altura y quedaron con una inventada (18–20 m).
@@ -643,8 +729,9 @@ Así conserva su forma y no crea ni borra nada. Resultado (2026-11-01): 277 ajus
 
 Quedan para revisar en `assets/revisar-alturas.json`, y con `?dev` se pintan de color (leyenda en el panel; al
 tocarlos, el aviso dice por qué):
-- **magenta, "no existe en la foto"** (16): la foto no muestra nada sobre ~2 m (canchas, sitios, estacionamientos).
-  **No se tocaron.**
+- **magenta, "no existe en la foto"**: la foto no muestra nada sobre ~2 m. Eran 16 (canchas, sitios,
+  estacionamientos); el 2026-11-17 el usuario hizo borrar 15 con `tools/borrar.mjs`. Queda solo `Edificio 008`, la
+  tribuna que rodea el estadio, que sí existe (es un error de la fotogrametría). **No se toca.**
 - **ámbar, "varias alturas"** (10; la FAE salió de la lista al reemplazarla por el modelo): la foto muestra partes bastante más altas que la mediana (una torre sobre un
   cuerpo bajo, o árboles encima). Se ajustaron a la altura típica.
 
@@ -660,6 +747,27 @@ Replica la configuración del estilo en Mapbox Studio (`mapbox://styles/pittu/cm
 - **Objetos 3D** (edificios, árboles, modelos, vidrio): el color del material es el *albedo*, y la luz cálida lo entibia. Después pasan por el filtro "faded" (`FADED_SAT`, `FADED_GAIN` en `js/main.js`). El edificio usa `#ebe9e5` = `hsl(40, 15%, 91%)`.
 - **Suelo, áreas y calles**: el color del material es el tono *final* medido en Mapbox; `paletteMaterialColor()` lo compensa por la luz.
 - Sectores: opacidad 0.25.
+- **Atardecer y noche** (`KEYS` en `js/sun.js`): claves por altura del sol (5°, 0°, −6°, −14°) que dicen de qué color
+  final deben verse los techos, los muros y el suelo, tomados de referencias de Mapbox ("dusk": edificios café rosado
+  sobre suelo azul pizarra) y, de noche, con un guiño a Apple / Google Maps (azul violeta, edificios más claros que el
+  suelo). La luz sale de la proporción lineal entre ese color y el de día: los techos reciben el cielo del hemisferio;
+  los muros, el promedio con el del suelo; y las capas planas (suelo, calles, áreas) tienen su propio tono encima
+  (`flat`, uniforme `uFlat`). Entre claves se mezcla, y desde 12° es luz de día. Medido en pantalla: a 1° techos
+  `#987870` y suelo `#646884`; de noche techos `#545874` y suelo `#1e233b`.
+- **Ventanas encendidas** (`WINDOW_LIGHT` en `js/mapview.js`): de día el vidrio es celeste; al oscurecer, todas las
+  ventanas pasan juntas a un mismo blanco cálido (`lights` en las claves de `sun.js`, uniforme `uLights`). Solo el
+  vidrio de verdad (atributo `_VENTANA` del build): los letreros celestes no se prenden. A pedido del usuario, simple:
+  sin ventanas apagadas ni tonos distintos.
+- **Paleta de noche** (`NIGHT_STYLES` y `NIGHT_GROUND` en `js/sun.js`): al oscurecer (por luminosidad de la escena, no
+  por hora: un atardecer nublado la adelanta) las construcciones pasan a azul cobalto (techo, muro de cara a la luna y
+  muro en sombra, con los techos más oscuros que los muros, como de día), el pasto a verde azulado, el agua a azul
+  profundo y los caminos a un azul apenas más claro que el suelo. El suelo va más oscuro que los techos, para que los
+  edificios no se pierdan. Elegida con el usuario tras varias generaciones de variantes; otras se prueban agregándolas
+  y con `?noche=`.
+- **Sectores de noche** (`sectorNightMaterial` en `js/mapview.js`): el velo de día al 25% se apaga y entra un filtro
+  que multiplica lo que hay debajo (suelo, pasto, caminos) por un factor por canal, sin taparlo. El factor sale de la
+  diferencia de color que el sector hace de día sobre el suelo (en OKLab), llevada al suelo de noche sin cambiar su
+  claridad, por `SECTOR_NIGHT.croma` (1,6). En localhost se prueba otra intensidad con `?sectores=<croma>`.
 - **Sombreado suave de los modelos** (`creasedNormals` en `js/mapview.js`): promedia las normales de los triángulos que
   comparten un vértice y no forman más de 35° (`CREASE`). Agrupa los vértices por su posición real al centímetro: el glb
   trae las posiciones cuantizadas (enteros normalizados a −1…1 y la malla escalada ×~400), y `toCreasedNormals` de three
@@ -672,7 +780,8 @@ Replica la configuración del estilo en Mapbox Studio (`mapbox://styles/pittu/cm
 
 - Fuente: [Open-Meteo](https://open-meteo.com) (gratis, sin API key, uso no comercial). Se consulta al prender "Hora y clima" solo si el último dato tiene más de 15 min (lo que tarda Open-Meteo en actualizar; `refreshIfStale` en `js/weather.js`): apagar y volver a prender no repite la llamada, y una llamada en curso no se duplica. Mientras está prendido se renueva cada 15 min; apagado no se consulta. Si falla, queda despejado y se reintenta la próxima vez.
 - El código WMO se traduce a niveles (`fromWMO` en `js/weather.js`): despejado, nublado, niebla, llovizna, lluvia/chubascos y tormenta.
-- Efectos: el sol se apaga según la nubosidad (sin sombras), la luz pasa a gris tibio. Para que los edificios juntos no se fundan en una mancha, la luz difusa sigue viniendo sobre todo de arriba (techos claros, muros más oscuros), una luz de relleno sin sombras distingue los muros según su orientación y la oclusión en la base de los muros se marca más. Además, la niebla se acerca, el suelo se oscurece al mojarse, hay gotas (un solo draw call, animadas en la GPU) y relámpagos en tormenta. Las transiciones duran ~3 s.
+- **Nublado sin lluvia** (también parcialmente nublado según la nubosidad): la luz queda igual que despejado (colores vivos, sol y sombras definidas) y se agrega una bruma leve "volumétrica" (`haze`; `HAZE` en `js/mapview.js`). Reemplaza los trozos de niebla de three en todos los materiales: la densidad cae con la altura (exponencial, ~25 m) y se integra a lo largo del rayo de la cámara a cada punto, así que se acumula a ras de suelo y a lo lejos, la base de los muros queda más velada que los techos, y mirando hacia el sol se aclara. Color: blanco del horizonte con un poco del azul del cielo (de noche, oscuro como él). Calibrar con `?bruma=densidad,alto,azul` en localhost.
+- Efectos con lluvia, llovizna, tormenta o niebla: el sol se apaga según la nubosidad (sin sombras), la luz pasa a gris tibio. Para que los edificios juntos no se fundan en una mancha, la luz difusa sigue viniendo sobre todo de arriba (techos claros, muros más oscuros), una luz de relleno sin sombras distingue los muros según su orientación y la oclusión en la base de los muros se marca más. Además, la niebla se acerca, el suelo se oscurece al mojarse, hay gotas (un solo draw call, animadas en la GPU) y relámpagos en tormenta. Las transiciones duran ~3 s.
 - Para probar: selector en el panel, o `?clima=despejado|nublado|llovizna|lluvia|tormenta` en la URL.
 - `?q=low` desactiva las gotas. Mientras llueve, la escena se renderiza en cada frame (con cielo despejado solo cuando algo cambia).
 

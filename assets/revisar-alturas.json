@@ -1,22 +1,7 @@
 {
- "descripcion": "Edificios a revisar tras ajustar alturas con la fotogrametría (tools/fotogrametria/alturas.mjs). Con ?dev se pintan de color.",
+ "descripcion": "Edificios a revisar tras ajustar alturas con la fotogrametría (tools/fotogrametria/alturas.mjs). Con ?dev se pintan de color. El 2026-11-17 el usuario borró los demás que no existían en la foto; queda el que rodea el estadio (error de la fotogrametría).",
  "noExiste": [
-  "Edificio 008",
-  "Edificio 009",
-  "Edificio 082",
-  "Edificio 085",
-  "Canchas Tenis",
-  "Edificio 108",
-  "Cancha Handball",
-  "Edificio 116",
-  "Edificio 117",
-  "Edificio 121",
-  "Edificio 122",
-  "Edificio 128",
-  "Edificio 172",
-  "Edificio 241",
-  "Edificio 249",
-  "Edificio 448"
+  "Edificio 008"
  ],
  "variasAlturas": [
   "Edificio 201",

@@ -4,7 +4,7 @@
 //  - Ruta: dos campos (partida y destino) con "Tu ubicación" y "Elegir en el mapa"; con ambos listos traza la ruta.
 //  - El botón atrás del teléfono cierra la página (queda una entrada en el historial mientras está abierta).
 import { h, fill, icon, norm, fmtDist } from './ui.js';
-import { describe, search, matchCategories, recents } from './places.js';
+import { describe, search, matchCategories, recents, aliasFor } from './places.js';
 
 const page = document.getElementById('search-page');
 const simpleHead = document.getElementById('sp-simple');
@@ -178,16 +178,17 @@ function results(q) {
     h('span', { class: 'row-text' }, h('span', { class: 'row-title' }, c.label), h('span', { class: 'row-sub' }, `${c.features.length} ${c.features.length === 1 ? 'lugar' : 'lugares'} · ver en el mapa`)),
     icon('chevron_right', { cls: 'row-trail' })));
   // un lugar cuyo nombre empieza con lo escrito va antes que las categorías (Enter lo elige)
-  const placeFirst = found.length && norm(describe(found[0]).name).startsWith(norm(q));
+  const placeFirst = found.length && (norm(describe(found[0]).name).startsWith(norm(q)) || norm(aliasFor(found[0], q) || '').startsWith(norm(q)));
   const placeRows = found.map((f) => placeRow(f, q));
   return h('div', { class: 'sp-list list divided' }, placeFirst ? [placeRows, catRows] : [catRows, placeRows]);
 }
 
 function placeRow(f, q) {
-  const d = describe(f), w = ctx.walk(f);
+  const d = describe(f), w = ctx.walk(f), alias = aliasFor(f, q);
   return h('button', { class: 'list-row', onclick: () => choosePlace(f) },
     h('span', { class: 'row-icon', style: `--tint:${d.tint};--ink:${d.ink}` }, icon(d.icon)),
-    h('span', { class: 'row-text' }, h('span', { class: 'row-title' }, highlight(d.name, q)), h('span', { class: 'row-sub' }, d.sub)),
+    // si calzó por otro nombre (p. ej. "CEDENNA" en el edificio de la Vicerrectoría de Investigación), se muestra ese
+    h('span', { class: 'row-text' }, h('span', { class: 'row-title' }, highlight(d.name, q)), h('span', { class: 'row-sub' }, alias ? highlight(alias, q) : d.sub)),
     w && h('span', { class: 'row-trail' }, fmtDist(w.meters)));
 }
 
