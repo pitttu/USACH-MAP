@@ -47,16 +47,19 @@ const haze = {
   uHazeColor: { value: new THREE.Color() }, uHazeSun: { value: new THREE.Color() }, uHazeSunDir: { value: new THREE.Vector3(0, 1, 0) },
   // sombras de las nubes (clouds.js): su mapa de cobertura, proyectado hacia el sol desde la altura de las nubes
   uNubes: { value: 0 }, uNubesMap: { value: null }, uNubesOff: { value: new THREE.Vector2() }, uNubesD: { value: 1 }, uNubesH: { value: 400 },
+  uNubesExtra: { value: 0 }, // las nubes que entran con lluvia (canal G del mapa de cobertura)
+  uPuddle: { value: 0 }, // charcos en el suelo con lluvia (0..1, ver exactShadows)
 };
 THREE.ShaderChunk.fog_pars_vertex = '#ifdef USE_FOG\nvarying float vFogDepth;\nvarying vec3 vFogWorld;\n#endif';
 THREE.ShaderChunk.fog_vertex = '#ifdef USE_FOG\nvFogDepth = - mvPosition.z;\nvFogWorld = cameraPosition + transpose(mat3(viewMatrix)) * mvPosition.xyz;\n#endif';
 THREE.ShaderChunk.fog_pars_fragment = THREE.ShaderChunk.fog_pars_fragment.replace('varying float vFogDepth;',
-  'varying float vFogDepth;\nvarying vec3 vFogWorld;\nuniform float uHaze, uHazeD, uHazeH;\nuniform vec3 uHazeColor, uHazeSun, uHazeSunDir;\nuniform float uNubes, uNubesD, uNubesH;\nuniform vec2 uNubesOff;\nuniform sampler2D uNubesMap;');
+  'varying float vFogDepth;\nvarying vec3 vFogWorld;\nuniform float uHaze, uHazeD, uHazeH;\nuniform vec3 uHazeColor, uHazeSun, uHazeSunDir;\nuniform float uNubes, uNubesD, uNubesH, uNubesExtra, uPuddle;\nuniform vec2 uNubesOff;\nuniform sampler2D uNubesMap;');
 THREE.ShaderChunk.fog_fragment = `#ifdef USE_FOG
   if (uNubes > 0.001) { // sombra de las nubes que pasan entre este punto y el sol
     vec3 q = vFogWorld + uHazeSunDir * ((uNubesH - vFogWorld.y) / max(uHazeSunDir.y, 0.15));
     vec2 uv = (q.xz - uNubesOff) / uNubesD + 0.5;
-    float cob = texture2D(uNubesMap, vec2(uv.x, 1.0 - uv.y)).r;
+    vec2 cobRG = texture2D(uNubesMap, vec2(uv.x, 1.0 - uv.y)).rg;
+    float cob = min(1.0, cobRG.r + cobRG.g * uNubesExtra);
     // como la sombra del sol del mapa: más azulada que gris
     gl_FragColor.rgb *= 1.0 - uNubes * smoothstep(0.04, 0.9, cob) * vec3(1.0, 0.92, 0.78);
   }
@@ -131,7 +134,7 @@ sky.renderOrder = -1;
 scene.add(sky);
 
 // ---------------------------------------------------------------- clima
-const weather = new Weather(scene, { drops: LOW ? 0 : isMobile ? 3500 : 7000 });
+const weather = new Weather(scene, { drops: LOW ? 0 : isMobile ? 900 : 1800 }); // pocas y gruesas
 const clouds = new Clouds(scene); // nubes del modo nublado (centradas en el campus, origen de la escena)
 haze.uNubesMap.value = clouds.coverage; haze.uNubesD.value = NUBES.dominio; haze.uNubesH.value = NUBES.alto;
 if (!FEATURES.weather) weather.mode = 'despejado';
@@ -141,6 +144,12 @@ if (!FEATURES.weather) weather.mode = 'despejado';
 // la sombra de un muro arranca unos decímetros afuera de su base
 const SHADOW_VS = THREE.ShaderChunk.shadowmap_vertex.replaceAll('directionalLightShadows[ i ].shadowNormalBias', '0.0');
 const SHADOW_FS = THREE.ShaderChunk.lights_fragment_begin.replaceAll('directionalLightShadow.shadowBias', '0.0');
+// ruido para los charcos (valor suave, 3 octavas)
+const PUDDLE_FN = `
+float charcoHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float charcoValor(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(charcoHash(i), charcoHash(i + vec2(1, 0)), f.x), mix(charcoHash(i + vec2(0, 1)), charcoHash(i + vec2(1, 1)), f.x), f.y); }
+float charcoRuido(vec2 p) { return 0.55 * charcoValor(p) + 0.3 * charcoValor(p * 2.1 + 3.7) + 0.15 * charcoValor(p * 4.3 + 9.1); }`;
 // (lo usan las capas planas: también les pone su tono de atardecer y noche, uFlat)
 function exactShadows(m) {
   m.onBeforeCompile = (sh) => {
@@ -150,8 +159,22 @@ function exactShadows(m) {
     Object.assign(sh.uniforms, nightGround);
     sh.vertexShader = sh.vertexShader.replace('#include <shadowmap_vertex>', SHADOW_VS);
     sh.fragmentShader = sh.fragmentShader.replace('#include <lights_fragment_begin>', SHADOW_FS)
-      .replace('#include <common>', '#include <common>\nuniform vec3 uFlat;\nuniform float uNight;\nuniform vec3 uNightGrass, uNightWater, uNightPath, uLightRef;')
+      .replace('#include <common>', `#include <common>\nuniform vec3 uFlat;\nuniform float uNight;\nuniform vec3 uNightGrass, uNightWater, uNightPath, uLightRef;\n${PUDDLE_FN}`)
       .replace('#include <opaque_fragment>', `outgoingLight *= uFlat;
+        #ifdef USE_FOG
+        if (uPuddle > 0.001) { // charcos: manchas que reflejan el cielo; no en el pasto ni en el agua
+          vec3 diaP = diffuseColor.rgb * uLightRef;
+          float noPasto = 1.0 - smoothstep(0.06, 0.12, diaP.g - max(diaP.r, diaP.b));
+          float noAgua = 1.0 - smoothstep(0.15, 0.25, diaP.b - diaP.r);
+          float n = charcoRuido(vFogWorld.xz / 5.0);
+          float umbral = mix(0.78, 0.6, uPuddle);                    // con más lluvia, más charcos
+          float m = smoothstep(umbral, umbral + 0.035, n) * noPasto * noAgua;
+          float brillo = 0.5 + 0.5 * smoothstep(umbral + 0.02, umbral + 0.15, n); // más espejo al centro
+          vec3 cielo = uHazeColor * vec3(0.92, 0.95, 1.0);
+          float cerca = 1.0 - smoothstep(180.0, 420.0, vFogDepth); // de lejos se verían como ruido: solo de cerca
+          outgoingLight = mix(outgoingLight, mix(outgoingLight * 0.7, cielo, 0.4 * brillo), m * min(1.0, uPuddle * 1.5) * cerca);
+        }
+        #endif
         // de noche: pasto, agua y caminos a su paleta (NIGHT_GROUND), reconocidos por su color de día
         if (uNight > 0.001) {
           vec3 dia = diffuseColor.rgb * uLightRef;
@@ -283,9 +306,10 @@ const zoomForDist = (d) => 15.5 + Math.log2(distForZoom(15.5) / d);
 // Margen inferior que tapa la interfaz (la hoja): el centro del mapa (lo que enfocan flyTo/jumpTo) sube a la mitad
 // de lo que queda visible, como el padding de Mapbox. Corre el centro óptico (setViewOffset), no la cámara: picking,
 // etiquetas y ruta siguen calzando.
-let padBottom = 0;
+// En iPad y computador la interfaz es un panel a la izquierda: el margen tapado va a ese lado (padLeft).
+let padBottom = 0, padLeft = 0;
 function applyPadding() {
-  if (padBottom > 0.5) camera.setViewOffset(viewW, viewH, 0, padBottom / 2, viewW, viewH);
+  if (padBottom > 0.5 || padLeft > 0.5) camera.setViewOffset(viewW, viewH, -padLeft / 2, padBottom / 2, viewW, viewH);
   else camera.clearViewOffset();
 }
 
@@ -295,6 +319,7 @@ function resize() {
   viewW = stage.clientWidth; viewH = stage.clientHeight;
   renderer.setSize(viewW, viewH);
   routeRes.value.set(viewW, viewH);
+  weather.setResolution(viewW, viewH);
   camera.aspect = viewW / viewH;
   applyPadding();
   controls.apply();
@@ -350,6 +375,7 @@ function applyLighting() {
   for (const n of sectorFilters) n.visible = night.uNight.value > 0; // de día no se dibuja (ni redondea)
   // suelo mojado: más oscuro y apenas más frío
   for (const { m, base } of wetMaterials) m.color.copy(base).multiply(new THREE.Color(1 - 0.2 * fx.wet, 1 - 0.18 * fx.wet, 1 - 0.13 * fx.wet));
+  haze.uPuddle.value = fx.wet; // charcos (crecen con la lluvia; al escampar se secan con la transición)
   needsRender = true;
 }
 
@@ -761,8 +787,9 @@ function frame(now) {
   if (weather.tick(dt, now, camera, controls.target, controls.dist)) applyLighting(); // lluvia/transición/relámpago
   { // nubes a la deriva (y sus sombras): mientras hay, se dibuja cada cuadro
     const n = weather.cur.nubes || 0, dia = 1 - night.uNight.value;
-    if (clouds.update(n, dt, controls.camDist, dia, scene.fog.color)) {
+    if (clouds.update(n, dt, controls.camDist, dia, scene.fog.color, weather.cur.rain)) {
       haze.uNubesOff.value.copy(clouds.off);
+      haze.uNubesExtra.value = clouds.extra;
       haze.uNubes.value = NUBES.sombra * n * THREE.MathUtils.smoothstep(sunVec.y, 0.03, 0.15);
       needsRender = true;
     } else haze.uNubes.value = 0;
@@ -832,11 +859,11 @@ export const mapView = {
   resetNorth() { controls.flyTo({ bearing: 0, pitch: 0, duration: 800 }); },
   // la llegada (app.js) parte más alto que el límite normal de la cámara; sin argumento, vuelve al límite normal
   setMaxDist(d) { controls.maxDist = d ?? MAX_DIST; },
-  // px de abajo tapados por la interfaz: el centro del mapa queda al medio del resto
-  setPadding(bottom) {
-    const v = Math.max(0, Math.min(bottom, viewH * 0.8));
-    if (Math.abs(v - padBottom) < 0.5) return;
-    padBottom = v;
+  // px de abajo (y a la izquierda: panel) tapados por la interfaz: el centro del mapa queda al medio del resto
+  setPadding(bottom, left = 0) {
+    const v = Math.max(0, Math.min(bottom, viewH * 0.8)), l = Math.max(0, Math.min(left, viewW * 0.6));
+    if (Math.abs(v - padBottom) < 0.5 && Math.abs(l - padLeft) < 0.5) return;
+    padBottom = v; padLeft = l;
     applyPadding();
     camera.updateProjectionMatrix();
     needsRender = cameraChanged = true;

@@ -8,11 +8,16 @@ const pantallaCompleta = matchMedia('(display-mode: fullscreen)');
 // para probarlo en el Mac (Chrome no deja simular el modo de pantalla completa): ?pantalla-completa en localhost
 const forzada = ['localhost', '127.0.0.1'].includes(location.hostname) && new URLSearchParams(location.search).has('pantalla-completa');
 let ancho = 0, alto = 0;
+// iPad y computador: la interfaz en un panel a la izquierda (como Google Maps en iPad) en vez de la hoja de abajo del
+// celular. <html class="panel"> (ui.css); isPanel() para la lógica (sheet.js, app.js)
+const panel = matchMedia('(min-width: 768px) and (min-height: 500px)');
+export const isPanel = () => panel.matches;
 function medir() {
   if (!(pantallaCompleta.matches || forzada) || innerWidth !== ancho || !alto) { ancho = innerWidth; alto = innerHeight; }
   else alto = Math.max(alto, innerHeight);
   // el alto de la app (body) se fija aquí, antes que los demás avisos de cambio de tamaño (el mapa lee el suyo de él)
   document.documentElement.style.setProperty('--vh', `${alto}px`);
+  document.documentElement.classList.toggle('panel', panel.matches);
 }
 medir();
 addEventListener('resize', medir); // se registra primero (este módulo se carga antes que los demás)

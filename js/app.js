@@ -4,7 +4,7 @@
 //  - Búsqueda y planificador de rutas: página aparte (search.js). Lugares, categorías, guardados, recientes y
 //    distancias a pie: places.js.
 //  - Lo que muestra el mapa (pin, ruta, marcadores de categoría) sale de la vista actual (syncMap).
-import { appHeight } from './viewport.js'; // primero: su aviso de cambio de tamaño va antes que los demás
+import { appHeight, isPanel } from './viewport.js'; // primero: su aviso de cambio de tamaño va antes que los demás
 import { mapView, DEV } from './mapview.js';
 import { toLocal, toLonLat } from './geo.js';
 import { buildGraph, shortestPath, pathLength } from './routing.js';
@@ -72,11 +72,22 @@ sheet = createSheet($('bottom-sheet'), { navEl: nav, onChange: (state, view) => 
 // En el resto (inicio, Tú, rutas) mover la hoja no mueve el mapa. Al abrir o cerrar una de esas vistas el ajuste entra
 // o sale con una transición, sin saltos.
 const PADDED_VIEWS = new Set(['place', 'building', 'category']);
+// En iPad y computador (panel a la izquierda) el ajuste es hacia el lado: lo enfocado queda al medio del mapa que se
+// ve a la derecha del panel (padNow es entonces el ancho tapado a la izquierda; con el panel plegado, nada).
 let padNow = 0, padActive = false, padTween = null;
-function setPad(v) { padNow = v; mapView.setPadding(v); }
+function setPad(v) { padNow = v; if (isPanel()) mapView.setPadding(0, v); else mapView.setPadding(v); }
+const panelRight = () => $('bottom-sheet').getBoundingClientRect().right;
 function syncPadding(y) {
   if (!sheet) return; // primer aviso, mientras se crea la hoja
   const active = PADDED_VIEWS.has(sheet.view);
+  if (isPanel()) {
+    const rest = sheet.snapY('REST'), full = sheet.snapY('MID');
+    const t = rest - full > 1 ? Math.min(1, Math.max(0, (rest - y) / (rest - full))) : 1;
+    const target = panelRight() * t; // en el panel, en todas las vistas: el mapa se centra en lo que queda a la derecha
+    if (!padActive) { padActive = true; tweenPad(target); return; }
+    if (padTween) padTween.to = target; else setPad(target);
+    return;
+  }
   const rest = sheet.snapY('REST'), mid = sheet.snapY('MID');
   const t = rest - mid > 1 ? Math.min(1, Math.max(0, (rest - y) / (rest - mid))) : 0;
   const target = active ? (appHeight() - mid) * t : 0;
@@ -521,7 +532,7 @@ $('route-to').addEventListener('click', () => openSearch({ mode: 'route', origin
 function fitRoute(coords) {
   const pts = coords.map((c) => toLocal(...c));
   const vh = appHeight(), pad = 56; // margen para el pin y el ancho de la línea
-  frame(pts, { bottom: sheet.snapY('REST') - pad / 2, focusY: vh / 2, pad });
+  frame(pts, { bottom: isPanel() ? vh - pad : sheet.snapY('REST') - pad / 2, focusY: vh / 2, pad });
 }
 
 // Encuadra puntos locales [x, z] en el hueco libre entre las pastillas y `bottom`. focusY: dónde cae en pantalla el
@@ -530,11 +541,13 @@ function frame(pts, { bottom, focusY, pad, maxZoom = 19, duration = 1500 }) {
   const xs = pts.map((p) => p[0]), zs = pts.map((p) => p[1]);
   const [x0, x1, z0, z1] = [Math.min(...xs), Math.max(...xs), Math.min(...zs), Math.max(...zs)];
   const top = ($('chips').firstElementChild?.getBoundingClientRect().bottom || 120) + pad;
-  const mppFit = Math.max((x1 - x0) / Math.max(window.innerWidth - 2 * pad, 100), (z1 - z0) / Math.max(bottom - top, 100));
+  // en el panel (iPad, computador) el hueco libre queda a la derecha del panel
+  const left = isPanel() && sheet.state !== 'REST' ? panelRight() + pad : pad, right = window.innerWidth - pad;
+  const mppFit = Math.max((x1 - x0) / Math.max(right - left, 100), (z1 - z0) / Math.max(bottom - top, 100));
   const mppAt = (zoom) => 40075016.686 * Math.cos(CAMPUS_CENTER[1] * Math.PI / 180) / (512 * 2 ** zoom);
   const zoom = Math.min(maxZoom, Math.max(14, Math.log2(mppAt(0) / Math.max(mppFit, 1e-6))));
-  const shiftPx = focusY - (top + bottom) / 2;
-  mapView.flyTo({ center: toLonLat((x0 + x1) / 2, (z0 + z1) / 2 + shiftPx * mppAt(zoom)), zoom, pitch: 0, bearing: 0, duration });
+  const shiftPx = focusY - (top + bottom) / 2, shiftX = (window.innerWidth / 2 + padNow / 2) - (left + right) / 2;
+  mapView.flyTo({ center: toLonLat((x0 + x1) / 2 + (isPanel() ? shiftX * mppAt(zoom) : 0), (z0 + z1) / 2 + shiftPx * mppAt(zoom)), zoom, pitch: 0, bearing: 0, duration });
 }
 
 // botón "Cómo llegar" del mapa: al lugar abierto, o el planificador desde tu ubicación

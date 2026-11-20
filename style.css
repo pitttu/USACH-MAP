@@ -49,6 +49,8 @@ body.night .label-text {
   opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s linear 0.3s; will-change: transform;
 }
 .street-label.on { opacity: 1; visibility: visible; transition: opacity 0.3s ease, visibility 0s; }
+/* parques (punto de referencia): como una calle, pero verde, más grande y sin mayúsculas */
+.street-label.park-label { font-size: 14px; font-weight: 600; letter-spacing: 0.03em; text-transform: none; color: #4f8a3a; }
 
 /* ---- marcadores por categoría (chips: entradas, agua, baños...) ---- */
 .cat-marker {

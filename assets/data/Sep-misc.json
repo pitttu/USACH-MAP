@@ -1268,6 +1268,26 @@
         },
         {
             "type": "Feature",
+            "id": 1137,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.681529,
+                    -33.447685
+                ]
+            },
+            "properties": {
+                "category": "educacion",
+                "descripcion": "Auditorio Claudio Vásquez Guzmán, Facultad de Química y Biología",
+                "etiqueta": "Auditorio",
+                "id": 1137,
+                "name": "Auditorio Claudio Vásquez Guzmán",
+                "subCategory": "Eventos",
+                "type": "universidad auditorio quimica biologia"
+            }
+        },
+        {
+            "type": "Feature",
             "id": 1136,
             "geometry": {
                 "type": "Point",

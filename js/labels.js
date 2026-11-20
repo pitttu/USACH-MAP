@@ -161,10 +161,11 @@ export class StreetLabels {
         for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
         const L = cum.at(-1);
         const geom = { pts, cum, L };
-        const n = Math.max(1, Math.floor(L / STREET_SPACING));
+        // un parque (k: 'parque') lleva un solo rótulo, al medio
+        const n = st.k === 'parque' ? 1 : Math.max(1, Math.floor(L / STREET_SPACING));
         for (let k = 0; k < n; k++) {
           const el = document.createElement('div');
-          el.className = 'street-label';
+          el.className = st.k === 'parque' ? 'street-label park-label' : 'street-label';
           el.textContent = st.n;
           this.layer.appendChild(el);
           this.anchors.push({ name: st.n, rank: st.r, geom, s: (k + 0.5) * (L / n), el, w: 0, h: 0, on: null });

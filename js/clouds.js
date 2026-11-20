@@ -6,9 +6,11 @@
 //  - Las cercanas a la cámara se desvanecen (no tapan el mapa al acercarse), las lejanas llegan al horizonte.
 //  - Sombras: un mapa de cobertura (canvas) con las mismas bocanadas, que los materiales leen en el fog_fragment
 //    (mapview.js) proyectando cada punto hacia el sol hasta la altura de las nubes.
+//  - Con lluvia (llovizna, lluvia, tormenta) entran NUBES.extra cúmulos más, que aparecen con un fundido, y todas se
+//    ponen más grises según la intensidad. Su sombra va en el canal G del mapa de cobertura (el R son las de siempre).
 import * as THREE from 'three';
 
-export const NUBES = { alto: 430, dominio: 3600, cantidad: 44, viento: [5.5, 1.8] /* m/s */, sombra: 0.14 };
+export const NUBES = { alto: 430, dominio: 3600, cantidad: 44, extra: 56, viento: [5.5, 1.8] /* m/s */, sombra: 0.14 };
 
 function texturaBocanada() { // como .nube i: núcleo blanco, borde suave; el canal G lleva el sombreado (base más gris)
   const S = 128, c = document.createElement('canvas'); c.width = c.height = S;
@@ -31,18 +33,19 @@ const azar = () => { semilla = (semilla * 16807) % 2147483647; return (semilla -
 export class Clouds {
   constructor(scene, centro = [0, 0]) {
     const D = NUBES.dominio, bocanadas = [];
-    for (let n = 0; n < NUBES.cantidad; n++) { // cúmulo: 5–9 bocanadas en una elipse achatada, las del medio más altas
+    for (let n = 0; n < NUBES.cantidad + NUBES.extra; n++) { // cúmulo: 5–9 bocanadas en una elipse achatada, las del medio más altas
+      const extra = n >= NUBES.cantidad ? 1 : 0; // las de la lluvia
       const cx = (azar() - 0.5) * D, cz = (azar() - 0.5) * D, largo = 220 + azar() * 280, k = 6 + Math.floor(azar() * 5);
       const y0 = NUBES.alto + (azar() - 0.5) * 120;
       for (let i = 0; i < k; i++) {
         const t = (i / (k - 1) - 0.5) * 2, m = 1 - t * t;
         bocanadas.push({ x: cx + t * largo * 0.5 + (azar() - 0.5) * 40, z: cz + (azar() - 0.5) * largo * 0.35,
-          y: y0 + m * 60 + azar() * 20, r: 55 + m * 70 + azar() * 35, tono: 0.55 + 0.45 * m });
+          y: y0 + m * 60 + azar() * 20, r: 55 + m * 70 + azar() * 35, tono: 0.55 + 0.45 * m, extra });
       }
       // la base: bocanadas chicas y más grises a lo largo de la parte de abajo (no un disco: se veía como una esfera gris)
       for (let i = 0; i < 4; i++) {
         const t = (i / 3 - 0.5) * 1.6;
-        bocanadas.push({ x: cx + t * largo * 0.5 + (azar() - 0.5) * 30, z: cz + (azar() - 0.5) * largo * 0.25, y: y0 - 15, r: 45 + azar() * 25, tono: 0.45 });
+        bocanadas.push({ x: cx + t * largo * 0.5 + (azar() - 0.5) * 30, z: cz + (azar() - 0.5) * largo * 0.25, y: y0 - 15, r: 45 + azar() * 25, tono: 0.45, extra });
       }
     }
     this.bocanadas = bocanadas;
@@ -53,15 +56,16 @@ export class Clouds {
     geo.setIndex([0, 1, 2, 0, 2, 3]);
     geo.setAttribute('aPuff', new THREE.InstancedBufferAttribute(new Float32Array(bocanadas.flatMap((b) => [b.x, b.y, b.z, b.r])), 4));
     geo.setAttribute('aTono', new THREE.InstancedBufferAttribute(new Float32Array(bocanadas.map((b) => b.tono)), 1));
+    geo.setAttribute('aExtra', new THREE.InstancedBufferAttribute(new Float32Array(bocanadas.map((b) => b.extra)), 1));
     geo.instanceCount = bocanadas.length;
     this.uniforms = {
       uMap: { value: texturaBocanada() }, uOff: { value: new THREE.Vector2() }, uCentro: { value: new THREE.Vector2(...centro) },
       uD: { value: D }, uLit: { value: new THREE.Color(1, 1, 1) }, uShade: { value: new THREE.Color(0.8, 0.83, 0.88) }, uCielo: { value: new THREE.Color(1, 1, 1) },
-      uOpacity: { value: 0 }, uCamDist: { value: 1000 },
+      uOpacity: { value: 0 }, uCamDist: { value: 1000 }, uExtra: { value: 0 },
     };
     this.mesh = new THREE.Mesh(geo, new THREE.ShaderMaterial({
       uniforms: this.uniforms, transparent: true, depthWrite: false, fog: false,
-      vertexShader: `attribute vec4 aPuff; attribute float aTono; uniform vec2 uOff, uCentro; uniform float uD, uCamDist; varying vec2 vUv; varying float vFade, vTono, vLejos;
+      vertexShader: `attribute vec4 aPuff; attribute float aTono, aExtra; uniform vec2 uOff, uCentro; uniform float uD, uCamDist, uExtra; varying vec2 vUv; varying float vFade, vTono, vLejos;
         void main() {
           vec2 p = mod(aPuff.xz + uOff + uD * 0.5, uD) - uD * 0.5;           // dominio que se repite
           float borde = 1.0 - smoothstep(uD * 0.36, uD * 0.5, max(abs(p.x), abs(p.y)));
@@ -73,7 +77,7 @@ export class Clouds {
           float abre = smoothstep(0.35, 0.95, length(ndc * vec2(1.0, 0.8)));
           mv.xy += position.xy * aPuff.w * vec2(1.6, 0.8);                     // de cara a la cámara, achatada (no una pelota)
           float d = -mv.z;
-          vFade = borde * abre * smoothstep(uCamDist * 0.12, uCamDist * 0.4, d);
+          vFade = borde * abre * smoothstep(uCamDist * 0.12, uCamDist * 0.4, d) * mix(1.0, uExtra, aExtra);
           vLejos = smoothstep(uCamDist * 1.2, uCamDist * 3.5, -mv.z);        // a lo lejos se funden con el cielo
           vUv = uv; vTono = aTono; gl_Position = projectionMatrix * mv;
         }`,
@@ -100,31 +104,35 @@ export class Clouds {
     const g = c.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, S, S);
     let sem = 11; const rnd = () => { sem = (sem * 16807) % 2147483647; return (sem - 1) / 2147483646; };
     const manchas = this.bocanadas.flatMap((b) => Array.from({ length: 4 }, () => ({
-      x: b.x + (rnd() - 0.5) * b.r * 0.9, z: b.z + (rnd() - 0.5) * b.r * 0.9, r: b.r * (0.35 + rnd() * 0.3) })));
+      x: b.x + (rnd() - 0.5) * b.r * 0.9, z: b.z + (rnd() - 0.5) * b.r * 0.9, r: b.r * (0.35 + rnd() * 0.3), extra: b.extra })));
+    g.globalCompositeOperation = 'lighter'; // R: nubes de siempre, G: las de la lluvia (se suman por canal)
     for (const b of manchas) for (const ox of [-S, 0, S]) for (const oz of [-S, 0, S]) {
-      const x = ((b.x / D + 0.5) * S) + ox, z = ((b.z / D + 0.5) * S) + oz, r = b.r / D * S;
+      const x = ((b.x / D + 0.5) * S) + ox, z = ((b.z / D + 0.5) * S) + oz, r = b.r / D * S, c = b.extra ? '0,255,0' : '255,0,0';
       const gr = g.createRadialGradient(x, z, 0, x, z, r);
-      gr.addColorStop(0, 'rgba(255,255,255,0.22)'); gr.addColorStop(0.6, 'rgba(255,255,255,0.12)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+      gr.addColorStop(0, `rgba(${c},0.22)`); gr.addColorStop(0.6, `rgba(${c},0.12)`); gr.addColorStop(1, `rgba(${c},0)`);
       g.fillStyle = gr; g.fillRect(x - r, z - r, 2 * r, 2 * r);
     }
     const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.NoColorSpace;
     return t;
   }
 
-  // amount 0..1 (clima), dt en ms, color de la luz del día (0 de noche .. 1 de día) y tinte del cielo
-  update(amount, dt, camDist, dia, cielo) {
+  // amount 0..1 (clima), dt en ms, color de la luz del día (0 de noche .. 1 de día), tinte del cielo y lluvia 0..1
+  update(amount, dt, camDist, dia, cielo, lluvia = 0) {
     this.mesh.visible = amount > 0.01;
     if (!this.mesh.visible) return false;
     const s = dt / 1000;
     this.off.x = (this.off.x + NUBES.viento[0] * s) % NUBES.dominio;
     this.off.y = (this.off.y + NUBES.viento[1] * s) % NUBES.dominio;
     const u = this.uniforms;
-    u.uOff.value.copy(this.off); u.uCamDist.value = camDist; u.uOpacity.value = 0.8 * amount;
+    u.uOff.value.copy(this.off); u.uCamDist.value = camDist; u.uOpacity.value = (0.8 + 0.12 * lluvia) * amount;
+    u.uExtra.value = THREE.MathUtils.smoothstep(lluvia, 0.05, 0.4); // con lluvia entran más nubes
+    this.extra = u.uExtra.value;
+    const gris = 1 - 0.38 * lluvia; // y se ponen grises
     // de día blancas con la base gris azulada; de noche se apagan hacia el color del cielo (azul oscuro)
     const noche = 1 - dia;
-    u.uLit.value.setRGB(1, 1, 1).lerp(cielo, 0.12 + 0.6 * noche).multiplyScalar(0.06 + 0.94 * dia);
+    u.uLit.value.setRGB(1, 1, 1).lerp(cielo, 0.12 + 0.6 * noche).multiplyScalar((0.06 + 0.94 * dia) * (1 - 0.2 * lluvia));
     u.uCielo.value.copy(cielo);
-    u.uShade.value.setRGB(0.78, 0.81, 0.87).lerp(cielo, 0.1 + 0.6 * noche).multiplyScalar(0.04 + 0.96 * dia);
+    u.uShade.value.setRGB(0.78, 0.81, 0.87).lerp(cielo, 0.1 + 0.6 * noche).multiplyScalar((0.04 + 0.96 * dia) * gris);
     return true;
   }
 }

@@ -698,10 +698,46 @@ button.info-row:active { background: rgba(31, 31, 31, 0.04); }
 }
 @keyframes user-pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
 
-/* pantallas anchas: la interfaz en una columna centrada (el mapa sigue a pantalla completa) */
-@media (min-width: 700px) {
-  .bottom-nav { padding-left: calc(50% - 320px); padding-right: calc(50% - 320px); }
+/* ---- iPad y computador: panel a la izquierda (como Google Maps en iPad) ----
+   <html class="panel"> lo pone viewport.js (ancho ≥ 768 y alto ≥ 500). El buscador encabeza una columna a la
+   izquierda; debajo, la hoja es un panel flotante (abierto o plegado, ver sheet.js) con la barra Explorar / Tú al pie.
+   Las pastillas siguen en la fila del buscador, a su derecha; capas y brújula a la derecha; ubicación y cómo llegar
+   fijos abajo a la derecha. La búsqueda se abre en la misma columna y las capas como una tarjeta junto a su botón. */
+html.panel {
+  --panel-x: 12px;
+  --panel-w: min(408px, 44vw);
+  --nav-h: calc(72px + env(safe-area-inset-bottom));
 }
+html.panel .top-ui {
+  left: var(--panel-x); right: 0; max-width: none; margin: 0; display: flex; align-items: center; gap: 4px;
+}
+html.panel .searchbar { flex: none; width: var(--panel-w); margin: 0; height: 52px; border-radius: 26px; box-shadow: var(--shadow-2); }
+html.panel .searchbar-field { border-radius: 26px 0 0 26px; }
+html.panel .chips { flex: 1; min-width: 0; padding: 8px 12px; }
+html.panel .sheet {
+  left: var(--panel-x); right: auto; width: var(--panel-w); max-width: none; margin: 0;
+  border-radius: 24px 24px 0 0; box-shadow: var(--shadow-2);
+}
+html.panel .sheet-handle { cursor: pointer; }
+html.panel .bottom-nav {
+  left: var(--panel-x); right: auto; width: var(--panel-w); padding: 8px 8px env(safe-area-inset-bottom);
+  background: var(--surface); box-shadow: 0 -1px 0 var(--outline);
+}
+html.panel .fab { --fab-base: calc(20px + env(safe-area-inset-bottom)); right: 16px; }
+html.panel .map-btn { right: 16px; }
+html.panel .search-page {
+  left: var(--panel-x); right: auto; width: var(--panel-w); top: 0; bottom: 0;
+  border-radius: 0 0 0 0; box-shadow: var(--shadow-2);
+}
+html.panel .layers-scrim { background: transparent; }
+html.panel .layers-sheet {
+  left: auto; right: 68px; bottom: auto; top: calc(env(safe-area-inset-top) + 64px); width: 380px; margin: 0;
+  border-radius: 24px; padding: 20px; box-shadow: var(--shadow-2);
+  transform: translateY(-8px) scale(0.98); opacity: 0; transform-origin: top right;
+  transition: transform 0.2s var(--ease), opacity 0.2s, visibility 0s linear 0.2s;
+}
+html.panel .layers-sheet.open { transform: none; opacity: 1; transition: transform 0.2s var(--ease), opacity 0.2s; }
+html.panel .layers-sep { margin-left: -20px; margin-right: -20px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

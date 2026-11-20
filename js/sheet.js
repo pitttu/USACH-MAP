@@ -8,8 +8,12 @@
 //    Un gesto horizontal (carruseles) no la mueve.
 //  - Al soltar va a la altura más cercana; un gesto rápido salta a la siguiente en esa dirección.
 //  - Tocar el título con la hoja en reposo la sube a media altura. Con mouse se arrastra desde la manija o el título.
+//  - En iPad y computador (isPanel, ver viewport.js) la hoja es un panel a la izquierda bajo el buscador, con dos
+//    alturas: abierto (MID = FULL, el cuerpo se desplaza) y plegado (REST, asoma el título). La app abre vistas en
+//    REST pensando en el celular (para dejar ver el mapa); en el panel no tapa el mapa, así que esas quedan abiertas:
+//    solo el usuario lo pliega (arrastrando o tocando la manija).
 // Fija en <html> las variables --vh, --sheet-y y --full-y (ui.css las usa para la hoja y los botones del mapa).
-import { appHeight } from './viewport.js';
+import { appHeight, isPanel } from './viewport.js';
 
 const HANDLE = 22; // = --handle-h
 const MID_FRACTION = 0.44; // alto visible a media altura, como en Google Maps
@@ -27,10 +31,11 @@ export function createSheet(el, { navEl, onChange, onMove } = {}) {
   const navH = () => navEl?.offsetHeight || 0;
   const part = (sel) => views.get(view)?.querySelector(sel);
 
+  const searchbar = document.querySelector('.searchbar');
   function snaps() {
-    const H = appHeight(), full = probe.offsetHeight + 10;
+    const H = appHeight(), full = isPanel() ? Math.round(searchbar.getBoundingClientRect().bottom) + 12 : probe.offsetHeight + 10;
     const rest = Math.max(full, H - navH() - HANDLE - (part('.sheet-header')?.offsetHeight || 0));
-    const mid = Math.min(rest, Math.max(full + 120, H - navH() - Math.round(H * MID_FRACTION)));
+    const mid = isPanel() ? full : Math.min(rest, Math.max(full + 120, H - navH() - Math.round(H * MID_FRACTION)));
     return { FULL: full, MID: mid, REST: rest };
   }
   function layout() {
@@ -55,10 +60,13 @@ export function createSheet(el, { navEl, onChange, onMove } = {}) {
     };
     follow = requestAnimationFrame(tick);
   }
-  function open(s, { animate = true } = {}) {
+  function open(s, { animate = true, user = false } = {}) {
+    if (isPanel() && !user && s === 'REST' && state !== 'REST') s = 'MID'; // en el panel solo el usuario lo pliega
+    if (isPanel() && s === 'FULL') s = 'MID';
     state = s;
-    el.classList.toggle('full', s === 'FULL');
-    if (s !== 'FULL') { const b = part('.sheet-body'); if (b) b.scrollTop = 0; }
+    const abierta = isPanel() ? s !== 'REST' : s === 'FULL'; // el cuerpo se desplaza
+    el.classList.toggle('full', abierta);
+    if (!abierta) { const b = part('.sheet-body'); if (b) b.scrollTop = 0; }
     setY(snaps()[s], animate);
     onChange?.(state, view);
   }
@@ -114,7 +122,7 @@ export function createSheet(el, { navEl, onChange, onMove } = {}) {
     let target = ORDER.reduce((best, k) => (Math.abs(s[k] - y) < Math.abs(s[best] - y) ? k : best), 'REST');
     if (v < -FLICK) target = [...ORDER].reverse().find((k) => s[k] < y - 4) || 'FULL';
     else if (v > FLICK) target = ORDER.find((k) => s[k] > y + 4) || 'REST';
-    open(target);
+    open(target, { user: true });
   }
 
   el.addEventListener('touchstart', (e) => {
@@ -132,7 +140,7 @@ export function createSheet(el, { navEl, onChange, onMove } = {}) {
       if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
       drag.decided = true;
       if (Math.abs(dx) > Math.abs(dy)) { drag = null; return; } // gesto horizontal: carrusel
-      drag.scrolling = !!drag.body && state === 'FULL' && (dy < 0 || drag.body.scrollTop > 0);
+      drag.scrolling = !!drag.body && el.classList.contains('full') && (dy < 0 || drag.body.scrollTop > 0);
       if (!drag.scrolling) begin();
     }
     if (drag.scrolling) {
@@ -168,14 +176,18 @@ export function createSheet(el, { navEl, onChange, onMove } = {}) {
     e.stopPropagation();
   }, true);
   el.addEventListener('click', (e) => {
+    if (isPanel() && e.target.closest('.sheet-handle')) { open(state === 'REST' ? 'MID' : 'REST', { user: true }); return; } // la manija pliega o abre el panel
     if (state !== 'REST' || !e.target.closest('.sheet-header, .sheet-handle') || e.target.closest('button, a, input, [role="button"]')) return;
     open('MID');
   });
 
-  let altoPrevio = appHeight();
-  window.addEventListener('resize', () => { // nada que hacer si el alto de la app no cambió (viewport.js)
-    if (appHeight() === altoPrevio) return;
-    altoPrevio = appHeight(); layout(); if (!drag) setY(snaps()[state], false);
+  let altoPrevio = appHeight(), panelPrevio = isPanel();
+  window.addEventListener('resize', () => { // nada que hacer si el alto de la app no cambió (viewport.js) ni pasó de celular a panel
+    if (appHeight() === altoPrevio && isPanel() === panelPrevio) return;
+    const cambio = isPanel() !== panelPrevio;
+    altoPrevio = appHeight(); panelPrevio = isPanel(); layout();
+    if (cambio) open(isPanel() ? 'MID' : 'REST', { animate: false, user: true });
+    else if (!drag) setY(snaps()[state], false);
   });
   // la página nunca se desplaza (el mapa y la hoja ocupan la pantalla): el foco de un campo o un scrollIntoView del
   // navegador la correría y todo quedaría descuadrado
@@ -183,7 +195,7 @@ export function createSheet(el, { navEl, onChange, onMove } = {}) {
   views.forEach((v, k) => { v.hidden = k !== view; });
   layout();
   watch();
-  open('REST', { animate: false });
+  open(isPanel() ? 'MID' : 'REST', { animate: false, user: true }); // el panel parte abierto, como en Google Maps
 
   return {
     show,
