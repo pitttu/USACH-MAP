@@ -798,8 +798,8 @@ for (const opt of typeOptions) {
     layersButton.classList.toggle('tinted', opt.dataset.layer !== 'mapa'); // como Google Maps con satélite
   });
 }
-// Detalles del mapa: interruptores. El mapa siempre parte igual (sectores, puntos de interés y edificios 3D
-// prendidos; hora y clima fijos): no se recuerdan entre visitas. apply(on, inicial) los lleva al mapa.
+// Detalles del mapa: interruptores. El mapa siempre parte igual (sectores, puntos de interés, edificios 3D y hora y
+// clima reales prendidos): no se recuerdan entre visitas. apply(on, inicial) los lleva al mapa.
 function detailToggle(id, initial, apply) {
   const button = $(id);
   let on = initial;
@@ -813,8 +813,9 @@ detailToggle('toggle-sectores', true, (on) => mapView.setSectorsVisible(on));
 detailToggle('toggle-pois', true, (on) => mapView.setPOIsVisible(on));
 // Edificios 3D: se achatan (no desaparecen); la fotogrametría también, y queda como una foto aérea plana
 detailToggle('toggle-3d', true, (on, initial) => mapView.setBuildings3D(on, { animate: !initial }));
-// Hora y clima reales: luz de la hora actual (con noche) y el clima de ahora
-detailToggle('toggle-vivo', mapView.live, (on, initial) => { if (!initial) mapView.setLive(on); });
+// Hora y clima reales: luz de la hora actual (con noche) y el clima de ahora. Parte prendido: al abrir la app ya se
+// ve la hora y el clima de este momento (el sol y el clima pasan a los reales mientras se llega desde las nubes)
+detailToggle('toggle-vivo', true, (on, initial) => { if (!initial || !mapView.live) mapView.setLive(on); });
 
 // Escape: cierra la hoja de capas, o vuelve atrás en la hoja (la búsqueda se cierra sola)
 document.addEventListener('keydown', (e) => {

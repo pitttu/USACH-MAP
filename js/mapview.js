@@ -149,12 +149,28 @@ const PUDDLE_FN = `
 float charcoHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float charcoValor(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
   return mix(mix(charcoHash(i), charcoHash(i + vec2(1, 0)), f.x), mix(charcoHash(i + vec2(0, 1)), charcoHash(i + vec2(1, 1)), f.x), f.y); }
-float charcoRuido(vec2 p) { return 0.55 * charcoValor(p) + 0.3 * charcoValor(p * 2.1 + 3.7) + 0.15 * charcoValor(p * 4.3 + 9.1); }`;
+float charcoRuido(vec2 p) { return 0.55 * charcoValor(p) + 0.3 * charcoValor(p * 2.1 + 3.7) + 0.15 * charcoValor(p * 4.3 + 9.1); }
+// > 0 dentro de un charco (más al centro). Cada celda de 22 m tiene un charco con probabilidad 12-20% (según la lluvia),
+// en un lugar al azar, de 2 a 5 m de radio (cubren ~1-2% del suelo, ~5-10% de los charcos de ruido de antes) y borde irregular: pocos, sueltos y sin patrón
+float charcoEn(vec2 w, float lluvia) {
+  const float C = 22.0;
+  vec2 c0 = floor(w / C); float best = -1.0;
+  for (int i = -1; i <= 1; i++) for (int j = -1; j <= 1; j++) {
+    vec2 c = c0 + vec2(float(i), float(j));
+    if (charcoHash(c + 17.3) > mix(0.12, 0.2, lluvia)) continue;
+    vec2 centro = (c + 0.2 + 0.6 * vec2(charcoHash(c + 3.1), charcoHash(c + 7.7))) * C;
+    float r = mix(2.0, 5.0, charcoHash(c + 11.9)) * (0.75 + 0.25 * lluvia);
+    vec2 d = (w - centro) / vec2(1.0, 0.6 + 0.8 * charcoHash(c + 5.5)); // un poco alargado
+    best = max(best, 1.0 - length(d) / r + (charcoRuido(w * 0.7) - 0.5) * 0.5);
+  }
+  return best;
+}`;
 // (lo usan las capas planas: también les pone su tono de atardecer y noche, uFlat)
-function exactShadows(m) {
+function exactShadows(m, { charcos = true } = {}) {
   m.onBeforeCompile = (sh) => {
     Object.assign(sh.uniforms, haze);
     sh.uniforms.uFlat = flatUniform;
+    if (!charcos) sh.fragmentShader = '#define SIN_CHARCOS\n' + sh.fragmentShader;
     sh.uniforms.uNight = night.uNight;
     Object.assign(sh.uniforms, nightGround);
     sh.vertexShader = sh.vertexShader.replace('#include <shadowmap_vertex>', SHADOW_VS);
@@ -162,18 +178,20 @@ function exactShadows(m) {
       .replace('#include <common>', `#include <common>\nuniform vec3 uFlat;\nuniform float uNight;\nuniform vec3 uNightGrass, uNightWater, uNightPath, uLightRef;\n${PUDDLE_FN}`)
       .replace('#include <opaque_fragment>', `outgoingLight *= uFlat;
         #ifdef USE_FOG
+        #ifndef SIN_CHARCOS
         if (uPuddle > 0.001) { // charcos: manchas que reflejan el cielo; no en el pasto ni en el agua
           vec3 diaP = diffuseColor.rgb * uLightRef;
           float noPasto = 1.0 - smoothstep(0.06, 0.12, diaP.g - max(diaP.r, diaP.b));
           float noAgua = 1.0 - smoothstep(0.15, 0.25, diaP.b - diaP.r);
-          float n = charcoRuido(vFogWorld.xz / 5.0);
-          float umbral = mix(0.78, 0.6, uPuddle);                    // con más lluvia, más charcos
-          float m = smoothstep(umbral, umbral + 0.035, n) * noPasto * noAgua;
-          float brillo = 0.5 + 0.5 * smoothstep(umbral + 0.02, umbral + 0.15, n); // más espejo al centro
+          // charcos puntuales: en una grilla de CHARCO_CELDA m, solo unas pocas celdas al azar tienen uno (charcoEn)
+          float n = charcoEn(vFogWorld.xz, uPuddle);
+          float m = smoothstep(0.0, 0.06, n) * noPasto * noAgua;
+          float brillo = 0.5 + 0.5 * smoothstep(0.05, 0.35, n); // más espejo al centro
           vec3 cielo = uHazeColor * vec3(0.92, 0.95, 1.0);
           float cerca = 1.0 - smoothstep(180.0, 420.0, vFogDepth); // de lejos se verían como ruido: solo de cerca
           outgoingLight = mix(outgoingLight, mix(outgoingLight * 0.7, cielo, 0.4 * brillo), m * min(1.0, uPuddle * 1.5) * cerca);
         }
+        #endif
         #endif
         // de noche: pasto, agua y caminos a su paleta (NIGHT_GROUND), reconocidos por su color de día
         if (uNight > 0.001) {
@@ -187,7 +205,7 @@ function exactShadows(m) {
         }
         #include <opaque_fragment>`);
   };
-  m.customProgramCacheKey = () => 'exactShadows';
+  m.customProgramCacheKey = () => (charcos ? 'exactShadows' : 'exactShadows-sinCharcos');
   return m;
 }
 // Capas planas: el color de la paleta es el tono final (compensado por la luz)
@@ -291,7 +309,7 @@ const LAYERS = {
 };
 
 const groundPlane = new THREE.Mesh(new THREE.PlaneGeometry(8000, 8000).rotateX(-Math.PI / 2),
-  wettable(exactShadows(new THREE.MeshLambertMaterial({ color: new THREE.Color('#fef1e1').multiply(paletteMaterialColor()), depthWrite: false }))));
+  wettable(exactShadows(new THREE.MeshLambertMaterial({ color: new THREE.Color('#fef1e1').multiply(paletteMaterialColor()), depthWrite: false }), { charcos: false }))); // el fondo, fuera del mapa: sin charcos
 groundPlane.renderOrder = 0;
 groundPlane.receiveShadow = true;
 scene.add(groundPlane);

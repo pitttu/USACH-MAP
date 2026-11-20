@@ -180,8 +180,8 @@ sus centros (CBA, CEDENNA, SMAT-C).
 **Cerca de ti**: una sola pasada de Dijkstra desde el nodo del grafo más cercano al usuario da la distancia a todos los
 lugares (`places.walk`); con el GPS andando, las listas se rehacen solo si se movió más de 15 m.
 
-**Clima del título**: el de ahora en el campus (Open-Meteo, cada 15 min). No cambia la escena, que sigue fija en
-despejado a las 9:55 salvo con "Hora y clima".
+**Clima del título**: el de ahora en el campus (Open-Meteo, cada 15 min). Con "Hora y clima" prendido (al abrir la app)
+la escena muestra además la hora y el clima de ahora; apagado, queda fija en despejado a las 9:55.
 
 **Guardados y recientes**: en el navegador (`localStorage`: `usach-map.guardados` y `usach_map_history`, la misma
 clave del historial de antes), en Tú y en la búsqueda.
@@ -776,7 +776,7 @@ Replica la configuración del estilo en Mapbox Studio (`mapbox://styles/pittu/cm
 
 ## Clima
 
-> La app parte con la escena fija en cielo despejado a las 9:55 (`FIXED_TIME` en `js/mapview.js`). El interruptor **Hora y clima** del menú de capas (`mapView.setLive`) activa la hora actual (sigue el reloj; el cambio de hora se anima en 1,5 s y de noche se oscurece) y el clima real; al apagarlo vuelve a las 9:55 despejado. Con hora y clima reales, el chip de clima de la hoja principal muestra la temperatura y el estado de ahora. `?dev` en la URL parte así y muestra el panel, p. ej. `?dev&clima=lluvia`.
+> La app parte con **Hora y clima** prendido (`toggle-vivo` en `js/app.js`). Ese interruptor del menú de capas (`mapView.setLive`) activa la hora actual (sigue el reloj; el cambio de hora se anima en 1,5 s y de noche se oscurece) y el clima real; al apagarlo queda fija en cielo despejado a las 9:55 (`FIXED_TIME` en `js/mapview.js`). Con hora y clima reales, el chip de clima de la hoja principal muestra la temperatura y el estado de ahora. `?dev` en la URL parte así y muestra el panel, p. ej. `?dev&clima=lluvia`.
 
 - Fuente: [Open-Meteo](https://open-meteo.com) (gratis, sin API key, uso no comercial). Se consulta al prender "Hora y clima" solo si el último dato tiene más de 15 min (lo que tarda Open-Meteo en actualizar; `refreshIfStale` en `js/weather.js`): apagar y volver a prender no repite la llamada, y una llamada en curso no se duplica. Mientras está prendido se renueva cada 15 min; apagado no se consulta. Si falla, queda despejado y se reintenta la próxima vez.
 - El código WMO se traduce a niveles (`fromWMO` en `js/weather.js`): despejado, nublado, niebla, llovizna, lluvia/chubascos y tormenta.
