@@ -266,10 +266,26 @@ function llegada() {
   requestAnimationFrame(() => requestAnimationFrame(() => {
     loader.classList.add('llegando');
     mapView.flyTo({ ...VISTA_INICIAL, duration: DURACION_LLEGADA });
-    // el velo de la carga (ya transparente) tapa la pantalla hasta que la cámara llega: los toques no cortan la bajada
-    setTimeout(() => { loader.classList.add('hidden-loader'); mapView.setMaxDist(); }, DURACION_LLEGADA + 50);
+    // Durante la bajada el mapa se puede tocar (quien ya conoce la app hace zoom apenas carga): un toque corta la
+    // bajada y la cámara se queda donde el usuario la deja mientras tenga el dedo encima; al soltar, si quedó más alta
+    // que el límite normal (MAX_DIST), sigue bajando suave hasta él, sobre el lugar adonde la movió.
+    setTimeout(() => loader.classList.add('hidden-loader'), DURACION_LLEGADA + 50);
+    let fin = 0;
+    const terminar = () => { if (llegandoActiva && mapView.dist <= mapView.maxDistNormal + 1) { llegandoActiva = false; mapView.setMaxDist(); } }; // si sigue alta, espera a que suelte
+    const alSoltar = () => {
+      if (!llegandoActiva) return;
+      clearTimeout(fin);
+      const ms = mapView.bajarAlLimite({ pitch: VISTA_INICIAL.pitch });
+      fin = setTimeout(terminar, ms + 50);
+    };
+    llegandoActiva = true;
+    mapView.on('release', alSoltar);
+    fin = setTimeout(terminar, DURACION_LLEGADA + 50); // sin tocar: termina con la bajada
   }));
 }
+let llegandoActiva = false;
+// Safari (iPad) ignora user-scalable=no: un pellizco fuera del mapa haría zoom a toda la página y la dejaría descuadrada
+for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
 
 // --- mapa ---
 mapView.on('tap', ({ lngLat, poi, marker }) => {

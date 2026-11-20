@@ -70,6 +70,9 @@ button { cursor: pointer; background: none; border: 0; -webkit-tap-highlight-col
   align-items: center; justify-content: center; gap: 14px; transition: opacity 0.3s ease-out, visibility 0.3s;
 }
 .loader.hidden-loader { opacity: 0; visibility: hidden; }
+/* sin gestos del navegador sobre la carga (un pellizco haría zoom a la página); al llegar deja pasar los toques al mapa */
+.loader { touch-action: none; }
+.loader.llegando { pointer-events: none; }
 /* Cielo con nubes mientras carga. Al llegar (.llegando, ver app.js), el cielo se desvanece y las nubes se abren hacia
    los bordes mientras la cámara baja: las cercanas (--prof alta) crecen y se van antes. Solo gradientes, transform y
    opacity (baratos en celulares lentos: nada de filter: blur). */

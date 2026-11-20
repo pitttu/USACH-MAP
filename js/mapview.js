@@ -783,6 +783,7 @@ controls.addEventListener('longpress', (e) => {
 // ---------------------------------------------------------------- loop (render solo cuando algo cambia)
 let needsRender = true, cameraChanged = true;
 controls.addEventListener('change', () => { needsRender = true; cameraChanged = true; });
+controls.addEventListener('release', () => emit('release'));
 const stats = { fps: 0, calls: 0, load: '', gesture: '' };
 controls.addEventListener('gesturemode', (e) => { stats.gesture = e.mode === 'pitch' ? 'inclinar' : 'zoom/giro'; });
 let frames = 0, lastFps = performance.now(), last = performance.now();
@@ -877,6 +878,16 @@ export const mapView = {
   resetNorth() { controls.flyTo({ bearing: 0, pitch: 0, duration: 800 }); },
   // la llegada (app.js) parte más alto que el límite normal de la cámara; sin argumento, vuelve al límite normal
   setMaxDist(d) { controls.maxDist = d ?? MAX_DIST; },
+  // la llegada: si la cámara quedó más alta que el límite normal, baja suave hasta él donde esté (el usuario pudo
+  // moverla); devuelve los ms que tarda (0 si ya está abajo)
+  bajarAlLimite({ pitch, duration = 1400 } = {}) {
+    if (controls.dist <= MAX_DIST + 1) return 0;
+    const v = controls._velocity, c = [controls.target.x + v.x * 12, controls.target.z + v.y * 12]; // respeta el impulso del dedo
+    controls.flyTo({ center: c, dist: MAX_DIST, pitch, duration });
+    return duration;
+  },
+  get dist() { return controls.dist; },
+  get maxDistNormal() { return MAX_DIST; },
   // px de abajo (y a la izquierda: panel) tapados por la interfaz: el centro del mapa queda al medio del resto
   setPadding(bottom, left = 0) {
     const v = Math.max(0, Math.min(bottom, viewH * 0.8)), l = Math.max(0, Math.min(left, viewW * 0.6));

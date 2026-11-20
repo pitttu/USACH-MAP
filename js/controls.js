@@ -139,6 +139,8 @@ export class MapCamera extends THREE.EventDispatcher {
       this.stop();
       const f = Math.exp(e.deltaY * (e.deltaMode ? 0.05 : 0.0015));
       this._around(e.clientX, e.clientY, () => { this.dist *= f; });
+      // la rueda no tiene "soltar": se avisa cuando deja de girar
+      clearTimeout(this._wheelEnd); this._wheelEnd = setTimeout(() => this.dispatchEvent({ type: 'release' }), 250);
     }, { passive: false });
     el.addEventListener('dblclick', (e) => {
       const p = this.groundAt(e.clientX, e.clientY);
@@ -267,6 +269,7 @@ export class MapCamera extends THREE.EventDispatcher {
         this._velocity.set(sx, sz);
       }
     }
+    if (this._pointers.size === 0) this.dispatchEvent({ type: 'release' }); // el usuario soltó el mapa
     if (this._pointers.size >= 2) this._startMulti();
     else if (this._pointers.size === 1) {
       // de 2 dedos a 1: retomar pan con el dedo restante
