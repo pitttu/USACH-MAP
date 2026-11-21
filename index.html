@@ -19,7 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&family=Inter:wght@500;600&display=swap" rel="stylesheet">
   <!-- Íconos Material Symbols Rounded (los de Google Maps): solo los que usa la app, en orden alfabético.
        Si usas uno nuevo, agrégalo aquí (si no, se ve su nombre en texto): tools/check-icons.mjs lo revisa. -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&icon_names=account_balance,add_a_photo,apartment,arrow_back,bookmark,calendar_month,chevron_right,clear_night,close,cloud,delete,directions,directions_walk,door_open,foggy,groups,history,info,layers,local_atm,local_library,location_on,location_searching,lock,medical_services,meeting_room,mic,more_horiz,museum,my_location,near_me,park,partly_cloudy_day,partly_cloudy_night,pedal_bike,person,photo_library,pin_drop,print,radio,rainy,restaurant,school,share,sports_soccer,stairs,storefront,subway,sunny,swap_vert,sync,thunderstorm,trip_origin,visibility,visibility_off,water_drop,wc,weather_snowy&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&icon_names=account_balance,add_a_photo,add_circle,add_location_alt,apartment,arrow_back,bookmark,bug_report,calendar_month,category,chevron_right,clear_night,close,cloud,code,delete,directions,directions_walk,door_open,edit,foggy,groups,history,info,install_mobile,language,layers,local_atm,local_library,location_off,location_on,location_searching,lock,medical_services,meeting_room,mic,more_horiz,museum,my_location,near_me,open_in_new,park,partly_cloudy_day,partly_cloudy_night,pedal_bike,person,photo_library,pin_drop,policy,print,radio,rainy,restaurant,school,share,sports_soccer,stairs,storefront,subway,sunny,swap_vert,sync,thunderstorm,trip_origin,visibility,visibility_off,volunteer_activism,water_drop,wc,weather_snowy&display=block" rel="stylesheet">
   <!-- interfaz (estilo Google Maps 2025) -->
   <link rel="stylesheet" href="ui.css">
   <!-- lo propio del motor 3D: etiquetas y marcadores del mapa, panel ?dev -->
@@ -399,6 +399,7 @@
         <div class="action-row">
           <button id="place-go" class="btn btn-filled" type="button"><span class="ms fill">directions</span>Cómo llegar</button>
           <button id="place-save" class="btn btn-tonal" type="button" aria-pressed="false"><span class="ms">bookmark</span><span>Guardar</span></button>
+          <button id="place-edit" class="btn btn-tonal" type="button"><span class="ms">edit</span>Editar</button>
           <button id="place-share" class="btn btn-gray" type="button"><span class="ms">share</span>Compartir</button>
         </div>
         <div id="place-photos" class="photo-strip" hidden></div>
@@ -544,6 +545,29 @@
         </div>
       </div>
     </section>
+
+    <!-- Más (app.js, renderMas): enlaces de la Universidad, aportar (sugerir un lugar, reportar), la app y créditos -->
+    <section class="sheet-view" data-view="mas" id="view-mas" aria-labelledby="mas-title" hidden>
+      <header class="sheet-header">
+        <div class="title-row"><h2 class="sheet-title grow" id="mas-title">Más</h2></div>
+      </header>
+      <div class="sheet-body" id="mas-body"></div>
+    </section>
+
+    <!-- Créditos (desde Más) -->
+    <section class="sheet-view" data-view="creditos" id="view-creditos" aria-labelledby="creditos-title" hidden>
+      <header class="sheet-header">
+        <div class="title-row">
+          <span class="cat-badge" style="--tint:#fce4ec;--ink:#b0003a"><span class="ms">volunteer_activism</span></span>
+          <div class="grow">
+            <h2 class="sheet-title" id="creditos-title">Créditos</h2>
+            <p class="sheet-subtitle">Quiénes y qué hacen posible este mapa</p>
+          </div>
+          <button id="creditos-close" class="icon-btn tonal" type="button" aria-label="Volver"><span class="ms">close</span></button>
+        </div>
+      </header>
+      <div class="sheet-body" id="creditos-body"></div>
+    </section>
   </div>
 
   <!-- Búsqueda a pantalla completa y planificador de rutas (search.js) -->
@@ -567,7 +591,7 @@
     <div id="sp-body" class="sp-body"></div>
   </section>
 
-  <!-- Barra de navegación inferior: Explorar y Tú cambian la vista de la misma hoja -->
+  <!-- Barra de navegación inferior: Explorar, Tú y Más cambian la vista de la misma hoja -->
   <nav id="bottom-nav" class="bottom-nav" role="tablist" aria-label="Secciones">
     <button class="nav-item active" data-tab="explorar" role="tab" aria-selected="true" type="button">
       <span class="nav-pill"><span class="ms">location_on</span></span>
@@ -576,6 +600,10 @@
     <button class="nav-item" data-tab="tu" role="tab" aria-selected="false" type="button">
       <span class="nav-pill"><span class="ms">bookmark</span></span>
       <span class="nav-label">Tú</span>
+    </button>
+    <button class="nav-item" data-tab="mas" role="tab" aria-selected="false" type="button">
+      <span class="nav-pill"><span class="ms">add_circle</span></span>
+      <span class="nav-label">Más</span>
     </button>
   </nav>
 
@@ -622,6 +650,53 @@
     </div>
   </section>
   <input type="file" id="pu-file" accept="image/*" hidden>
+
+  <!-- Sugerir un cambio a un lugar que ya está (editar.js; botón Editar del lugar; cuenta @usach.cl; queda en revisión) -->
+  <section id="place-edit-dialog" class="photo-upload" role="dialog" aria-modal="true" aria-labelledby="pe-title" hidden>
+    <div class="pu-card pe-card">
+      <header class="pu-head">
+        <button id="pe-back" class="icon-btn" type="button" aria-label="Volver" hidden><span class="ms">arrow_back</span></button>
+        <div class="grow"><h2 id="pe-title">Sugerir un cambio</h2><p id="pe-place"></p></div>
+        <button id="pe-close" class="icon-btn tonal" type="button" aria-label="Cerrar"><span class="ms">close</span></button>
+      </header>
+      <div id="pe-body"></div>
+      <p id="pe-error" class="pu-error" role="alert"></p>
+    </div>
+  </section>
+
+  <!-- Sugerir un lugar que falta (sugerir.js; cuenta @usach.cl; queda en revisión) -->
+  <section id="poi-suggest" class="photo-upload" role="dialog" aria-modal="true" aria-labelledby="ps-title" hidden>
+    <div class="pu-card">
+      <header class="pu-head">
+        <div class="grow"><h2 id="ps-title">Sugerir un lugar</h2><p>Lo revisamos antes de que aparezca en el mapa</p></div>
+        <button id="ps-close" class="icon-btn tonal" type="button" aria-label="Cancelar"><span class="ms">close</span></button>
+      </header>
+      <div class="ps-where">
+        <span class="ms fill">location_on</span>
+        <span class="grow"><b>Ubicación</b><small id="ps-coords"></small></span>
+        <button id="ps-move" class="text-btn" type="button">Cambiar</button>
+      </div>
+      <label class="tu-field"><span>Nombre</span>
+        <input id="ps-name" type="text" maxlength="80" autocomplete="off" placeholder="Ej.: Kiosco del Patio de los Naranjos"></label>
+      <label class="tu-field"><span>Categoría</span>
+        <select id="ps-cat"></select></label>
+      <label class="tu-field"><span>Detalles (opcional)</span>
+        <textarea id="ps-desc" maxlength="300" rows="3" placeholder="Piso, horario, cómo encontrarlo…"></textarea></label>
+      <div id="ps-login" class="pu-login">
+        <p>Para enviarlo, entra con tu cuenta <b>@usach.cl</b>.</p>
+        <div id="ps-google"></div>
+      </div>
+      <div id="ps-form" hidden>
+        <p class="pu-who">Entraste como <b id="ps-email"></b> · <button id="ps-other" class="link-btn" type="button">usar otra cuenta</button></p>
+        <p class="pu-note">Un administrador lo revisa y puede corregir el nombre antes de publicarlo. Tu correo no se muestra.</p>
+        <div class="pu-actions">
+          <button id="ps-cancel" class="btn btn-gray" type="button">Cancelar</button>
+          <button id="ps-send" class="btn btn-filled" type="button">Enviar a revisión</button>
+        </div>
+      </div>
+      <p id="ps-error" class="pu-error" role="alert"></p>
+    </div>
+  </section>
 
   <div id="snackbars" class="snackbars" aria-live="polite"></div>
 

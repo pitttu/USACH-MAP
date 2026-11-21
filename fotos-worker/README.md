@@ -33,6 +33,11 @@ las junta con las de Wikimedia Commons de `assets/data/fotos.json`.
 | `GET /img/<id>.webp`, `/img/<id>-m.webp` | una foto publicada, grande o miniatura (`.jpg` si llegó en JPEG) |
 | `POST /subir` | sube una foto (formulario: `lugar`, `lugarTexto`, `foto`, `mini`, `nombre` si/no, `acepto` si) |
 | `GET /mias` | las fotos de quien llama, con su estado |
+| `GET /lugares` | lugares sugeridos y publicados (GeoJSON; la app los suma a sus lugares) |
+| `POST /lugares/sugerir` | sugiere un lugar (JSON: `nombre`, `categoria`, `descripcion`, `lon`, `lat`); queda pendiente. 20 al día y 30 pendientes por persona, dentro del área del mapa |
+| `POST /lugares/editar` | sugiere un cambio a un lugar que ya existe (`campo`: nombre, categoria, ubicacion, detalles o cerrado). 30 al día y 40 pendientes por persona |
+| `GET /admin/ediciones?estado=…`, `POST /admin/decidir-edicion` | sección **Ediciones** del panel: no se aplican solas; se corrige el dato en el repositorio y se marca "Ya lo corregí" (o se rechaza) |
+| `GET /admin/lugares?estado=…`, `POST /admin/decidir-lugar` | lo que usa la sección **Lugares** del panel (al publicar se pueden corregir nombre, categoría y descripción) |
 | `GET /admin` | panel de revisión |
 | `GET /admin/lista?estado=…`, `GET /admin/img/…`, `POST /admin/decidir` | lo que usa el panel (solo `ADMINS`) |
 
@@ -80,4 +85,13 @@ npx wrangler d1 execute usach-fotos --local --file schema.sql
 npx wrangler dev --port 8787 --ip 127.0.0.1
 # app: http://localhost:8765/?fotos-api=http://127.0.0.1:8787&fotos-prueba=ana@usach.cl:Ana%20Pérez
 curl -H 'Authorization: Bearer prueba:admin@usach.cl:Admin' 'http://127.0.0.1:8787/admin/lista?estado=pendiente'
+```
+
+## Lugares sugeridos y ediciones (2026-11-21)
+
+Tablas `lugares` y `ediciones` en `schema.sql`. Para activarlo en la D1 ya creada y publicar el Worker:
+
+```bash
+npx wrangler d1 execute usach-fotos --remote --file=schema.sql   # crea solo lo que falta (IF NOT EXISTS)
+npx wrangler deploy
 ```

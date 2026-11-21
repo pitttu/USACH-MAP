@@ -36,6 +36,9 @@ La interfaz es propia, al estilo de Google Maps 2025 (ver *Interfaz*). El mapa e
 | `js/sheet.js` | **Hoja deslizable**: una sola hoja con vistas, tres alturas, título fijo por vista y el arrastre (ver *Interfaz*) |
 | `js/search.js` | **Búsqueda** a pantalla completa y **planificador de rutas** (partida → destino) |
 | `js/places.js` | **Lugares**: catálogo de categorías, cómo se muestra cada lugar, búsqueda, edificios con sus salas, guardados, recientes y distancias a pie |
+| `js/sugerir.js` | **Sugerir un lugar** (pestaña Más): punto en el mapa, nombre, categoría y detalles; se envía con la cuenta @usach.cl al Worker de la comunidad y queda en revisión. Los publicados aparecen en el mapa al abrir la app |
+| `js/editar.js` | **Editar** un lugar ("Sugerir un cambio"): nombre, categoría, ubicación, detalles o que cerró; queda en revisión en el panel del Worker |
+| `js/cuenta.js` | Sesión de Google @usach.cl y dirección del Worker de la comunidad (para fotos y lugares) |
 | `js/tu.js` | **Vista "Tú"** (beta): horario importado desde SIAC, próxima clase, traslados entre salas, metro más cercano a la primera clase del día, guardados y recientes. Ver *Pestaña Tú* |
 | `js/ui.js` | Utilidades de la interfaz: crear elementos, íconos, avisos (snackbar), formatos |
 | `js/mapview.js` | **Motor**: escena, luz, sombras, cámara, etiquetas y marcadores. Exporta `mapView`, una API en lon/lat estilo Mapbox: `flyTo`, `jumpTo`, `resetNorth`, `setRoute`, `setPin`, `setUserLocation`, `setSelected`, `showCategory`, `addPOIs`, `addCategoryMarkers`, `setSectors`, `setBaseLayer` y los eventos `tap`, `longpress`, `move`. |
@@ -78,8 +81,10 @@ muestra las iniciales del alumno), pastillas de categorías, capas y brújula a 
 de ubicación (blanco; azul cuando sigue el GPS) y **Cómo llegar** (turquesa: ruta al lugar abierto o el
 planificador). Abajo, la barra **Explorar / Tú**.
 
-**App instalable (PWA).** `manifest.webmanifest`: nombre "Mapa USACH", íconos en `assets/app/` (pin blanco sobre el
-turquesa; uno normal y otro "maskable" con margen para los recortes de Android) y **pantalla completa**
+**App instalable (PWA).** `manifest.webmanifest`: nombre "Mapa USACH", íconos en `assets/app/` (la cabeza
+del león del escudo, de bordes con los colores de Google Maps, sobre blanco; uno normal y otro "maskable" con margen
+para los recortes de Android; en los chicos, 192 px, apple-touch y el favicon, las líneas van más gruesas). Se
+generan desde el escudo oficial (`modelos/logos/` en la carpeta del proyecto: `cabeza-google-bordes.svg`) y **pantalla completa**
 (`display: fullscreen`, a pedido del usuario: el mapa ocupa también la franja de la barra de estado; la hora y la
 batería se ven deslizando desde arriba). La interfaz respeta el hoyo de la cámara con `env(safe-area-inset-*)`.
 - Al mostrar la barra de estado, Android achica la ventana un momento y la agranda al esconderla. Si la app se

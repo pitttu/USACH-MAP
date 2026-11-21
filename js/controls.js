@@ -93,9 +93,11 @@ export class MapCamera extends THREE.EventDispatcher {
       d: dist ?? from.d, p: pitch !== undefined ? THREE.MathUtils.degToRad(pitch) : from.p,
       b: bearing !== undefined ? from.b + wrapAngle(THREE.MathUtils.degToRad(bearing) - from.b) : from.b,
     };
-    // si el viaje es largo respecto al zoom, alejarse a mitad de camino (efecto "vuelo")
+    // si el viaje es largo respecto al zoom, alejarse a mitad de camino (efecto "vuelo"). Se mide contra la mayor de las
+    // dos distancias: al alejarse (p. ej. a la vista de todo el campus) o acercarse, el trayecto ya cabe en la vista de
+    // arriba y la cámara va directo, sin pasarse más arriba y volver a bajar (rebote)
     const travel = Math.hypot(to.x - from.x, to.z - from.z);
-    const lift = Math.max(0, travel / Math.min(from.d, to.d) - 0.6) * 0.35;
+    const lift = Math.max(0, travel / Math.max(from.d, to.d) - 0.6) * 0.35;
     this._velocity.set(0, 0);
     this._anim = { from, to, lift, start: performance.now(), duration };
   }

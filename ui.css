@@ -371,6 +371,42 @@ html.sheet-dragging .fab { transition: background-color 0.15s, transform 0.15s; 
 .link-btn { color: var(--primary); font: inherit; padding: 0; text-decoration: underline; }
 .pu-actions { display: flex; justify-content: flex-end; gap: 8px; }
 .pu-error { color: #b3261e; font-size: 14px; margin: 10px 0 0; }
+/* sugerir un cambio a un lugar (editar.js): menú de filas como el de Google Maps, y el formulario de cada una */
+.pe-card { display: flex; flex-direction: column; gap: 14px; }
+.pe-card .pu-head p { font-size: 14px; }
+#pe-body { display: flex; flex-direction: column; gap: 14px; }
+.pe-menu { display: flex; flex-direction: column; gap: 2px; border-radius: 16px; overflow: hidden; }
+.pe-row {
+  display: flex; align-items: center; gap: 16px; min-height: 56px; padding: 10px 16px; text-align: left;
+  background: var(--surface-2); color: var(--on-surface); font-size: 15px; line-height: 20px;
+}
+.pe-row:active { background: #e6e6e6; }
+.pe-row .ms:first-child { color: var(--primary); }
+.pe-row .ms:last-child { color: var(--muted); }
+.pe-row .grow { min-width: 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.pe-accent { color: var(--primary); font-weight: 500; }
+.btn-block.pe-cancel { width: 100%; }
+.pe-mover { display: flex; flex-direction: column; gap: 8px; }
+.pe-mover .ps-where:not(.nuevo) > .ms { color: var(--muted); }
+.pe-cierre { margin: 0; }
+#pe-body .pu-who, #pe-body .pu-note, #pe-body .pu-login p { margin-bottom: 8px; }
+
+/* sugerir un lugar (mismo cuadro que "Agregar foto") */
+#poi-suggest .pu-card { display: flex; flex-direction: column; gap: 14px; }
+#poi-suggest .pu-head p { font-size: 14px; }
+.ps-where { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px; background: var(--surface-2); }
+.ps-where > .ms { color: #c5221f; font-size: 24px; }
+.ps-where b { display: block; font-size: 14px; font-weight: 500; color: var(--on-surface); }
+.ps-where small { display: block; font-size: 13px; color: var(--on-surface-2); font-variant-numeric: tabular-nums; }
+.ps-where .text-btn { margin-right: -6px; }
+.tu-field select, .tu-field textarea {
+  width: 100%; padding: 12px 16px; border: 1px solid #c4c7c5; border-radius: 12px; background: var(--surface);
+  font: inherit; font-size: 16px; font-weight: 400; color: var(--on-surface); outline: none;
+}
+.tu-field select { height: 52px; padding: 0 12px; }
+.tu-field textarea { resize: vertical; min-height: 76px; line-height: 22px; }
+.tu-field select:focus, .tu-field textarea:focus { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
+#poi-suggest .pu-login p, #poi-suggest .pu-who, #poi-suggest .pu-note { margin-bottom: 8px; }
 .pu-error:empty { display: none; }
 
 /* visor de fotos */
@@ -671,6 +707,18 @@ button.info-row:active { background: rgba(31, 31, 31, 0.04); }
 .nav-label { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.01em; }
 .nav-item.active .nav-label { color: var(--on-surface); font-weight: 700; }
 .nav-item:focus-visible { outline: none; }
+
+/* ---- Más: menú de enlaces y créditos ---- */
+a.list-row { color: inherit; text-decoration: none; }
+#mas-body > .section-title:first-child { margin-top: 4px; }
+.mas-list .list-row { min-height: 60px; }
+.mas-list .ms.row-trail { font-size: 20px; }
+.mas-foot { margin: 22px 0 8px; font-size: 12px; line-height: 18px; color: var(--muted); text-align: center; }
+.creditos { display: flex; flex-direction: column; }
+.credito { padding: 14px 0; font-size: 14px; line-height: 20px; color: var(--on-surface-2); }
+.credito + .credito { border-top: 1px solid var(--outline); }
+.credito b { display: block; color: var(--on-surface); font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+.credito a { color: var(--primary); }
 
 /* ---- avisos (snackbar) ---- */
 .snackbars { position: absolute; left: 0; right: 0; bottom: calc(var(--nav-h) + 12px); z-index: 60; display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; padding: 0 12px; }

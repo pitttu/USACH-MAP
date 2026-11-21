@@ -10,16 +10,9 @@
 // nombre y sus coordenadas (fotoKey), así cada uno tiene sus propias fotos.
 import { h, fill, icon, snackbar } from './ui.js';
 
-// Worker de fotos y cliente OAuth de Google (tipo "Aplicación web"; no es secreto). "Agregar fotos" solo avisa que
-// viene pronto mientras falte alguno, o mientras el Worker diga que aún no acepta subidas (GET /estado).
-const FOTOS_WORKER = 'https://usach-fotos.siac-worker.workers.dev';
-const GOOGLE_CLIENT_ID = '781404416776-8o58a4sb4fbpsk5rhvnkk451dgig9jtl.apps.googleusercontent.com';
-const DOMINIO = 'usach.cl';
+import { API, PRUEBA, GOOGLE_CLIENT_ID, sesion, salir, botonGoogle } from './cuenta.js';
+
 const LICENCIA = { nombre: 'CC BY-NC-SA 4.0', url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es' };
-// en el Mac se puede probar contra `wrangler dev` con ?fotos-api=http://127.0.0.1:8787 (solo en localhost)
-const LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
-const API = (LOCAL && new URLSearchParams(location.search).get('fotos-api')) || FOTOS_WORKER;
-const PRUEBA = LOCAL && new URLSearchParams(location.search).get('fotos-prueba'); // "correo:nombre" (wrangler dev con PRUEBA_SIN_GOOGLE)
 const SUBIR = !!(API && (GOOGLE_CLIENT_ID || PRUEBA));
 
 const $ = (id) => document.getElementById(id);
@@ -118,8 +111,7 @@ function closeViewer({ fromHistory = false } = {}) {
 
 // --- agregar foto ---
 const dialog = $('photo-upload');
-let draft = null, session = null; // draft: { foto, mini, url }; session: { token, email, name, exp }
-const payload = (t) => JSON.parse(decodeURIComponent(escape(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')))));
+let draft = null; // { foto, mini, url }
 const blob = (canvas, type, q) => new Promise((ok) => canvas.toBlob(ok, type, q));
 // Dos tamaños, re-codificados (sin metadatos): 1280 px de lado mayor y 520 px de alto (la miniatura llena la foto
 // grande del carrusel en pantallas 2x). WebP (calidad 0,70 y 0,62); si el navegador no sabe codificar WebP (devuelve
@@ -148,36 +140,14 @@ async function pick(file) {
   showStep();
 }
 function showStep() {
-  const ok = session && session.exp * 1000 > Date.now() + 60e3;
+  const ok = sesion();
   $('pu-login').hidden = !!ok;
   $('pu-form').hidden = !ok;
   if (ok) {
-    $('pu-email').textContent = session.email;
-    $('pu-name').textContent = session.name || session.email;
+    $('pu-email').textContent = ok.email;
+    $('pu-name').textContent = ok.name || ok.email;
     $('pu-send').disabled = !$('pu-accept').checked;
-  } else if (PRUEBA) {
-    const [email, name] = PRUEBA.split(':');
-    session = { token: `prueba:${email}:${name || ''}`, email, name, exp: Date.now() / 1000 + 3600 };
-    showStep();
-  } else googleButton();
-}
-let gisP = null;
-function googleButton() {
-  gisP ||= new Promise((ok, fail) => {
-    const s = document.createElement('script');
-    s.src = 'https://accounts.google.com/gsi/client'; s.async = true; s.onload = ok; s.onerror = fail;
-    document.head.append(s);
-  }).then(() => google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, hd: DOMINIO, callback: signedIn, context: 'signin', ux_mode: 'popup' }));
-  gisP.then(() => google.accounts.id.renderButton($('pu-google'), { theme: 'outline', size: 'large', shape: 'pill', text: 'signin_with', locale: 'es', width: 280 }))
-    .catch(() => { gisP = null; $('pu-error').textContent = 'No se pudo cargar el inicio de sesión de Google. Revisa tu conexión.'; });
-}
-function signedIn({ credential }) {
-  let p;
-  try { p = payload(credential); } catch { $('pu-error').textContent = 'No se pudo leer tu sesión'; return; }
-  if (p.hd !== DOMINIO) { $('pu-error').textContent = `Usa tu cuenta @${DOMINIO}: ${p.email} no es de la Universidad`; return; }
-  session = { token: credential, email: p.email, name: p.name, exp: p.exp };
-  $('pu-error').textContent = '';
-  showStep();
+  } else botonGoogle($('pu-google'), () => { $('pu-error').textContent = ''; showStep(); }, (msg) => { $('pu-error').textContent = msg; });
 }
 function closeUpload() {
   dialog.hidden = true;
@@ -186,8 +156,9 @@ function closeUpload() {
   $('pu-file').value = '';
 }
 async function send() {
-  if (!draft || !session) return;
-  if (session.exp * 1000 < Date.now() + 30e3) { session = null; showStep(); return; }
+  const session = sesion();
+  if (!draft) return;
+  if (!session) { showStep(); return; }
   const btn = $('pu-send'), form = new FormData();
   form.append('lugar', currentKey);
   form.append('lugarTexto', currentText);
@@ -199,7 +170,7 @@ async function send() {
   try {
     const r = await fetch(`${API}/subir`, { method: 'POST', headers: { Authorization: `Bearer ${session.token}` }, body: form });
     const body = await r.json().catch(() => ({}));
-    if (r.status === 401) { session = null; showStep(); throw new Error(body.error || 'Vuelve a entrar'); }
+    if (r.status === 401) { salir(); showStep(); throw new Error(body.error || 'Vuelve a entrar'); }
     if (!r.ok) throw new Error(body.error || 'No se pudo enviar');
     closeUpload();
     snackbar('¡Gracias! Tu foto quedó en revisión');
@@ -226,6 +197,6 @@ export function initFotos() {
   $('pu-cancel').addEventListener('click', closeUpload);
   $('pu-accept').addEventListener('change', () => { $('pu-send').disabled = !$('pu-accept').checked; });
   $('pu-send').addEventListener('click', send);
-  $('pu-other').addEventListener('click', () => { session = null; showStep(); });
+  $('pu-other').addEventListener('click', () => { salir(); showStep(); });
   $('pu-licence').href = LICENCIA.url;
 }

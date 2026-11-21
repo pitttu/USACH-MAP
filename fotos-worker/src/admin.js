@@ -1,6 +1,9 @@
-// Panel de revisión de las fotos de la comunidad (GET /admin). Primero, una pantalla de entrada con Google (solo eso);
+// Panel de revisión de lo que aporta la comunidad (GET /admin): fotos y lugares sugeridos. Primero, una pantalla de entrada con Google (solo eso);
 // el Worker solo responde a los correos de ADMINS. Dentro: los envíos por estado con quién los subió, los botones para
 // publicar, rechazar (borra los archivos) o retirar una publicada, el espacio usado y el registro de todo lo que pasó.
+// Ediciones: cambios sugeridos a lugares que ya existen; se corrigen a mano en los datos del repositorio y aquí se
+// marcan como aplicados (o se rechazan).
+// Lugares: nombre, categoría y descripción se pueden corregir antes de publicar; "Ver en el mapa" abre la app en el punto.
 // Si la sesión vence (Google la da por una hora) o la cuenta no es de un administrador, vuelve a la pantalla de entrada.
 export const panel = (clientId) => `<!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,6 +35,11 @@ export const panel = (clientId) => `<!doctype html>
   nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
   nav button { border: 1px solid var(--o); background: #fff; border-radius: 16px; padding: 6px 14px; font: inherit; cursor: pointer; }
   nav button.on { background: var(--pc); border-color: var(--pc); }
+  .modo { margin-bottom: 18px; } .modo button { font-weight: 600; padding: 8px 18px; }
+  .card .campos { padding: 0 12px 10px; display: grid; gap: 6px; }
+  .card .campos input, .card .campos select, .card .campos textarea { font: inherit; font-size: 14px; border: 1px solid var(--o); border-radius: 8px; padding: 6px 8px; width: 100%; box-sizing: border-box; }
+  .card .campos textarea { min-height: 56px; resize: vertical; }
+  .card .mapa { display: block; padding: 0 12px 10px; color: var(--p); font-size: 14px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
   .card { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid var(--o); }
   .card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: #e8eaed; cursor: zoom-in; }
@@ -53,7 +61,7 @@ export const panel = (clientId) => `<!doctype html>
   <div class="tarjeta">
     <div class="marca"><svg width="34" height="34"><use href="#pin"/></svg></div>
     <h1>Panel de revisión</h1>
-    <p class="sub">Fotos de la comunidad · USACH Map</p>
+    <p class="sub">Aportes de la comunidad · USACH Map</p>
     <p class="nota">Solo para administradores. Entra con tu cuenta de Google.</p>
     <div id="g"></div>
     <p id="err" class="error" role="alert"></p>
@@ -70,16 +78,19 @@ export const panel = (clientId) => `<!doctype html>
   </header>
   <main>
     <p id="msg"></p>
+    <nav id="modo" class="modo"><button data-m="fotos" class="on">Fotos</button><button data-m="lugares">Lugares</button><button data-m="ediciones">Ediciones</button></nav>
     <nav id="tabs"></nav>
     <div id="lista" class="grid"></div>
     <h2 style="font-size:16px;margin-top:28px">Registro</h2>
-    <table><thead><tr><th>Cuándo</th><th>Acción</th><th>Quién</th><th>Foto</th><th>Detalle</th></tr></thead><tbody id="reg"></tbody></table>
+    <table><thead><tr><th>Cuándo</th><th>Acción</th><th>Quién</th><th id="col">Foto</th><th>Detalle</th></tr></thead><tbody id="reg"></tbody></table>
   </main>
 </div>
 <dialog id="ver" onclick="this.close()"><img alt=""></dialog>
 <script>
 const CLIENT_ID = ${JSON.stringify(clientId)};
-let token = null, estado = 'pendiente';
+let token = null, estado = 'pendiente', modo = 'fotos';
+const APP = 'https://pitttu.github.io/USACH-MAP/';
+const CATS = { comida: 'Comida', 'baño': 'Baño', dispensador: 'Agua (dispensador)', impresiones: 'Impresiones', cajero: 'Cajero', biblioteca: 'Biblioteca', educacion: 'Facultad o departamento', deporte: 'Deporte', salud: 'Salud', cultura: 'Cultura', tienda: 'Tienda', servicios: 'Servicio', institucional: 'Oficina o institucional', otro: 'Otro' };
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fecha = (s) => s ? new Date(s).toLocaleString('es-CL', { dateStyle: 'short', timeStyle: 'short' }) : '';
@@ -100,10 +111,20 @@ async function img(el, f, mini) {
   try { el.src = URL.createObjectURL(await (await api('/admin/img/' + f.id + (mini ? '-m' : '') + '.' + f.formato)).blob()); } catch { el.alt = 'sin archivo'; }
 }
 const TABS = { pendiente: 'Pendientes', publicada: 'Publicadas', retirada: 'Retiradas', rechazada: 'Rechazadas', todas: 'Todas' };
-function tabs() { $('tabs').innerHTML = Object.entries(TABS).map(([k, v]) => '<button data-e="' + k + '"' + (k === estado ? ' class="on"' : '') + '>' + v + '</button>').join(''); }
+const TABS_EDICIONES = { pendiente: 'Pendientes', aplicada: 'Aplicadas', rechazada: 'Rechazadas', todas: 'Todas' };
+function tabs() { $('tabs').innerHTML = Object.entries(modo === 'ediciones' ? TABS_EDICIONES : TABS).map(([k, v]) => '<button data-e="' + k + '"' + (k === estado ? ' class="on"' : '') + '>' + v + '</button>').join(''); }
 $('tabs').onclick = (e) => { const k = e.target.dataset?.e; if (k) { estado = k; cargar(); } };
+$('modo').onclick = (e) => {
+  const m = e.target.dataset?.m; if (!m) return;
+  modo = m; estado = 'pendiente';
+  for (const b of $('modo').children) b.classList.toggle('on', b.dataset.m === m);
+  cargar();
+};
 $('salir').onclick = () => aEntrada();
 async function cargar() {
+  if (modo === 'lugares') return cargarLugares();
+  if (modo === 'ediciones') return cargarEdiciones();
+  $('col').textContent = 'Foto';
   $('msg').textContent = '';
   let datos;
   try { datos = await (await api('/admin/lista?estado=' + estado)).json(); }
@@ -140,6 +161,95 @@ async function cargar() {
   }
   $('reg').innerHTML = registro.length ? registro.map((r) => '<tr><td>' + fecha(r.cuando) + '</td><td>' + esc(r.accion) + '</td><td>' + esc(r.quien) + '</td><td>' + esc(r.foto.slice(0, 8)) + '</td><td>' + esc(r.detalle) + '</td></tr>').join('')
     : '<tr><td colspan="5" class="vacio">Todavía no hay nada registrado.</td></tr>';
+}
+function registroEn(registro) {
+  $('reg').innerHTML = registro.length ? registro.map((r) => '<tr><td>' + fecha(r.cuando) + '</td><td>' + esc(r.accion) + '</td><td>' + esc(r.quien) + '</td><td>' + esc(r.foto.slice(0, 8)) + '</td><td>' + esc(r.detalle) + '</td></tr>').join('')
+    : '<tr><td colspan="5" class="vacio">Todavía no hay nada registrado.</td></tr>';
+}
+async function cargarLugares() {
+  $('msg').textContent = '';
+  $('col').textContent = 'Lugar';
+  let datos;
+  try { datos = await (await api('/admin/lugares?estado=' + estado)).json(); }
+  catch (err) {
+    if (err.status === 401 || err.status === 403) return aEntrada(err.message);
+    $('msg').textContent = err.message; return;
+  }
+  const { lugares, registro } = datos;
+  $('entrar').hidden = true; $('panel').hidden = false;
+  tabs();
+  $('lista').innerHTML = lugares.length ? '' : '<p class="vacio">No hay lugares aquí.</p>';
+  for (const l of lugares) {
+    const editable = l.estado === 'pendiente' || l.estado === 'retirada';
+    const c = document.createElement('div'); c.className = 'card';
+    const opciones = Object.entries(CATS).map(([k, v]) => '<option value="' + esc(k) + '"' + (k === l.categoria ? ' selected' : '') + '>' + esc(v) + '</option>').join('');
+    c.innerHTML = '<div class="d"><b>' + esc(l.nombre) + '</b>'
+      + '<small>' + esc(CATS[l.categoria] || l.categoria) + (l.descripcion ? ' · ' + esc(l.descripcion) : '') + '</small>'
+      + '<small>' + esc(l.email) + (l.cuenta ? ' · ' + esc(l.cuenta) : '') + ' · sugerido ' + fecha(l.creada) + '</small>'
+      + '<small>' + l.lat.toFixed(6) + ', ' + l.lon.toFixed(6) + '</small>'
+      + '<small>Estado: ' + esc(l.estado) + (l.revisor ? ' por ' + esc(l.revisor) + ' ' + fecha(l.revisada) : '') + (l.motivo ? ' · ' + esc(l.motivo) : '') + '</small></div>'
+      + '<a class="mapa" target="_blank" rel="noopener" href="' + APP + '?punto=' + l.lon.toFixed(6) + ',' + l.lat.toFixed(6) + '">Ver en el mapa ↗</a>'
+      + (editable ? '<div class="campos"><input name="nombre" maxlength="80" value="' + esc(l.nombre) + '" aria-label="Nombre">'
+        + '<select name="categoria" aria-label="Categoría">' + opciones + '</select>'
+        + '<textarea name="descripcion" maxlength="300" aria-label="Descripción" placeholder="Descripción (opcional)">' + esc(l.descripcion) + '</textarea></div>' : '')
+      + '<div class="acc">'
+      + (editable ? '<button class="pub" data-a="publicar">Publicar</button>' : '')
+      + (l.estado === 'pendiente' ? '<button class="rec" data-a="rechazar">Rechazar</button>' : '')
+      + (l.estado === 'publicada' ? '<button class="ret" data-a="retirar">Retirar del mapa</button>' : '') + '</div>';
+    c.querySelector('.acc').onclick = async (e) => {
+      const accion = e.target.dataset?.a; if (!accion) return;
+      const motivo = accion === 'publicar' ? '' : prompt('Motivo (opcional):') ?? null;
+      if (motivo === null) return;
+      const cuerpo = { id: l.id, accion, motivo };
+      if (accion === 'publicar') for (const k of ['nombre', 'categoria', 'descripcion']) cuerpo[k] = c.querySelector('[name="' + k + '"]').value;
+      try { await api('/admin/decidir-lugar', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cuerpo) }); cargar(); }
+      catch (err) { if (err.status === 401 || err.status === 403) aEntrada(err.message); else $('msg').textContent = err.message; }
+    };
+    $('lista').append(c);
+  }
+  registroEn(registro);
+}
+const CAMPOS = { nombre: 'Nombre', categoria: 'Categoría', ubicacion: 'Ubicación', detalles: 'Detalles', cerrado: 'Cerró o no está aquí' };
+const CIERRES = { cerro: 'Cerró definitivamente', no_esta: 'No está en este lugar', no_existe: 'No existe o está repetido' };
+const enMapa = (lon, lat, texto) => '<a target="_blank" rel="noopener" href="' + APP + '?punto=' + Number(lon).toFixed(6) + ',' + Number(lat).toFixed(6) + '">' + texto + ' ↗</a>';
+async function cargarEdiciones() {
+  $('msg').textContent = '';
+  $('col').textContent = 'Edición';
+  let datos;
+  try { datos = await (await api('/admin/ediciones?estado=' + estado)).json(); }
+  catch (err) {
+    if (err.status === 401 || err.status === 403) return aEntrada(err.message);
+    $('msg').textContent = err.message; return;
+  }
+  const { ediciones, registro } = datos;
+  $('entrar').hidden = true; $('panel').hidden = false;
+  tabs();
+  $('lista').innerHTML = ediciones.length ? '' : '<p class="vacio">No hay cambios aquí.</p>';
+  for (const e of ediciones) {
+    let propuesta = esc(e.valor);
+    if (e.campo === 'categoria') propuesta = esc(CATS[e.valor] || e.valor);
+    if (e.campo === 'cerrado') propuesta = esc(CIERRES[e.valor] || e.valor);
+    if (e.campo === 'ubicacion') { const [x, y] = String(e.valor).split(','); propuesta = enMapa(x, y, 'Nueva ubicación'); }
+    const c = document.createElement('div'); c.className = 'card';
+    c.innerHTML = '<div class="d"><b>' + esc(e.lugar_texto || e.lugar) + '</b>'
+      + '<small>' + enMapa(e.lon, e.lat, 'Dónde está ahora') + '</small>'
+      + '<p style="margin:8px 0 4px"><b>' + esc(CAMPOS[e.campo] || e.campo) + '</b></p>'
+      + (e.actual && e.campo !== 'ubicacion' ? '<small>Ahora: ' + esc(e.actual) + '</small>' : '')
+      + (propuesta ? '<div>Propuesta: ' + propuesta + '</div>' : '')
+      + (e.comentario ? '<small>Comentario: ' + esc(e.comentario) + '</small>' : '')
+      + '<small>' + esc(e.email) + (e.cuenta ? ' · ' + esc(e.cuenta) : '') + ' · ' + fecha(e.creada) + '</small>'
+      + '<small>Estado: ' + esc(e.estado) + (e.revisor ? ' por ' + esc(e.revisor) + ' ' + fecha(e.revisada) : '') + (e.motivo ? ' · ' + esc(e.motivo) : '') + '</small></div>'
+      + (e.estado === 'pendiente' ? '<div class="acc"><button class="pub" data-a="aplicar">Ya lo corregí</button><button class="rec" data-a="rechazar">Rechazar</button></div>' : '');
+    c.querySelector('.acc')?.addEventListener('click', async (ev) => {
+      const accion = ev.target.dataset?.a; if (!accion) return;
+      const motivo = accion === 'aplicar' ? '' : prompt('Motivo (opcional):') ?? null;
+      if (motivo === null) return;
+      try { await api('/admin/decidir-edicion', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: e.id, accion, motivo }) }); cargar(); }
+      catch (err) { if (err.status === 401 || err.status === 403) aEntrada(err.message); else $('msg').textContent = err.message; }
+    });
+    $('lista').append(c);
+  }
+  registroEn(registro);
 }
 function iniciar() {
   if (!CLIENT_ID) { $('err').textContent = 'Falta GOOGLE_CLIENT_ID en wrangler.toml'; return; }

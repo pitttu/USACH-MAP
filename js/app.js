@@ -14,6 +14,8 @@ import * as places from './places.js';
 import { initSearch, openSearch, closeSearch, isSearchOpen, voiceSupported } from './search.js';
 import { initTu, refreshTu, profileInfo, classesIn, nextClass } from './tu.js';
 import { initFotos, renderPhotos } from './fotos.js';
+import { initSugerir, sugerirLugar, lugaresComunidad } from './sugerir.js';
+import { initEditar, editarLugar } from './editar.js';
 
 // Parte superior clásica (buscador, pastillas, brújula y capas de vidrio esmerilado) o la nueva, estilo Google Maps.
 // Para comparar: ?top=nuevo o ?top=clasico en la URL; para dejar una fija, cambia este valor.
@@ -57,7 +59,7 @@ let sheet = null;
 const statusBar = document.querySelector('meta[name="theme-color"]');
 const BAR = { mapa: '#fee5c8', blanco: '#ffffff', fotos: '#000000', velo: '#8f8376' };
 function syncStatusBar() {
-  const c = !$('photo-viewer').hidden ? BAR.fotos : !$('photo-upload').hidden ? BAR.velo
+  const c = !$('photo-viewer').hidden ? BAR.fotos : !$('photo-upload').hidden || !$('poi-suggest').hidden || !$('place-edit-dialog').hidden ? BAR.velo
     : !$('search-page').hidden || sheet?.state === 'FULL' ? BAR.blanco : BAR.mapa;
   if (statusBar.content !== c) statusBar.content = c;
 }
@@ -131,29 +133,38 @@ function goHome() {
   syncMap();
 }
 
+// pestaña de la barra a la que pertenece cada vista (Créditos se abre desde Más)
+// (al elegir un punto en el mapa, la de la vista desde donde se pidió)
+function tabOf(view) { return view === 'pick' && stack.length ? tabOf(stack.at(-1).view) : view === 'tu' ? 'tu' : ['mas', 'creditos'].includes(view) ? 'mas' : 'explorar'; }
 function showTab(tab) {
-  if (tab === 'tu') {
-    if (sheet.view === 'pick') back(); // la elección se cancela: lo que se guarda es lo que había debajo
-    if (sheet.view === 'tu') { if (sheet.state === 'REST') sheet.open('MID'); return; }
-    exploreSaved = { view: sheet.view, state: sheet.state, stack };
-    stack = [];
-    refreshTu();
-    sheet.show('tu', 'MID');
-  } else {
-    if (sheet.view !== 'tu') return; // ya en Explorar
+  if (sheet.view === 'pick') back(); // la elección se cancela: lo que se guarda es lo que había debajo
+  const now = tabOf(sheet.view);
+  if (tab === now) { // ya en esa pestaña: la abre (o vuelve a su inicio, p. ej. de Créditos a Más)
+    if (tab === 'explorar') return;
+    if (sheet.view !== tab) { stack = []; sheet.show(tab, 'MID'); } else if (sheet.state === 'REST') sheet.open('MID');
+    syncMap();
+    return;
+  }
+  if (now === 'explorar') exploreSaved = { view: sheet.view, state: sheet.state, stack };
+  stack = [];
+  if (tab === 'explorar') {
     const r = exploreSaved || { view: 'home', state: 'REST', stack: [] };
     exploreSaved = null;
     stack = r.stack;
     sheet.show(r.view, r.state);
     if (r.view === 'home') renderHome();
     if (r.view === 'category') renderCategory(); // pudo cambiar la ubicación mientras estaba guardada
+  } else {
+    if (tab === 'tu') refreshTu();
+    if (tab === 'mas') renderMas();
+    sheet.show(tab, 'MID');
   }
   syncMap();
 }
 for (const b of nav.querySelectorAll('.nav-item')) b.addEventListener('click', () => showTab(b.dataset.tab));
 
 function syncNav(view) {
-  const tab = view === 'tu' ? 'tu' : 'explorar';
+  const tab = tabOf(view);
   for (const b of nav.querySelectorAll('.nav-item')) {
     b.classList.toggle('active', b.dataset.tab === tab);
     b.setAttribute('aria-selected', String(b.dataset.tab === tab));
@@ -194,10 +205,23 @@ const DATA_FILES = {
   impresiones: 'impresiones', misc: 'Sep-misc', fixed: 'FixedMisc', dispensadores: 'dispensadores', cajeros: 'cajeros',
 };
 
+// cada lugar de la comunidad va con los de su tipo (baños, agua, cajeros e impresiones tienen sus propios datos)
+function sumarComunidad(data, features) {
+  const DESTINO = { 'baño': 'banos', dispensador: 'dispensadores', cajero: 'cajeros', impresiones: 'impresiones' };
+  for (const f of features) {
+    const p = f.properties || {}, destino = DESTINO[p.category] || 'misc';
+    if (p.category === 'impresiones') Object.assign(p, { category: 'servicios', type: 'impresiones' });
+    if (p.category === 'otro') delete p.category;
+    data[destino].features.push(f);
+  }
+}
+
 async function init() {
   const data = {};
   const dataP = Promise.all(Object.entries(DATA_FILES).map(async ([k, f]) => { data[k] = await (await fetch(`assets/data/${f}.json`)).json(); }));
+  const comunidadP = lugaresComunidad(); // lugares sugeridos y publicados (fotos-worker); sin ellos si no responde
   await Promise.all([mapView.load(), dataP]);
+  sumarComunidad(data, await comunidadP);
 
   graph = buildGraph(data.paths);
   places.indexPlaces(data);
@@ -302,7 +326,7 @@ mapView.on('tap', ({ lngLat, poi, marker }) => {
   if (hit) { openPlace(hit.feature); return; }
   if (!lngLat) return;
   // tocar el mapa baja la hoja para verlo; un lugar o una ruta abiertos no se cierran (se cierran con la X)
-  if (['home', 'tu', 'category', 'building'].includes(sheet.view)) { if (sheet.state !== 'REST') sheet.open('REST'); }
+  if (['home', 'tu', 'mas', 'creditos', 'category', 'building'].includes(sheet.view)) { if (sheet.state !== 'REST') sheet.open('REST'); }
   else if (sheet.state === 'FULL') sheet.open('MID');
 });
 
@@ -444,6 +468,7 @@ function renderPlace() {
   if (w) fill(walkEl, icon('directions_walk'), h('b', {}, `${w.min} min`), ` a pie · ${fmtDist(w.meters)}`);
   const isSaved = places.saved.has(f), saveBtn = $('place-save');
   saveBtn.hidden = !!p.custom;
+  $('place-edit').hidden = !!p.custom; // un punto cualquiera del mapa no es un lugar que corregir
   saveBtn.setAttribute('aria-pressed', String(isSaved));
   fill(saveBtn, icon('bookmark', { filled: isSaved }), isSaved ? 'Guardado' : 'Guardar');
 
@@ -462,12 +487,82 @@ function renderPlace() {
     }
   } else if (!p.custom) {
     if (d.desc) rows.push(row('info', d.desc));
+    if (p.comunidad) rows.push(row('volunteer_activism', 'Sugerido por la comunidad'));
     if (d.building) rows.push(row('apartment', d.building));
   }
   fill($('place-info'), rows);
 }
 
 initFotos(); // carrusel, visor y "Agregar foto" (js/fotos.js)
+initEditar({ elegirPunto: (onPick, center) => startPick('Toca dónde está realmente', 'El lugar se mueve a ese punto', (coords) => onPick(coords), false, { center }) });
+initSugerir({ elegirPunto: (onPick) => startPick('Toca dónde está el lugar', 'Luego le pones nombre y categoría', (coords) => onPick(coords)) });
+
+// --- Más: enlaces de la Universidad, aportar, la app y créditos ---
+const REPO = 'https://github.com/pitttu/USACH-MAP';
+const SIAC_URL = 'https://baker.usach.cl/siacusach2';
+const instalada = () => matchMedia('(display-mode: standalone), (display-mode: fullscreen)').matches || navigator.standalone === true;
+let installPrompt = null; // Chrome y Edge: el aviso de instalar, guardado para mostrarlo al tocar "Instalar la app"
+addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installPrompt = e; if (sheet?.view === 'mas') renderMas(); });
+addEventListener('appinstalled', () => { installPrompt = null; if (sheet?.view === 'mas') renderMas(); });
+async function instalar() {
+  if (installPrompt) { installPrompt.prompt(); await installPrompt.userChoice.catch(() => {}); installPrompt = null; renderMas(); return; }
+  const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  snackbar(ios ? 'En Safari, toca Compartir y luego "Agregar a inicio"' : 'En el menú del navegador, elige "Instalar app" o "Agregar a la pantalla principal"', { duration: 7000 });
+}
+async function compartirApp() {
+  const url = new URL(location.href); url.search = ''; url.hash = '';
+  if (navigator.share) { try { await navigator.share({ title: 'Mapa USACH', text: 'El mapa 3D del campus de la USACH: salas, rutas a pie y tu horario.', url: url.href }); } catch { /* lo canceló */ } return; }
+  copy(url.href, 'Enlace copiado');
+}
+let versionMapa = '';
+fetch('assets/versiones.json', { cache: 'no-store' }).then((r) => r.json()).then((v) => { versionMapa = v['campus.glb'] || ''; }).catch(() => {});
+
+function renderMas() {
+  // fila: ícono, título, subtítulo; abre un enlace (pestaña nueva) o hace algo
+  const row = (ic, title, sub, act, tint) => {
+    const link = typeof act === 'string', kids = [
+      h('span', { class: 'row-icon', style: tint ? `--tint:${tint[0]};--ink:${tint[1]}` : null }, icon(ic)),
+      h('span', { class: 'row-text' }, h('span', { class: 'row-title' }, title), sub && h('span', { class: 'row-sub' }, sub)),
+      icon(link ? 'open_in_new' : 'chevron_right', { cls: 'row-trail' })];
+    return link ? h('a', { class: 'list-row', href: act, target: '_blank', rel: 'noopener' }, ...kids) : h('button', { class: 'list-row', type: 'button', onclick: act }, ...kids);
+  };
+  const section = (title, ...rows) => [h('h3', { class: 'section-title' }, title), h('div', { class: 'list divided mas-list' }, ...rows)];
+  const tieneHorario = !!profileInfo();
+  fill($('mas-body'),
+    section('Universidad',
+      row('school', 'Entrar a SIAC', 'Notas, inscripción de ramos y más', SIAC_URL, ['#e1e5fb', '#3949ab']),
+      row('calendar_month', tieneHorario ? 'Tu horario en el mapa' : 'Importar tu horario', tieneHorario ? 'Tus clases y cómo llegar' : 'Trae tus clases desde SIAC', () => showTab('tu'), ['#c4e9ed', '#00626e']),
+      row('language', 'Sitio de la USACH', 'usach.cl', 'https://www.usach.cl', ['#fef7e0', '#9a5b00'])),
+    h('div', { class: 'band' }),
+    section('Aporta',
+      row('add_location_alt', 'Sugerir un lugar', 'Algo que falta en el mapa; se revisa antes de publicarlo', () => sugerirLugar(), ['#fce8e6', '#c5221f']),
+      row('bug_report', 'Reportar un problema', 'Un error en el mapa o en la app (GitHub)', `${REPO}/issues/new`, ['#ebe1fb', '#5b3f9a'])),
+    h('div', { class: 'band' }),
+    section('La app',
+      !instalada() && row('install_mobile', 'Instalar la app', 'Ábrela desde tu pantalla de inicio, también sin conexión', instalar, ['#cdefd6', '#0d652d']),
+      row('share', 'Compartir la app', 'Mándasela a alguien', compartirApp),
+      row('code', 'Código en GitHub', 'Proyecto abierto: míralo o colabora', REPO),
+      row('volunteer_activism', 'Créditos', 'Datos, fotos y herramientas', () => { renderCreditos(); go('creditos', 'MID'); }),
+      row('policy', 'Privacidad', 'Qué datos se usan y dónde quedan', 'privacidad.html'),
+      row('photo_library', 'Condiciones de las fotos', 'Al subir fotos de los lugares', 'condiciones-fotos.html')),
+    h('p', { class: 'mas-foot' }, 'Mapa USACH', versionMapa && ` · versión del mapa ${versionMapa.slice(0, 7)}`));
+}
+
+function renderCreditos() {
+  const a = (href, text) => h('a', { href, target: '_blank', rel: 'noopener' }, text);
+  const item = (title, ...body) => h('div', { class: 'credito' }, h('b', {}, title), h('span', {}, ...body));
+  fill($('creditos-body'), h('div', { class: 'creditos' },
+    item('Mapa USACH', 'Hecho por Pitu. Código abierto en ', a(REPO, 'GitHub'), '.'),
+    item('Calles, caminos y áreas verdes', '© colaboradores de ', a('https://www.openstreetmap.org/copyright', 'OpenStreetMap'), ', con licencia ODbL.'),
+    item('Salas, servicios y edificios en 3D', 'Levantamiento propio; los modelos 3D y la fotogrametría del campus se usan con licencia de su autor.'),
+    item('Clima', 'Datos de ', a('https://open-meteo.com/', 'Open-Meteo.com'), ' (CC BY 4.0).'),
+    item('Fotos de los lugares', 'De ', a('https://commons.wikimedia.org/', 'Wikimedia Commons'), ' (cada foto muestra su autor y su licencia) y de la comunidad USACH (', a('https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es', 'CC BY-NC-SA 4.0'), ').'),
+    item('Motor 3D', a('https://threejs.org/', 'three.js'), ' (licencia MIT).'),
+    item('Tipografías e íconos', 'Google Sans Flex e Inter (SIL Open Font License); íconos Material Symbols de Google (Apache 2.0).'),
+    item('Logos', 'Los de Metro de Santiago y EFE son marcas de sus dueños.'),
+    item('Comunidad', 'Gracias a quienes sugieren lugares, suben fotos y reportan errores.')));
+}
+$('creditos-close').addEventListener('click', back);
 $('place-close').addEventListener('click', back);
 $('place-go').addEventListener('click', () => routeToPlace(currentPlace));
 $('place-save').addEventListener('click', () => {
@@ -477,6 +572,7 @@ $('place-save').addEventListener('click', () => {
   snackbar(was ? 'Quitado de guardados' : 'Guardado en Tú', was ? {} : { action: { label: 'Ver', fn: () => showTab('tu') } });
 });
 $('place-share').addEventListener('click', () => sharePlace(currentPlace));
+$('place-edit').addEventListener('click', () => editarLugar(currentPlace, places.describe(currentPlace)));
 
 // Cómo llegar: desde tu ubicación si se conoce; si no, el planificador con el destino puesto
 function routeToPlace(f) {
@@ -498,7 +594,28 @@ async function sharePlace(f) {
   }
   copy(url.href, 'Enlace copiado');
 }
+// Copiar al portapapeles. navigator.clipboard solo existe en sitios seguros (https): en el servidor local por http
+// (p. ej. el iPad en 192.168.x.x) no está, y Safari además lo rechaza si se llama después de un await. Por eso primero
+// se intenta el método clásico, sincrónico dentro del toque (un campo de texto oculto + execCommand('copy'), que en
+// iOS necesita contentEditable y setSelectionRange); si no resulta, navigator.clipboard; y si tampoco, se muestra el
+// texto para copiarlo a mano.
+function copiarClasico(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.contentEditable = 'true';
+  ta.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px'; // 16px: iOS no hace zoom
+  document.body.append(ta);
+  const sel = getSelection(), prev = sel.rangeCount ? sel.getRangeAt(0) : null, r = document.createRange();
+  r.selectNodeContents(ta); sel.removeAllRanges(); sel.addRange(r);
+  ta.setSelectionRange(0, text.length);
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch { ok = false; }
+  ta.remove(); sel.removeAllRanges(); if (prev) sel.addRange(prev);
+  return ok;
+}
 async function copy(text, done) {
+  if (copiarClasico(text)) { snackbar(done); return; }
   try { await navigator.clipboard.writeText(text); snackbar(done); } catch { snackbar(text, { duration: 8000 }); }
 }
 
@@ -637,12 +754,13 @@ function openBuilding(b) {
 $('building-close').addEventListener('click', back);
 
 // --- elegir un punto en el mapa ---
-function startPick(title, sub, onPick, asksLocation = false) {
+// center: dónde mirar mientras se elige (si no, todo el campus)
+function startPick(title, sub, onPick, asksLocation = false, { center } = {}) {
   pick = { onPick, asksLocation };
   $('pick-title').textContent = title;
   $('pick-sub').textContent = sub;
   go('pick', 'REST', { push: sheet.view !== 'pick' });
-  mapView.flyTo({ ...OVERVIEW, duration: 1200 });
+  mapView.flyTo(center ? { center, zoom: 18, pitch: 0, bearing: 0, duration: 1200 } : { ...OVERVIEW, duration: 1200 });
 }
 $('pick-close').addEventListener('click', back);
 
@@ -837,7 +955,7 @@ detailToggle('toggle-vivo', true, (on, initial) => { if (!initial || !mapView.li
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape' || isSearchOpen()) return;
   if (layersSheet.classList.contains('open')) toggleLayersSheet(false);
-  else if (!['home', 'tu'].includes(sheet.view)) back();
+  else if (!['home', 'tu', 'mas'].includes(sheet.view)) back();
 });
 
 // la fecha y el saludo cambian con la hora

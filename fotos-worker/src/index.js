@@ -9,6 +9,15 @@
 //   GET  /admin/lista?estado=…       envíos y registro (solo administradores)
 //   GET  /admin/img/<id>.webp        cualquier foto, también pendiente (solo administradores)
 //   POST /admin/decidir              { id, accion: publicar | rechazar | retirar, motivo } (solo administradores)
+// Lugares que sugiere la comunidad (Más → Sugerir un lugar), con la misma cuenta @usach.cl y la misma revisión:
+//   GET  /lugares                    los publicados, como GeoJSON (la app los suma a sus lugares)
+//   POST /lugares/sugerir            { nombre, categoria, descripcion, lon, lat }: queda pendiente
+//   GET  /admin/lugares?estado=…     sugerencias (solo administradores)
+//   POST /admin/decidir-lugar        { id, accion, motivo, nombre?, categoria?, descripcion? } (se pueden corregir al publicar)
+// Cambios a un lugar que ya existe (botón Editar del lugar); no se aplican solos, el administrador los marca:
+//   POST /lugares/editar             { lugar, lugarTexto, lon, lat, campo, actual, valor, comentario }: queda pendiente
+//   GET  /admin/ediciones?estado=…   sugerencias de cambios (solo administradores)
+//   POST /admin/decidir-edicion      { id, accion: aplicar | rechazar, motivo }
 // Quien sube entra con su cuenta de Google @usach.cl (Google Identity Services en la app) y manda el token en
 // "Authorization: Bearer …". El Worker lo verifica con las llaves públicas de Google: firma, audiencia
 // (GOOGLE_CLIENT_ID), vigencia, correo verificado y dominio (DOMINIO). Los administradores (ADMINS) entran igual, con
@@ -47,6 +56,15 @@ export default {
         if (!cors['Access-Control-Allow-Origin']) throw new HttpError(403, 'Origen no permitido');
         return json(200, await subir(request, env, await usuario(request, env, url)));
       }
+      if (path === '/lugares' && request.method === 'GET') return json(200, await lugaresPublicados(env), 'public, max-age=300');
+      if (path === '/lugares/sugerir' && request.method === 'POST') {
+        if (!cors['Access-Control-Allow-Origin']) throw new HttpError(403, 'Origen no permitido');
+        return json(200, await sugerir(request, env, await usuario(request, env, url)));
+      }
+      if (path === '/lugares/editar' && request.method === 'POST') {
+        if (!cors['Access-Control-Allow-Origin']) throw new HttpError(403, 'Origen no permitido');
+        return json(200, await editar(request, env, await usuario(request, env, url)));
+      }
       if (path === '/mias' && request.method === 'GET') {
         const u = await usuario(request, env, url);
         const { results } = await env.DB.prepare('SELECT id, lugar, estado, motivo, creada FROM fotos WHERE email = ? ORDER BY creada DESC LIMIT 50').bind(u.email).all();
@@ -61,6 +79,10 @@ export default {
         m = path.match(/^\/admin\/img\/([0-9a-f-]{36})(-m)?\.(?:jpg|webp)$/);
         if (m && request.method === 'GET') return await imagen(env, m[1], !!m[2], true);
         if (path === '/admin/decidir' && request.method === 'POST') return json(200, await decidir(request, env, a));
+        if (path === '/admin/lugares' && request.method === 'GET') return json(200, await listaLugares(env, url.searchParams.get('estado') || 'pendiente'));
+        if (path === '/admin/decidir-lugar' && request.method === 'POST') return json(200, await decidirLugar(request, env, a));
+        if (path === '/admin/ediciones' && request.method === 'GET') return json(200, await listaEdiciones(env, url.searchParams.get('estado') || 'pendiente'));
+        if (path === '/admin/decidir-edicion' && request.method === 'POST') return json(200, await decidirEdicion(request, env, a));
       }
       throw new HttpError(404, 'No encontrado');
     } catch (e) {
@@ -101,7 +123,7 @@ async function cuenta(request, env, url) {
 }
 async function usuario(request, env, url) {
   const u = await cuenta(request, env, url), dom = (env.DOMINIO || '').toLowerCase();
-  if (!dom || u.hd !== dom || !u.email.endsWith(`@${dom}`)) throw new HttpError(403, `Solo pueden subir fotos las cuentas @${dom}`);
+  if (!dom || u.hd !== dom || !u.email.endsWith(`@${dom}`)) throw new HttpError(403, `Solo pueden aportar las cuentas @${dom}`);
   return u;
 }
 async function admin(request, env, url) {
@@ -226,7 +248,7 @@ async function imagen(env, id, mini, todas) {
 async function lista(env, estado) {
   const q = estado === 'todas' ? env.DB.prepare('SELECT * FROM fotos ORDER BY creada DESC LIMIT 200')
     : env.DB.prepare('SELECT * FROM fotos WHERE estado = ? ORDER BY creada DESC LIMIT 200').bind(estado);
-  const [{ results: fotos }, { results: registro }] = await env.DB.batch([q, env.DB.prepare('SELECT * FROM registro ORDER BY n DESC LIMIT 200')]);
+  const [{ results: fotos }, { results: registro }] = await env.DB.batch([q, env.DB.prepare('SELECT * FROM registro WHERE foto IN (SELECT id FROM fotos) ORDER BY n DESC LIMIT 200')]);
   return { fotos, registro, espacio: { usado: await usado(env), tope: tope(env) } };
 }
 
@@ -246,5 +268,129 @@ async function decidir(request, env, a) {
     env.DB.prepare('INSERT INTO registro (foto, accion, quien, cuando, detalle) VALUES (?, ?, ?, ?, ?)').bind(b.id, b.accion, a.email, ahora, motivo),
   ]);
   if (nuevo === 'rechazada') await almacen(env).delete([`${b.id}.${f.formato}`, `${b.id}-m.${f.formato}`]);
+  return { id: b.id, estado: nuevo };
+}
+
+// --- lugares sugeridos ---
+const CATEGORIAS = ['comida', 'baño', 'dispensador', 'impresiones', 'cajero', 'biblioteca', 'educacion', 'deporte', 'salud', 'cultura', 'tienda', 'servicios', 'institucional', 'otro'];
+const ZONA = { oeste: -70.6925, este: -70.6745, sur: -33.4555, norte: -33.4440 }; // el área del mapa (Alameda–Portales, Apóstol Santiago–Matucana)
+const LUGARES_DIA = 20, LUGARES_PENDIENTES = 30; // por persona
+const texto = (v, max) => String(v ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
+function camposLugar(b, parcial = false) {
+  const r = {};
+  if (!parcial || b.nombre != null) { r.nombre = texto(b.nombre, 80); if (r.nombre.length < 2) throw new HttpError(400, 'Falta el nombre del lugar'); }
+  if (!parcial || b.categoria != null) { r.categoria = String(b.categoria || ''); if (!CATEGORIAS.includes(r.categoria)) throw new HttpError(400, 'Categoría inválida'); }
+  if (!parcial || b.descripcion != null) r.descripcion = texto(b.descripcion, 300) || null;
+  return r;
+}
+async function sugerir(request, env, u) {
+  if (env.LIMITER) {
+    const { success } = await env.LIMITER.limit({ key: request.headers.get('CF-Connecting-IP') || 'desconocida' });
+    if (!success) throw new HttpError(429, 'Demasiados intentos. Espera un minuto');
+  }
+  let b;
+  try { b = await request.json(); } catch { throw new HttpError(400, 'Solicitud inválida'); }
+  const c = camposLugar(b || {}), lon = Number(b.lon), lat = Number(b.lat);
+  if (!(lon >= ZONA.oeste && lon <= ZONA.este && lat >= ZONA.sur && lat <= ZONA.norte)) throw new HttpError(400, 'El lugar tiene que estar dentro del mapa');
+  const hace24 = new Date(Date.now() - 864e5).toISOString();
+  const n = await env.DB.prepare("SELECT SUM(creada > ?) AS dia, SUM(estado = 'pendiente') AS pend FROM lugares WHERE email = ?").bind(hace24, u.email).first();
+  if ((n?.dia || 0) >= LUGARES_DIA) throw new HttpError(429, `Puedes sugerir hasta ${LUGARES_DIA} lugares al día`);
+  if ((n?.pend || 0) >= LUGARES_PENDIENTES) throw new HttpError(429, 'Tienes muchas sugerencias esperando revisión: espera a que las revisen');
+  const id = crypto.randomUUID(), ahora = new Date().toISOString();
+  await env.DB.batch([
+    env.DB.prepare('INSERT INTO lugares (id, nombre, categoria, descripcion, lon, lat, email, cuenta, creada) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .bind(id, c.nombre, c.categoria, c.descripcion, +lon.toFixed(7), +lat.toFixed(7), u.email, u.nombre, ahora),
+    env.DB.prepare('INSERT INTO registro (foto, accion, quien, cuando, detalle) VALUES (?, ?, ?, ?, ?)').bind(id, 'sugerencia', u.email, ahora, `Lugar: ${c.nombre}`),
+  ]);
+  return { id, estado: 'pendiente' };
+}
+async function lugaresPublicados(env) {
+  const { results } = await env.DB.prepare("SELECT id, nombre, categoria, descripcion, lon, lat FROM lugares WHERE estado = 'publicada' ORDER BY revisada").all();
+  return {
+    type: 'FeatureCollection',
+    features: results.map((l) => ({
+      type: 'Feature', geometry: { type: 'Point', coordinates: [l.lon, l.lat] },
+      properties: { id: `comunidad-${l.id}`, name: l.nombre, category: l.categoria, descripcion: l.descripcion, comunidad: true },
+    })),
+  };
+}
+async function listaLugares(env, estado) {
+  const q = estado === 'todas' ? env.DB.prepare('SELECT * FROM lugares ORDER BY creada DESC LIMIT 200')
+    : env.DB.prepare('SELECT * FROM lugares WHERE estado = ? ORDER BY creada DESC LIMIT 200').bind(estado);
+  const [{ results: lugares }, { results: registro }] = await env.DB.batch([q, env.DB.prepare("SELECT * FROM registro WHERE foto IN (SELECT id FROM lugares) ORDER BY n DESC LIMIT 200")]);
+  return { lugares, registro };
+}
+async function decidirLugar(request, env, a) {
+  let b;
+  try { b = await request.json(); } catch { throw new HttpError(400, 'Solicitud inválida'); }
+  const nuevo = ESTADO[b?.accion], motivo = String(b?.motivo || '').slice(0, 300) || null;
+  if (!nuevo) throw new HttpError(400, 'Acción inválida');
+  const l = await env.DB.prepare('SELECT estado FROM lugares WHERE id = ?').bind(String(b.id)).first();
+  if (!l) throw new HttpError(404, 'No encontrado');
+  const c = nuevo === 'publicada' ? camposLugar(b, true) : {}, ahora = new Date().toISOString();
+  const sets = ['estado = ?', 'revisada = ?', 'revisor = ?', 'motivo = ?', ...Object.keys(c).map((k) => `${k} = ?`)];
+  await env.DB.batch([
+    env.DB.prepare(`UPDATE lugares SET ${sets.join(', ')} WHERE id = ?`).bind(nuevo, ahora, a.email, motivo, ...Object.values(c), b.id),
+    env.DB.prepare('INSERT INTO registro (foto, accion, quien, cuando, detalle) VALUES (?, ?, ?, ?, ?)').bind(b.id, b.accion, a.email, ahora, motivo),
+  ]);
+  return { id: b.id, estado: nuevo };
+}
+
+// --- cambios sugeridos a lugares existentes ---
+const CAMPOS = ['nombre', 'categoria', 'ubicacion', 'detalles', 'cerrado'];
+const CIERRES = ['cerro', 'no_esta', 'no_existe'];
+const EDICIONES_DIA = 30, EDICIONES_PENDIENTES = 40; // por persona
+const enZona = (lon, lat) => lon >= ZONA.oeste && lon <= ZONA.este && lat >= ZONA.sur && lat <= ZONA.norte;
+async function editar(request, env, u) {
+  if (env.LIMITER) {
+    const { success } = await env.LIMITER.limit({ key: request.headers.get('CF-Connecting-IP') || 'desconocida' });
+    if (!success) throw new HttpError(429, 'Demasiados intentos. Espera un minuto');
+  }
+  let b;
+  try { b = await request.json(); } catch { throw new HttpError(400, 'Solicitud inválida'); }
+  const lugar = texto(b?.lugar, 160), campo = String(b?.campo || ''), lon = Number(b?.lon), lat = Number(b?.lat);
+  if (!lugar) throw new HttpError(400, 'Falta el lugar');
+  if (!CAMPOS.includes(campo)) throw new HttpError(400, 'Cambio inválido');
+  if (!enZona(lon, lat)) throw new HttpError(400, 'El lugar tiene que estar dentro del mapa');
+  let valor = texto(b.valor, 300);
+  if (campo === 'nombre' && valor.length < 2) throw new HttpError(400, 'Escribe el nombre correcto');
+  if (campo === 'categoria' && !CATEGORIAS.includes(valor)) throw new HttpError(400, 'Categoría inválida');
+  if (campo === 'cerrado' && !CIERRES.includes(valor)) throw new HttpError(400, 'Elige qué pasa con el lugar');
+  if (campo === 'ubicacion') {
+    const [x, y] = valor.split(',').map(Number);
+    if (!enZona(x, y)) throw new HttpError(400, 'La nueva ubicación tiene que estar dentro del mapa');
+    valor = `${x.toFixed(7)},${y.toFixed(7)}`;
+  }
+  const comentario = texto(b.comentario, 300) || null;
+  if (campo === 'detalles' && !valor && !comentario) throw new HttpError(400, 'Escribe qué hay que corregir');
+  const hace24 = new Date(Date.now() - 864e5).toISOString();
+  const n = await env.DB.prepare("SELECT SUM(creada > ?) AS dia, SUM(estado = 'pendiente') AS pend FROM ediciones WHERE email = ?").bind(hace24, u.email).first();
+  if ((n?.dia || 0) >= EDICIONES_DIA) throw new HttpError(429, `Puedes sugerir hasta ${EDICIONES_DIA} cambios al día`);
+  if ((n?.pend || 0) >= EDICIONES_PENDIENTES) throw new HttpError(429, 'Tienes muchos cambios esperando revisión: espera a que los revisen');
+  const id = crypto.randomUUID(), ahora = new Date().toISOString();
+  await env.DB.batch([
+    env.DB.prepare('INSERT INTO ediciones (id, lugar, lugar_texto, lon, lat, campo, actual, valor, comentario, email, cuenta, creada) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .bind(id, lugar, texto(b.lugarTexto, 200) || null, +lon.toFixed(7), +lat.toFixed(7), campo, texto(b.actual, 300) || null, valor || null, comentario, u.email, u.nombre, ahora),
+    env.DB.prepare('INSERT INTO registro (foto, accion, quien, cuando, detalle) VALUES (?, ?, ?, ?, ?)').bind(id, 'edicion', u.email, ahora, `${campo}: ${lugar}`),
+  ]);
+  return { id, estado: 'pendiente' };
+}
+async function listaEdiciones(env, estado) {
+  const q = estado === 'todas' ? env.DB.prepare('SELECT * FROM ediciones ORDER BY creada DESC LIMIT 200')
+    : env.DB.prepare('SELECT * FROM ediciones WHERE estado = ? ORDER BY creada DESC LIMIT 200').bind(estado);
+  const [{ results: ediciones }, { results: registro }] = await env.DB.batch([q, env.DB.prepare('SELECT * FROM registro WHERE foto IN (SELECT id FROM ediciones) ORDER BY n DESC LIMIT 200')]);
+  return { ediciones, registro };
+}
+async function decidirEdicion(request, env, a) {
+  let b;
+  try { b = await request.json(); } catch { throw new HttpError(400, 'Solicitud inválida'); }
+  const nuevo = { aplicar: 'aplicada', rechazar: 'rechazada' }[b?.accion], motivo = String(b?.motivo || '').slice(0, 300) || null;
+  if (!nuevo) throw new HttpError(400, 'Acción inválida');
+  if (!(await env.DB.prepare('SELECT 1 FROM ediciones WHERE id = ?').bind(String(b.id)).first())) throw new HttpError(404, 'No encontrada');
+  const ahora = new Date().toISOString();
+  await env.DB.batch([
+    env.DB.prepare('UPDATE ediciones SET estado = ?, revisada = ?, revisor = ?, motivo = ? WHERE id = ?').bind(nuevo, ahora, a.email, motivo, b.id),
+    env.DB.prepare('INSERT INTO registro (foto, accion, quien, cuando, detalle) VALUES (?, ?, ?, ?, ?)').bind(b.id, b.accion, a.email, ahora, motivo),
+  ]);
   return { id: b.id, estado: nuevo };
 }
