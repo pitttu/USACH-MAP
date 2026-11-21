@@ -14,6 +14,7 @@ import * as places from './places.js';
 import { initSearch, openSearch, closeSearch, isSearchOpen, voiceSupported } from './search.js';
 import { initTu, refreshTu, profileInfo, classesIn, nextClass } from './tu.js';
 import { initFotos, renderPhotos } from './fotos.js';
+import { barraCarga } from './carga.js';
 import { initSugerir, sugerirLugar, lugaresComunidad } from './sugerir.js';
 import { initEditar, editarLugar } from './editar.js';
 
@@ -217,10 +218,14 @@ function sumarComunidad(data, features) {
 }
 
 async function init() {
-  const data = {};
-  const dataP = Promise.all(Object.entries(DATA_FILES).map(async ([k, f]) => { data[k] = await (await fetch(`assets/data/${f}.json`)).json(); }));
+  const data = {}, barra = barraCarga($('carga')), archivos = Object.keys(DATA_FILES).length;
+  let leidos = 0;
+  const dataP = Promise.all(Object.entries(DATA_FILES).map(async ([k, f]) => {
+    data[k] = await (await fetch(`assets/data/${f}.json`)).json();
+    barra.parte('datos', ++leidos / archivos);
+  }));
   const comunidadP = lugaresComunidad(); // lugares sugeridos y publicados (fotos-worker); sin ellos si no responde
-  await Promise.all([mapView.load(), dataP]);
+  await Promise.all([mapView.load((v) => barra.parte('mapa', v)).then(() => barra.parte('escena', 1)), dataP]);
   sumarComunidad(data, await comunidadP);
 
   graph = buildGraph(data.paths);
@@ -230,7 +235,7 @@ async function init() {
   mapView.setSectors(data.sectores);
   mapView.addPOIs(data.metro.features, 'metro');
   mapView.addPOIs(data.fixed.features, 'fixed');
-  mapView.addPOIs(data.misc.features, 'misc');
+  mapView.addPOIs(data.misc.features.filter((f) => !f.properties.sinEtiqueta), 'misc'); // sin rótulo: kioscos, contenedores, interior de la FAE
   // marcadores por categoría (ocultos hasta abrir su lista)
   for (const c of places.CATEGORIES) if (c.marker) mapView.addCategoryMarkers(c.marker, c.features, c.marker);
 
@@ -261,6 +266,7 @@ async function init() {
   renderAvatar();
   renderHome();
   refreshWeather();
+  await barra.completar(); // la barra termina de llenarse (acelerando) y recién ahí se abren las nubes
   llegada();
   openSharedLink();
 }
@@ -478,7 +484,8 @@ function renderPlace() {
     const [lon, lat] = f.geometry.coordinates, txt = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
     rows.push(h('button', { class: 'info-row', type: 'button', onclick: () => copy(txt, 'Coordenadas copiadas') }, icon('location_on'), h('span', {}, txt, h('small', {}, 'Toca para copiar las coordenadas'))));
   }
-  if (d.kind === 'Sala') {
+  if (d.sala) {
+    if (d.kind !== 'Sala') rows.push(row(d.icon, d.kind, 'Tipo de sala'));
     if (d.building) rows.push(row('apartment', d.building, p.edificio?.match(/^S(\d+)/) ? `Sector ${p.edificio.match(/^S(\d+)/)[1]}` : null));
     if (d.floor) rows.push(row('stairs', d.floor < 0 ? 'Subterráneo' : `Piso ${d.floor}`));
     if (d.capacity) rows.push(row('groups', `${d.capacity} personas`, 'Capacidad'));
@@ -743,8 +750,8 @@ function openBuilding(b) {
     h('div', { class: 'list divided' }, rooms.map((r) => {
       const d = places.describe(r);
       return h('button', { class: 'list-row', type: 'button', onclick: () => openPlace(r) },
-        h('span', { class: 'row-icon', style: `--tint:${d.tint};--ink:${d.ink}` }, icon('meeting_room')),
-        h('span', { class: 'row-text' }, h('span', { class: 'row-title' }, d.name), h('span', { class: 'row-sub' }, d.capacity ? `${d.capacity} personas` : 'Sala')),
+        h('span', { class: 'row-icon', style: `--tint:${d.tint};--ink:${d.ink}` }, icon(d.icon)),
+        h('span', { class: 'row-text' }, h('span', { class: 'row-title' }, d.name), h('span', { class: 'row-sub' }, [d.kind !== 'Sala' && d.kind, d.capacity && `${d.capacity} personas`].filter(Boolean).join(' · ') || 'Sala')),
         icon('chevron_right', { cls: 'row-trail' }));
     })),
   ]));

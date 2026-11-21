@@ -47,7 +47,7 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -70.682870,
+                    -70.68287,
                     -33.447203
                 ]
             },
@@ -1437,6 +1437,699 @@
                 "name": "Vicerrectoría de Investigación, Innovación y Creación",
                 "subCategory": "Investigación",
                 "type": "universidad investigacion vicerrectoria rems"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1138,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.680292,
+                    -33.4488876
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Departamento",
+                "name": "Departamento de Economía",
+                "edificio": "FAE, edificio antiguo",
+                "descripcion": "Piso 2 del edificio antiguo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1138,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1139,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6798394,
+                    -33.4491887
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Hall",
+                "name": "Hall Central FAE",
+                "edificio": "FAE, edificio nuevo",
+                "descripcion": "Piso 1 del edificio nuevo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1139,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1140,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6798394,
+                    -33.4491887
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Oficina",
+                "name": "Registro Curricular FAE",
+                "edificio": "FAE, edificio nuevo",
+                "descripcion": "Piso 7 del edificio nuevo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1140,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1141,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.680292,
+                    -33.4488876
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Departamento",
+                "name": "Departamento de Contabilidad y Auditoría",
+                "edificio": "FAE, edificio antiguo",
+                "descripcion": "Piso 1 del edificio antiguo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1141,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1142,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.680292,
+                    -33.4488876
+                ]
+            },
+            "properties": {
+                "category": "biblioteca",
+                "etiqueta": "Sala de estudio",
+                "name": "Sala de Estudios FAE",
+                "edificio": "FAE, edificio antiguo",
+                "descripcion": "Piso 2 del edificio antiguo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1142,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1143,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.680292,
+                    -33.4488876
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Sala de conferencias",
+                "name": "Sala 705 FAE (conferencias)",
+                "edificio": "FAE, edificio antiguo",
+                "descripcion": "Piso 1 del edificio antiguo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1143,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1144,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.680292,
+                    -33.4488876
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Departamento",
+                "name": "Departamento de Administración",
+                "edificio": "FAE, edificio antiguo",
+                "descripcion": "Piso 3 del edificio antiguo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1144,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1145,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6798394,
+                    -33.4491887
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Auditorio",
+                "name": "Auditorio FAE",
+                "edificio": "FAE, edificio nuevo",
+                "descripcion": "Zócalo del edificio nuevo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1145,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1146,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.680292,
+                    -33.4488876
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Decanato",
+                "name": "Decanato FAE",
+                "edificio": "FAE, edificio antiguo",
+                "descripcion": "Piso 2 del edificio antiguo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1146,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1147,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6798394,
+                    -33.4491887
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Oficina",
+                "name": "Bienestar Estudiantil FAE",
+                "edificio": "FAE, edificio nuevo",
+                "descripcion": "Zócalo del edificio nuevo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1147,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1148,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6798394,
+                    -33.4491887
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Terraza",
+                "name": "Terraza FAE",
+                "edificio": "FAE, edificio nuevo",
+                "descripcion": "Piso 7 del edificio nuevo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1148,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1149,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.680292,
+                    -33.4488876
+                ]
+            },
+            "properties": {
+                "category": "biblioteca",
+                "etiqueta": "Biblioteca",
+                "name": "Biblioteca FAE",
+                "edificio": "FAE, edificio antiguo",
+                "descripcion": "Piso 1 del edificio antiguo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1149,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1150,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.680292,
+                    -33.4488876
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Oficina",
+                "name": "Relaciones Internacionales FAE",
+                "edificio": "FAE, edificio antiguo",
+                "descripcion": "Piso 2 del edificio antiguo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1150,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1151,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.680292,
+                    -33.4488876
+                ]
+            },
+            "properties": {
+                "category": "institucional",
+                "etiqueta": "Departamento",
+                "name": "Departamento de Gestión y Políticas Públicas",
+                "edificio": "FAE, edificio antiguo",
+                "descripcion": "Piso 2 del edificio antiguo de la FAE",
+                "sinEtiqueta": true,
+                "id": 1151,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1152,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6862929,
+                    -33.4501649
+                ]
+            },
+            "properties": {
+                "category": "reciclaje",
+                "etiqueta": "Reciclaje",
+                "name": "Contenedor de reciclaje",
+                "descripcion": "Contenedor Redciclach",
+                "sinEtiqueta": true,
+                "id": 1152,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1153,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6819007,
+                    -33.4475487
+                ]
+            },
+            "properties": {
+                "category": "reciclaje",
+                "etiqueta": "Reciclaje",
+                "name": "Contenedor de reciclaje",
+                "descripcion": "Contenedor Redciclach",
+                "sinEtiqueta": true,
+                "id": 1153,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1154,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6823549,
+                    -33.4461072
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Casino",
+                "name": "Casino VIME",
+                "type": "comida casino",
+                "sinEtiqueta": true,
+                "id": 1154,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1155,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6812096,
+                    -33.4460692
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Casino",
+                "name": "Casino CoWork Mecánica",
+                "type": "comida casino",
+                "id": 1155,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1156,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6818695,
+                    -33.445767
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Cafetería",
+                "name": "Cafetería",
+                "type": "comida cafetería",
+                "sinEtiqueta": true,
+                "id": 1156,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1157,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6822047,
+                    -33.4473627
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1157,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1158,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6821913,
+                    -33.4468525
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1158,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1159,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6815751,
+                    -33.447459
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Cafetería",
+                "name": "Cafetería",
+                "type": "comida cafetería",
+                "sinEtiqueta": true,
+                "id": 1159,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1160,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6862696,
+                    -33.4500853
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1160,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1161,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6862831,
+                    -33.4502374
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1161,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1162,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6866572,
+                    -33.4510789
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1162,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1163,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6866626,
+                    -33.4512266
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1163,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1164,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6886716,
+                    -33.4510487
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1164,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1165,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6843478,
+                    -33.4511416
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1165,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1166,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6843894,
+                    -33.4500142
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1166,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1167,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6796687,
+                    -33.4502134
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1167,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1168,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.679776,
+                    -33.4492488
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Casino",
+                "name": "Casino FAE (edificio nuevo)",
+                "type": "comida casino",
+                "sinEtiqueta": true,
+                "id": 1168,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1169,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6809307,
+                    -33.4497154
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1169,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1170,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6810138,
+                    -33.4497277
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1170,
+                "fuente": "mapa.usach.cl"
+            }
+        },
+        {
+            "type": "Feature",
+            "id": 1171,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -70.6809294,
+                    -33.4498217
+                ]
+            },
+            "properties": {
+                "category": "comida",
+                "etiqueta": "Kiosco",
+                "name": "Kiosco",
+                "type": "comida kiosco",
+                "sinEtiqueta": true,
+                "id": 1171,
+                "fuente": "mapa.usach.cl"
             }
         }
     ]

@@ -7,7 +7,9 @@
         "nombre": "ARQ826",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 39
+        "capacidad": 39,
+        "tipo": "Taller",
+        "denominacion": "SALA ARQ826"
       },
       "geometry": {
         "type": "Point",
@@ -20,7 +22,9 @@
         "nombre": "ARQ855",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 855"
       },
       "geometry": {
         "type": "Point",
@@ -33,7 +37,9 @@
         "nombre": "ARQ858",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 858"
       },
       "geometry": {
         "type": "Point",
@@ -46,7 +52,9 @@
         "nombre": "ARQ859",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 859"
       },
       "geometry": {
         "type": "Point",
@@ -59,7 +67,9 @@
         "nombre": "ARQ860",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 54
+        "capacidad": 54,
+        "tipo": "Sala de trabajo grupal",
+        "denominacion": "SALA MIDA"
       },
       "geometry": {
         "type": "Point",
@@ -72,7 +82,9 @@
         "nombre": "ARQ861",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 29
+        "capacidad": 29,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACION A"
       },
       "geometry": {
         "type": "Point",
@@ -85,7 +97,9 @@
         "nombre": "ARQ862",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 29
+        "capacidad": 29,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACION B"
       },
       "geometry": {
         "type": "Point",
@@ -98,7 +112,9 @@
         "nombre": "ARQ865",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Taller",
+        "denominacion": "TALLER 6TO AÑO"
       },
       "geometry": {
         "type": "Point",
@@ -111,7 +127,9 @@
         "nombre": "ARQ872",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Taller",
+        "denominacion": "TALLER 2DO AÑO 872"
       },
       "geometry": {
         "type": "Point",
@@ -124,7 +142,9 @@
         "nombre": "ARQ876",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA DE CONSEJO"
       },
       "geometry": {
         "type": "Point",
@@ -137,7 +157,9 @@
         "nombre": "BCH101",
         "piso": 1,
         "edificio": "S8 Bachillerato: Salas de Estudio",
-        "capacidad": 12
+        "capacidad": 12,
+        "tipo": "Sala expositiva",
+        "denominacion": "Sala 101"
       },
       "geometry": {
         "type": "Point",
@@ -150,7 +172,9 @@
         "nombre": "BCH102",
         "piso": 1,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 12
+        "capacidad": 12,
+        "tipo": "Sala expositiva",
+        "denominacion": "Sala 102"
       },
       "geometry": {
         "type": "Point",
@@ -163,7 +187,9 @@
         "nombre": "BCH103",
         "piso": 1,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 12
+        "capacidad": 12,
+        "tipo": "Sala expositiva",
+        "denominacion": "Sala 103"
       },
       "geometry": {
         "type": "Point",
@@ -176,7 +202,9 @@
         "nombre": "BCH830",
         "piso": 1,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 50
+        "capacidad": 50,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA B-11"
       },
       "geometry": {
         "type": "Point",
@@ -189,7 +217,9 @@
         "nombre": "BCH831",
         "piso": -1,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA B-01"
       },
       "geometry": {
         "type": "Point",
@@ -202,7 +232,9 @@
         "nombre": "BCH833",
         "piso": -1,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "SALA DE QUIMICA Y ANATOMIA B-03"
       },
       "geometry": {
         "type": "Point",
@@ -215,7 +247,9 @@
         "nombre": "BCH835",
         "piso": 2,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA B-21"
       },
       "geometry": {
         "type": "Point",
@@ -228,7 +262,9 @@
         "nombre": "BCH836",
         "piso": 2,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA B-22"
       },
       "geometry": {
         "type": "Point",
@@ -241,7 +277,9 @@
         "nombre": "BCH837",
         "piso": 2,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA B-23"
       },
       "geometry": {
         "type": "Point",
@@ -254,7 +292,9 @@
         "nombre": "BCH839",
         "piso": 3,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA B-31"
       },
       "geometry": {
         "type": "Point",
@@ -267,7 +307,9 @@
         "nombre": "BCH840",
         "piso": 3,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 25
+        "capacidad": 25,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN B-32"
       },
       "geometry": {
         "type": "Point",
@@ -280,7 +322,9 @@
         "nombre": "BCH841",
         "piso": 3,
         "edificio": "S8 Edificio Programa Bachillerato (BCH)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA B-33"
       },
       "geometry": {
         "type": "Point",
@@ -293,7 +337,9 @@
         "nombre": "CDA102",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 13
+        "capacidad": 13,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE FÍSICO-QUÍMICA"
       },
       "geometry": {
         "type": "Point",
@@ -306,7 +352,9 @@
         "nombre": "CUL606",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 199
+        "capacidad": 199,
+        "tipo": "Auditorio",
+        "denominacion": "SALÓN VÍCTOR JARA"
       },
       "geometry": {
         "type": "Point",
@@ -319,7 +367,9 @@
         "nombre": "DLL301B",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN"
       },
       "geometry": {
         "type": "Point",
@@ -332,7 +382,9 @@
         "nombre": "DLL302",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 302"
       },
       "geometry": {
         "type": "Point",
@@ -345,7 +397,9 @@
         "nombre": "DLL310",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 25
+        "capacidad": 25,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN"
       },
       "geometry": {
         "type": "Point",
@@ -358,7 +412,9 @@
         "nombre": "DLL311",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 25
+        "capacidad": 25,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN"
       },
       "geometry": {
         "type": "Point",
@@ -371,7 +427,9 @@
         "nombre": "DLL312",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 26
+        "capacidad": 26,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 312"
       },
       "geometry": {
         "type": "Point",
@@ -384,7 +442,9 @@
         "nombre": "DLL313",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 26
+        "capacidad": 26,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 313 BIG TABLET"
       },
       "geometry": {
         "type": "Point",
@@ -397,7 +457,9 @@
         "nombre": "DLL314",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 314"
       },
       "geometry": {
         "type": "Point",
@@ -410,7 +472,9 @@
         "nombre": "DLL315",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 315"
       },
       "geometry": {
         "type": "Point",
@@ -423,7 +487,9 @@
         "nombre": "DLL316",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 316"
       },
       "geometry": {
         "type": "Point",
@@ -436,7 +502,9 @@
         "nombre": "DLL317",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 317"
       },
       "geometry": {
         "type": "Point",
@@ -449,7 +517,9 @@
         "nombre": "DOC539",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 18
+        "capacidad": 18,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 539"
       },
       "geometry": {
         "type": "Point",
@@ -462,7 +532,9 @@
         "nombre": "DOC540",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 22
+        "capacidad": 22,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO 540"
       },
       "geometry": {
         "type": "Point",
@@ -475,7 +547,9 @@
         "nombre": "DOC576",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 576"
       },
       "geometry": {
         "type": "Point",
@@ -488,7 +562,9 @@
         "nombre": "DPI002",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 13
+        "capacidad": 13,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "MAC2 LABORATORIO DE IMAGEN VISUAL 2"
       },
       "geometry": {
         "type": "Point",
@@ -501,7 +577,9 @@
         "nombre": "DPI2002",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 2002"
       },
       "geometry": {
         "type": "Point",
@@ -514,7 +592,9 @@
         "nombre": "DQM101",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 12
+        "capacidad": 12,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE QUIMICA GENERAL 3"
       },
       "geometry": {
         "type": "Point",
@@ -527,7 +607,9 @@
         "nombre": "DTG857",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE PROTOTIPADO Y FABRICACIÓN DIGITAL 857"
       },
       "geometry": {
         "type": "Point",
@@ -540,7 +622,9 @@
         "nombre": "EAO507",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 26
+        "capacidad": 26,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 507"
       },
       "geometry": {
         "type": "Point",
@@ -553,7 +637,9 @@
         "nombre": "EAO508",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 508"
       },
       "geometry": {
         "type": "Point",
@@ -566,7 +652,9 @@
         "nombre": "EAO509",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 44
+        "capacidad": 44,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 509"
       },
       "geometry": {
         "type": "Point",
@@ -579,7 +667,9 @@
         "nombre": "EAO510",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 42
+        "capacidad": 42,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 510"
       },
       "geometry": {
         "type": "Point",
@@ -592,7 +682,9 @@
         "nombre": "EAO513",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 44
+        "capacidad": 44,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 513"
       },
       "geometry": {
         "type": "Point",
@@ -605,7 +697,9 @@
         "nombre": "EAO514",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 44
+        "capacidad": 44,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 514"
       },
       "geometry": {
         "type": "Point",
@@ -618,7 +712,9 @@
         "nombre": "EAO515",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 33
+        "capacidad": 33,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 515"
       },
       "geometry": {
         "type": "Point",
@@ -631,7 +727,9 @@
         "nombre": "EAO516",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 35
+        "capacidad": 35,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 516"
       },
       "geometry": {
         "type": "Point",
@@ -644,7 +742,9 @@
         "nombre": "EAO517",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 517"
       },
       "geometry": {
         "type": "Point",
@@ -657,7 +757,9 @@
         "nombre": "EAO518",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 44
+        "capacidad": 44,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 518"
       },
       "geometry": {
         "type": "Point",
@@ -670,7 +772,9 @@
         "nombre": "EAO528",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 46
+        "capacidad": 46,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 528"
       },
       "geometry": {
         "type": "Point",
@@ -683,7 +787,9 @@
         "nombre": "EAO529",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 529"
       },
       "geometry": {
         "type": "Point",
@@ -696,7 +802,9 @@
         "nombre": "EAO530",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 62
+        "capacidad": 62,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 530"
       },
       "geometry": {
         "type": "Point",
@@ -709,7 +817,9 @@
         "nombre": "EAO532",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 42
+        "capacidad": 42,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 532"
       },
       "geometry": {
         "type": "Point",
@@ -722,7 +832,9 @@
         "nombre": "EAO543",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 42
+        "capacidad": 42,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 543"
       },
       "geometry": {
         "type": "Point",
@@ -735,7 +847,9 @@
         "nombre": "EAO544",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 544"
       },
       "geometry": {
         "type": "Point",
@@ -748,7 +862,9 @@
         "nombre": "EAO545",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 63
+        "capacidad": 63,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 545"
       },
       "geometry": {
         "type": "Point",
@@ -761,7 +877,9 @@
         "nombre": "EAO546",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 546"
       },
       "geometry": {
         "type": "Point",
@@ -774,7 +892,9 @@
         "nombre": "EAO547",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 50
+        "capacidad": 50,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 547"
       },
       "geometry": {
         "type": "Point",
@@ -787,7 +907,9 @@
         "nombre": "EAO548",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 42
+        "capacidad": 42,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 548"
       },
       "geometry": {
         "type": "Point",
@@ -800,7 +922,9 @@
         "nombre": "EAO549",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 65
+        "capacidad": 65,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 549"
       },
       "geometry": {
         "type": "Point",
@@ -813,7 +937,9 @@
         "nombre": "EAO550",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 550"
       },
       "geometry": {
         "type": "Point",
@@ -826,7 +952,9 @@
         "nombre": "EAO551",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 26
+        "capacidad": 26,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 551"
       },
       "geometry": {
         "type": "Point",
@@ -839,7 +967,9 @@
         "nombre": "EAO552",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 47
+        "capacidad": 47,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 552"
       },
       "geometry": {
         "type": "Point",
@@ -852,7 +982,9 @@
         "nombre": "EAO553",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 54
+        "capacidad": 54,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 553"
       },
       "geometry": {
         "type": "Point",
@@ -865,7 +997,9 @@
         "nombre": "EAO554",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 54
+        "capacidad": 54,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 554"
       },
       "geometry": {
         "type": "Point",
@@ -878,7 +1012,9 @@
         "nombre": "EAO555",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 42
+        "capacidad": 42,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 555"
       },
       "geometry": {
         "type": "Point",
@@ -891,7 +1027,9 @@
         "nombre": "EAO556",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 51
+        "capacidad": 51,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 556"
       },
       "geometry": {
         "type": "Point",
@@ -904,7 +1042,9 @@
         "nombre": "EAO557",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 70
+        "capacidad": 70,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 557"
       },
       "geometry": {
         "type": "Point",
@@ -917,7 +1057,9 @@
         "nombre": "EAO558",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 58
+        "capacidad": 58,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 558"
       },
       "geometry": {
         "type": "Point",
@@ -930,7 +1072,9 @@
         "nombre": "EAO559",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 44
+        "capacidad": 44,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 559"
       },
       "geometry": {
         "type": "Point",
@@ -943,7 +1087,9 @@
         "nombre": "EAO560",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 29
+        "capacidad": 29,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 560"
       },
       "geometry": {
         "type": "Point",
@@ -956,11 +1102,13 @@
         "nombre": "EAO561",
         "piso": 1,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 49
+        "capacidad": 49,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 561"
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-70.68668888, -33.45004580]
+        "coordinates": [-70.68668888, -33.4500458]
       }
     },
     {
@@ -969,7 +1117,9 @@
         "nombre": "EAO562",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 562"
       },
       "geometry": {
         "type": "Point",
@@ -982,7 +1132,9 @@
         "nombre": "EAO563",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 26
+        "capacidad": 26,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 563"
       },
       "geometry": {
         "type": "Point",
@@ -995,7 +1147,9 @@
         "nombre": "EAO564",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 564"
       },
       "geometry": {
         "type": "Point",
@@ -1008,7 +1162,9 @@
         "nombre": "EAO565",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 44
+        "capacidad": 44,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 565"
       },
       "geometry": {
         "type": "Point",
@@ -1021,7 +1177,9 @@
         "nombre": "EAO566",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 50
+        "capacidad": 50,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 566"
       },
       "geometry": {
         "type": "Point",
@@ -1034,7 +1192,9 @@
         "nombre": "EAO567",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 567"
       },
       "geometry": {
         "type": "Point",
@@ -1047,7 +1207,9 @@
         "nombre": "EAO568",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 568"
       },
       "geometry": {
         "type": "Point",
@@ -1060,7 +1222,9 @@
         "nombre": "EAO569",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 569"
       },
       "geometry": {
         "type": "Point",
@@ -1073,7 +1237,9 @@
         "nombre": "EAO570",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 26
+        "capacidad": 26,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 570"
       },
       "geometry": {
         "type": "Point",
@@ -1086,7 +1252,9 @@
         "nombre": "EAO571",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 52
+        "capacidad": 52,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 571"
       },
       "geometry": {
         "type": "Point",
@@ -1099,7 +1267,9 @@
         "nombre": "EAO572",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 26
+        "capacidad": 26,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 572"
       },
       "geometry": {
         "type": "Point",
@@ -1112,7 +1282,9 @@
         "nombre": "EAO573",
         "piso": 2,
         "edificio": "S2 Escuela de Artes y Oficios (EAO)",
-        "capacidad": 72
+        "capacidad": 72,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 573"
       },
       "geometry": {
         "type": "Point",
@@ -1125,7 +1297,9 @@
         "nombre": "ED101",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED101"
       },
       "geometry": {
         "type": "Point",
@@ -1138,7 +1312,9 @@
         "nombre": "ED103",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED103"
       },
       "geometry": {
         "type": "Point",
@@ -1151,7 +1327,9 @@
         "nombre": "ED201",
         "piso": 2,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED201"
       },
       "geometry": {
         "type": "Point",
@@ -1164,7 +1342,9 @@
         "nombre": "ED202",
         "piso": 2,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED202"
       },
       "geometry": {
         "type": "Point",
@@ -1177,7 +1357,9 @@
         "nombre": "ED203",
         "piso": 2,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED203"
       },
       "geometry": {
         "type": "Point",
@@ -1190,7 +1372,9 @@
         "nombre": "ED204",
         "piso": 2,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED204"
       },
       "geometry": {
         "type": "Point",
@@ -1203,7 +1387,9 @@
         "nombre": "ED205",
         "piso": 2,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED205"
       },
       "geometry": {
         "type": "Point",
@@ -1216,7 +1402,9 @@
         "nombre": "ED301",
         "piso": 3,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED301"
       },
       "geometry": {
         "type": "Point",
@@ -1229,7 +1417,9 @@
         "nombre": "ED302",
         "piso": 3,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED302"
       },
       "geometry": {
         "type": "Point",
@@ -1242,7 +1432,9 @@
         "nombre": "ED303",
         "piso": 3,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED303"
       },
       "geometry": {
         "type": "Point",
@@ -1255,7 +1447,9 @@
         "nombre": "ED304",
         "piso": 3,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED304"
       },
       "geometry": {
         "type": "Point",
@@ -1268,7 +1462,9 @@
         "nombre": "ED305",
         "piso": 3,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED305"
       },
       "geometry": {
         "type": "Point",
@@ -1281,7 +1477,9 @@
         "nombre": "ED306",
         "piso": 3,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED306"
       },
       "geometry": {
         "type": "Point",
@@ -1294,7 +1492,9 @@
         "nombre": "ED401",
         "piso": 4,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED401"
       },
       "geometry": {
         "type": "Point",
@@ -1307,7 +1507,9 @@
         "nombre": "ED402",
         "piso": 4,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED402"
       },
       "geometry": {
         "type": "Point",
@@ -1320,7 +1522,9 @@
         "nombre": "ED403",
         "piso": 4,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED403"
       },
       "geometry": {
         "type": "Point",
@@ -1333,7 +1537,9 @@
         "nombre": "ED404",
         "piso": 4,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED404"
       },
       "geometry": {
         "type": "Point",
@@ -1346,7 +1552,9 @@
         "nombre": "ED405",
         "piso": 4,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED405"
       },
       "geometry": {
         "type": "Point",
@@ -1359,7 +1567,9 @@
         "nombre": "ED406",
         "piso": 4,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED406"
       },
       "geometry": {
         "type": "Point",
@@ -1372,7 +1582,9 @@
         "nombre": "ED501",
         "piso": 5,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED501"
       },
       "geometry": {
         "type": "Point",
@@ -1385,7 +1597,9 @@
         "nombre": "ED502",
         "piso": 5,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED502"
       },
       "geometry": {
         "type": "Point",
@@ -1398,7 +1612,9 @@
         "nombre": "ED503",
         "piso": 5,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED503"
       },
       "geometry": {
         "type": "Point",
@@ -1411,7 +1627,9 @@
         "nombre": "ED504",
         "piso": 5,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED504"
       },
       "geometry": {
         "type": "Point",
@@ -1424,7 +1642,9 @@
         "nombre": "ED505",
         "piso": 5,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED505"
       },
       "geometry": {
         "type": "Point",
@@ -1437,7 +1657,9 @@
         "nombre": "ED601",
         "piso": 6,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED601"
       },
       "geometry": {
         "type": "Point",
@@ -1450,7 +1672,9 @@
         "nombre": "ED602",
         "piso": 6,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED602"
       },
       "geometry": {
         "type": "Point",
@@ -1463,7 +1687,9 @@
         "nombre": "ED603",
         "piso": 6,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED603"
       },
       "geometry": {
         "type": "Point",
@@ -1476,7 +1702,9 @@
         "nombre": "ED604",
         "piso": 6,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED604"
       },
       "geometry": {
         "type": "Point",
@@ -1489,7 +1717,9 @@
         "nombre": "ED605",
         "piso": 6,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED605"
       },
       "geometry": {
         "type": "Point",
@@ -1502,7 +1732,9 @@
         "nombre": "ED606",
         "piso": 6,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED606"
       },
       "geometry": {
         "type": "Point",
@@ -1515,7 +1747,9 @@
         "nombre": "ED701",
         "piso": 7,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED701"
       },
       "geometry": {
         "type": "Point",
@@ -1528,7 +1762,9 @@
         "nombre": "ED702",
         "piso": 7,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED702"
       },
       "geometry": {
         "type": "Point",
@@ -1541,7 +1777,9 @@
         "nombre": "ED703",
         "piso": 7,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED703"
       },
       "geometry": {
         "type": "Point",
@@ -1554,7 +1792,9 @@
         "nombre": "ED704",
         "piso": 7,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED704"
       },
       "geometry": {
         "type": "Point",
@@ -1567,7 +1807,9 @@
         "nombre": "ED705",
         "piso": 7,
         "edificio": "S3 Edificio Salas de Innovación Docente (ED)",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED705"
       },
       "geometry": {
         "type": "Point",
@@ -1580,7 +1822,9 @@
         "nombre": "ED706",
         "piso": 7,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA REUNION ED706"
       },
       "geometry": {
         "type": "Point",
@@ -1593,7 +1837,9 @@
         "nombre": "ED801",
         "piso": 8,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED801"
       },
       "geometry": {
         "type": "Point",
@@ -1606,7 +1852,9 @@
         "nombre": "ED802",
         "piso": 8,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED802"
       },
       "geometry": {
         "type": "Point",
@@ -1619,7 +1867,9 @@
         "nombre": "ED803",
         "piso": 8,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ED803"
       },
       "geometry": {
         "type": "Point",
@@ -1632,7 +1882,9 @@
         "nombre": "ED804",
         "piso": 8,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ACE ED804"
       },
       "geometry": {
         "type": "Point",
@@ -1645,7 +1897,9 @@
         "nombre": "ED805",
         "piso": 8,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA REUNION ED805"
       },
       "geometry": {
         "type": "Point",
@@ -1658,7 +1912,9 @@
         "nombre": "EDU814",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 814"
       },
       "geometry": {
         "type": "Point",
@@ -1671,7 +1927,9 @@
         "nombre": "EDU815",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 45
+        "capacidad": 45,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 815"
       },
       "geometry": {
         "type": "Point",
@@ -1684,7 +1942,9 @@
         "nombre": "EDU816",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 50
+        "capacidad": 50,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 816"
       },
       "geometry": {
         "type": "Point",
@@ -1697,7 +1957,9 @@
         "nombre": "EDU872",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 44
+        "capacidad": 44,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 872"
       },
       "geometry": {
         "type": "Point",
@@ -1710,7 +1972,9 @@
         "nombre": "EDU873",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 32
+        "capacidad": 32,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 873"
       },
       "geometry": {
         "type": "Point",
@@ -1723,7 +1987,9 @@
         "nombre": "EF401",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 49
+        "capacidad": 49,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 401"
       },
       "geometry": {
         "type": "Point",
@@ -1736,7 +2002,9 @@
         "nombre": "EF402",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 402"
       },
       "geometry": {
         "type": "Point",
@@ -1749,7 +2017,9 @@
         "nombre": "EF403",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 403"
       },
       "geometry": {
         "type": "Point",
@@ -1762,7 +2032,9 @@
         "nombre": "EF404",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 404"
       },
       "geometry": {
         "type": "Point",
@@ -1775,7 +2047,9 @@
         "nombre": "EF405",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 405"
       },
       "geometry": {
         "type": "Point",
@@ -1788,7 +2062,9 @@
         "nombre": "EF406",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 406"
       },
       "geometry": {
         "type": "Point",
@@ -1801,7 +2077,9 @@
         "nombre": "EF501",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 501"
       },
       "geometry": {
         "type": "Point",
@@ -1814,7 +2092,9 @@
         "nombre": "EF502",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 502"
       },
       "geometry": {
         "type": "Point",
@@ -1827,7 +2107,9 @@
         "nombre": "EF503",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 503"
       },
       "geometry": {
         "type": "Point",
@@ -1840,7 +2122,9 @@
         "nombre": "EF504",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 504"
       },
       "geometry": {
         "type": "Point",
@@ -1853,7 +2137,9 @@
         "nombre": "EF505",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 41
+        "capacidad": 41,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 505"
       },
       "geometry": {
         "type": "Point",
@@ -1866,7 +2152,9 @@
         "nombre": "EF506",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 506"
       },
       "geometry": {
         "type": "Point",
@@ -1879,7 +2167,9 @@
         "nombre": "EF601",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 601"
       },
       "geometry": {
         "type": "Point",
@@ -1892,7 +2182,9 @@
         "nombre": "EF602",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 602"
       },
       "geometry": {
         "type": "Point",
@@ -1905,7 +2197,9 @@
         "nombre": "EF603",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 603"
       },
       "geometry": {
         "type": "Point",
@@ -1918,7 +2212,9 @@
         "nombre": "EF604",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 42
+        "capacidad": 42,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 604"
       },
       "geometry": {
         "type": "Point",
@@ -1931,7 +2227,9 @@
         "nombre": "EF605",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 605"
       },
       "geometry": {
         "type": "Point",
@@ -1944,7 +2242,9 @@
         "nombre": "EF606",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 41
+        "capacidad": 41,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 606"
       },
       "geometry": {
         "type": "Point",
@@ -1957,7 +2257,9 @@
         "nombre": "EF607",
         "piso": 1,
         "edificio": "S5 Edificio Nuevo FAE (EF)",
-        "capacidad": 42
+        "capacidad": 42,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA EF 607"
       },
       "geometry": {
         "type": "Point",
@@ -1970,7 +2272,9 @@
         "nombre": "ELE624",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 624"
       },
       "geometry": {
         "type": "Point",
@@ -1983,7 +2287,9 @@
         "nombre": "ELE625",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 625"
       },
       "geometry": {
         "type": "Point",
@@ -1996,7 +2302,9 @@
         "nombre": "ELE626",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 626"
       },
       "geometry": {
         "type": "Point",
@@ -2009,7 +2317,9 @@
         "nombre": "ELE628",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 628"
       },
       "geometry": {
         "type": "Point",
@@ -2022,7 +2332,9 @@
         "nombre": "ELE629",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 629"
       },
       "geometry": {
         "type": "Point",
@@ -2035,7 +2347,9 @@
         "nombre": "ELE630",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 630"
       },
       "geometry": {
         "type": "Point",
@@ -2048,7 +2362,9 @@
         "nombre": "ELE641",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA POSTÍTULO I 641"
       },
       "geometry": {
         "type": "Point",
@@ -2061,7 +2377,9 @@
         "nombre": "ELE642",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Sala de trabajo grupal",
+        "denominacion": "SALA POSTÍTULO II 642"
       },
       "geometry": {
         "type": "Point",
@@ -2074,7 +2392,9 @@
         "nombre": "ELE644",
         "piso": -1,
         "edificio": "Sin definir",
-        "capacidad": 12
+        "capacidad": 12,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 644"
       },
       "geometry": {
         "type": "Point",
@@ -2087,7 +2407,9 @@
         "nombre": "ELE647",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala híbrida",
+        "denominacion": "SALA 647  MULTIUSO"
       },
       "geometry": {
         "type": "Point",
@@ -2100,7 +2422,9 @@
         "nombre": "EPF761",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 33
+        "capacidad": 33,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 761"
       },
       "geometry": {
         "type": "Point",
@@ -2113,7 +2437,9 @@
         "nombre": "EPF762",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 34
+        "capacidad": 34,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 762"
       },
       "geometry": {
         "type": "Point",
@@ -2126,7 +2452,9 @@
         "nombre": "EPF763",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 763"
       },
       "geometry": {
         "type": "Point",
@@ -2139,7 +2467,9 @@
         "nombre": "EPF764",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 764"
       },
       "geometry": {
         "type": "Point",
@@ -2152,7 +2482,9 @@
         "nombre": "EPF765A",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 29
+        "capacidad": 29,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 765A"
       },
       "geometry": {
         "type": "Point",
@@ -2165,7 +2497,9 @@
         "nombre": "EPF765B",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 29
+        "capacidad": 29,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 765B"
       },
       "geometry": {
         "type": "Point",
@@ -2178,7 +2512,9 @@
         "nombre": "EPF766",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 52
+        "capacidad": 52,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 766"
       },
       "geometry": {
         "type": "Point",
@@ -2191,7 +2527,9 @@
         "nombre": "EPF767",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 53
+        "capacidad": 53,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 767"
       },
       "geometry": {
         "type": "Point",
@@ -2204,7 +2542,9 @@
         "nombre": "EPF768",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 48
+        "capacidad": 48,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 768"
       },
       "geometry": {
         "type": "Point",
@@ -2217,7 +2557,9 @@
         "nombre": "EPF769",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 51
+        "capacidad": 51,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 769"
       },
       "geometry": {
         "type": "Point",
@@ -2230,7 +2572,9 @@
         "nombre": "EPF770",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA HIBRIDA 770"
       },
       "geometry": {
         "type": "Point",
@@ -2243,7 +2587,9 @@
         "nombre": "EPF771",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA HIBRIDA 771"
       },
       "geometry": {
         "type": "Point",
@@ -2256,7 +2602,9 @@
         "nombre": "EPF772",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 772"
       },
       "geometry": {
         "type": "Point",
@@ -2269,7 +2617,9 @@
         "nombre": "EPF773",
         "piso": 1,
         "edificio": "S5 Edificio Pabellón Forma (EPF)",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA DE COMPUTACIÓN 773"
       },
       "geometry": {
         "type": "Point",
@@ -2282,7 +2632,9 @@
         "nombre": "EPM807",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 807"
       },
       "geometry": {
         "type": "Point",
@@ -2295,7 +2647,9 @@
         "nombre": "EPM808",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 26
+        "capacidad": 26,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN 808"
       },
       "geometry": {
         "type": "Point",
@@ -2308,7 +2662,9 @@
         "nombre": "EPM809",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 809"
       },
       "geometry": {
         "type": "Point",
@@ -2321,7 +2677,9 @@
         "nombre": "EPM812",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 812"
       },
       "geometry": {
         "type": "Point",
@@ -2334,7 +2692,9 @@
         "nombre": "EPM817",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 23
+        "capacidad": 23,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACION 817"
       },
       "geometry": {
         "type": "Point",
@@ -2347,7 +2707,9 @@
         "nombre": "EPM818",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 32
+        "capacidad": 32,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACION 818"
       },
       "geometry": {
         "type": "Point",
@@ -2360,7 +2722,9 @@
         "nombre": "EPS822",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 822"
       },
       "geometry": {
         "type": "Point",
@@ -2373,7 +2737,9 @@
         "nombre": "EPS823",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 45
+        "capacidad": 45,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 823"
       },
       "geometry": {
         "type": "Point",
@@ -2386,7 +2752,9 @@
         "nombre": "ERT1001",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
-        "capacidad": 22
+        "capacidad": 22,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 1001"
       },
       "geometry": {
         "type": "Point",
@@ -2399,7 +2767,9 @@
         "nombre": "ERT1002",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
-        "capacidad": 33
+        "capacidad": 33,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 1002"
       },
       "geometry": {
         "type": "Point",
@@ -2412,7 +2782,9 @@
         "nombre": "ERT1003",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 1003"
       },
       "geometry": {
         "type": "Point",
@@ -2425,7 +2797,9 @@
         "nombre": "ERT1004",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 1004"
       },
       "geometry": {
         "type": "Point",
@@ -2438,7 +2812,9 @@
         "nombre": "ERT1005",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
-        "capacidad": 50
+        "capacidad": 50,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 1005"
       },
       "geometry": {
         "type": "Point",
@@ -2451,7 +2827,9 @@
         "nombre": "ERT101",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 15
+        "capacidad": 15,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ERT101"
       },
       "geometry": {
         "type": "Point",
@@ -2464,7 +2842,9 @@
         "nombre": "ERT2001",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA DE DIBUJO 2001"
       },
       "geometry": {
         "type": "Point",
@@ -2477,7 +2857,9 @@
         "nombre": "ERT2004",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA DIBUJO 2004"
       },
       "geometry": {
         "type": "Point",
@@ -2490,7 +2872,9 @@
         "nombre": "ERT2005",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 2005"
       },
       "geometry": {
         "type": "Point",
@@ -2503,7 +2887,9 @@
         "nombre": "ERT2006",
         "piso": 2,
         "edificio": "S2 Espacio Ruiz Tagle, Antiguo (ERT)",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 2006"
       },
       "geometry": {
         "type": "Point",
@@ -2516,7 +2902,9 @@
         "nombre": "ERT2007",
         "piso": 2,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 27
+        "capacidad": 27,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 2007"
       },
       "geometry": {
         "type": "Point",
@@ -2529,7 +2917,9 @@
         "nombre": "ERT2008",
         "piso": 2,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 38
+        "capacidad": 38,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 2008"
       },
       "geometry": {
         "type": "Point",
@@ -2542,7 +2932,9 @@
         "nombre": "ERT2009",
         "piso": 2,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 34
+        "capacidad": 34,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 2009"
       },
       "geometry": {
         "type": "Point",
@@ -2555,7 +2947,9 @@
         "nombre": "ERT2010",
         "piso": 2,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 37
+        "capacidad": 37,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 2010"
       },
       "geometry": {
         "type": "Point",
@@ -2568,7 +2962,9 @@
         "nombre": "ERT2011",
         "piso": 2,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 37
+        "capacidad": 37,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 2011"
       },
       "geometry": {
         "type": "Point",
@@ -2581,7 +2977,9 @@
         "nombre": "ERT2012",
         "piso": 2,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 37
+        "capacidad": 37,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 2012"
       },
       "geometry": {
         "type": "Point",
@@ -2594,7 +2992,9 @@
         "nombre": "ERT2014",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 12
+        "capacidad": 12,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO QUIMICA 2014"
       },
       "geometry": {
         "type": "Point",
@@ -2607,7 +3007,9 @@
         "nombre": "ERT3001",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 36
+        "capacidad": 36,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 3001"
       },
       "geometry": {
         "type": "Point",
@@ -2620,7 +3022,9 @@
         "nombre": "ERT3002",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 33
+        "capacidad": 33,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 3002"
       },
       "geometry": {
         "type": "Point",
@@ -2633,7 +3037,9 @@
         "nombre": "ERT3003",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 35
+        "capacidad": 35,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 3003"
       },
       "geometry": {
         "type": "Point",
@@ -2646,7 +3052,9 @@
         "nombre": "ERT3004",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 37
+        "capacidad": 37,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 3004"
       },
       "geometry": {
         "type": "Point",
@@ -2659,7 +3067,9 @@
         "nombre": "ERT3005",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 39
+        "capacidad": 39,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 3005"
       },
       "geometry": {
         "type": "Point",
@@ -2672,7 +3082,9 @@
         "nombre": "ERT3006",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 34
+        "capacidad": 34,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 3006"
       },
       "geometry": {
         "type": "Point",
@@ -2685,7 +3097,9 @@
         "nombre": "ERT3007",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 32
+        "capacidad": 32,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 3007"
       },
       "geometry": {
         "type": "Point",
@@ -2698,7 +3112,9 @@
         "nombre": "ERT3008",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 32
+        "capacidad": 32,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 3008"
       },
       "geometry": {
         "type": "Point",
@@ -2711,7 +3127,9 @@
         "nombre": "ERT3009",
         "piso": 1,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 29
+        "capacidad": 29,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 3009"
       },
       "geometry": {
         "type": "Point",
@@ -2724,7 +3142,9 @@
         "nombre": "ERT301",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 7
+        "capacidad": 7,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ERT301"
       },
       "geometry": {
         "type": "Point",
@@ -2737,7 +3157,9 @@
         "nombre": "ERT302",
         "piso": 3,
         "edificio": "S2 Espacio Ruiz Tagle, Remodelación (ERT)",
-        "capacidad": 9
+        "capacidad": 9,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA ERT302"
       },
       "geometry": {
         "type": "Point",
@@ -2750,7 +3172,9 @@
         "nombre": "FAE701",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 85
+        "capacidad": 85,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 701"
       },
       "geometry": {
         "type": "Point",
@@ -2763,7 +3187,9 @@
         "nombre": "FAE703",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 90
+        "capacidad": 90,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 703"
       },
       "geometry": {
         "type": "Point",
@@ -2776,7 +3202,9 @@
         "nombre": "FAE704",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 46
+        "capacidad": 46,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 704"
       },
       "geometry": {
         "type": "Point",
@@ -2789,7 +3217,9 @@
         "nombre": "FAE706",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 90
+        "capacidad": 90,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 706"
       },
       "geometry": {
         "type": "Point",
@@ -2802,7 +3232,9 @@
         "nombre": "FAE707",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 707"
       },
       "geometry": {
         "type": "Point",
@@ -2815,7 +3247,9 @@
         "nombre": "FAE708",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 32
+        "capacidad": 32,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 708"
       },
       "geometry": {
         "type": "Point",
@@ -2828,7 +3262,9 @@
         "nombre": "FAE709",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 45
+        "capacidad": 45,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 709"
       },
       "geometry": {
         "type": "Point",
@@ -2841,7 +3277,9 @@
         "nombre": "FAE710",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 710"
       },
       "geometry": {
         "type": "Point",
@@ -2854,7 +3292,9 @@
         "nombre": "FAE711",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 711"
       },
       "geometry": {
         "type": "Point",
@@ -2867,7 +3307,9 @@
         "nombre": "FAE712",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 712"
       },
       "geometry": {
         "type": "Point",
@@ -2880,7 +3322,9 @@
         "nombre": "FAE713",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA713"
       },
       "geometry": {
         "type": "Point",
@@ -2893,7 +3337,9 @@
         "nombre": "FAE714",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 56
+        "capacidad": 56,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 714"
       },
       "geometry": {
         "type": "Point",
@@ -2906,7 +3352,9 @@
         "nombre": "FAE715",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 35
+        "capacidad": 35,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 715"
       },
       "geometry": {
         "type": "Point",
@@ -2919,7 +3367,9 @@
         "nombre": "FAE716",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 716"
       },
       "geometry": {
         "type": "Point",
@@ -2932,7 +3382,9 @@
         "nombre": "FAE717",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 717"
       },
       "geometry": {
         "type": "Point",
@@ -2945,7 +3397,9 @@
         "nombre": "FAE718",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 718"
       },
       "geometry": {
         "type": "Point",
@@ -2958,7 +3412,9 @@
         "nombre": "FAE720",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA Z-1"
       },
       "geometry": {
         "type": "Point",
@@ -2971,7 +3427,9 @@
         "nombre": "FAE721",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA Z-2"
       },
       "geometry": {
         "type": "Point",
@@ -2984,7 +3442,9 @@
         "nombre": "FAE722",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 55
+        "capacidad": 55,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA Z-3"
       },
       "geometry": {
         "type": "Point",
@@ -2997,7 +3457,9 @@
         "nombre": "FAE723",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 55
+        "capacidad": 55,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA Z-4"
       },
       "geometry": {
         "type": "Point",
@@ -3010,7 +3472,9 @@
         "nombre": "FAE724",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA Z-5"
       },
       "geometry": {
         "type": "Point",
@@ -3023,7 +3487,9 @@
         "nombre": "FAE725",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA Z-6"
       },
       "geometry": {
         "type": "Point",
@@ -3036,7 +3502,9 @@
         "nombre": "FAE731",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 731"
       },
       "geometry": {
         "type": "Point",
@@ -3049,7 +3517,9 @@
         "nombre": "FAE781",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 781"
       },
       "geometry": {
         "type": "Point",
@@ -3062,7 +3532,9 @@
         "nombre": "FAE782",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 21
+        "capacidad": 21,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO COMPUTACIÓN 782"
       },
       "geometry": {
         "type": "Point",
@@ -3075,7 +3547,9 @@
         "nombre": "FAE783",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 50
+        "capacidad": 50,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "SALA 783"
       },
       "geometry": {
         "type": "Point",
@@ -3088,7 +3562,9 @@
         "nombre": "FAE784",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 50
+        "capacidad": 50,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN 784"
       },
       "geometry": {
         "type": "Point",
@@ -3101,7 +3577,9 @@
         "nombre": "FAE785",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 21
+        "capacidad": 21,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN 785"
       },
       "geometry": {
         "type": "Point",
@@ -3114,7 +3592,9 @@
         "nombre": "FAE789",
         "piso": 1,
         "edificio": "S5 Edificio Antiguo FAE (FAE)",
-        "capacidad": 50
+        "capacidad": 50,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN 789"
       },
       "geometry": {
         "type": "Point",
@@ -3127,7 +3607,9 @@
         "nombre": "FCM240",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 240"
       },
       "geometry": {
         "type": "Point",
@@ -3140,7 +3622,9 @@
         "nombre": "FCM241",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 80
+        "capacidad": 80,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 241"
       },
       "geometry": {
         "type": "Point",
@@ -3153,7 +3637,9 @@
         "nombre": "FCM242",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 80
+        "capacidad": 80,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 242"
       },
       "geometry": {
         "type": "Point",
@@ -3166,7 +3652,9 @@
         "nombre": "FCM243",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 80
+        "capacidad": 80,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 243"
       },
       "geometry": {
         "type": "Point",
@@ -3179,7 +3667,9 @@
         "nombre": "FCM244",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 80
+        "capacidad": 80,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 244"
       },
       "geometry": {
         "type": "Point",
@@ -3192,7 +3682,9 @@
         "nombre": "FCM245",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 80
+        "capacidad": 80,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 245"
       },
       "geometry": {
         "type": "Point",
@@ -3205,7 +3697,9 @@
         "nombre": "FCM246",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 80
+        "capacidad": 80,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 246"
       },
       "geometry": {
         "type": "Point",
@@ -3218,7 +3712,9 @@
         "nombre": "FCM247",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 80
+        "capacidad": 80,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 247"
       },
       "geometry": {
         "type": "Point",
@@ -3231,7 +3727,9 @@
         "nombre": "FCM249",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 249"
       },
       "geometry": {
         "type": "Point",
@@ -3244,7 +3742,9 @@
         "nombre": "FCM250",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 250"
       },
       "geometry": {
         "type": "Point",
@@ -3257,7 +3757,9 @@
         "nombre": "FCM251",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA SELLO"
       },
       "geometry": {
         "type": "Point",
@@ -3270,7 +3772,9 @@
         "nombre": "FDE251",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 72
+        "capacidad": 72,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA  251"
       },
       "geometry": {
         "type": "Point",
@@ -3283,7 +3787,9 @@
         "nombre": "FDE252",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 108
+        "capacidad": 108,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 252"
       },
       "geometry": {
         "type": "Point",
@@ -3296,7 +3802,9 @@
         "nombre": "FDE253",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 106
+        "capacidad": 106,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 253"
       },
       "geometry": {
         "type": "Point",
@@ -3309,7 +3817,9 @@
         "nombre": "FDE254",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 72
+        "capacidad": 72,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 254"
       },
       "geometry": {
         "type": "Point",
@@ -3322,7 +3832,9 @@
         "nombre": "FDE257",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 70
+        "capacidad": 70,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 257"
       },
       "geometry": {
         "type": "Point",
@@ -3335,7 +3847,9 @@
         "nombre": "FDE258",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 108
+        "capacidad": 108,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 258"
       },
       "geometry": {
         "type": "Point",
@@ -3348,7 +3862,9 @@
         "nombre": "FDE261",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 261"
       },
       "geometry": {
         "type": "Point",
@@ -3361,7 +3877,9 @@
         "nombre": "FDE262",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 70
+        "capacidad": 70,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 262"
       },
       "geometry": {
         "type": "Point",
@@ -3374,7 +3892,9 @@
         "nombre": "FDE268",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN"
       },
       "geometry": {
         "type": "Point",
@@ -3387,7 +3907,9 @@
         "nombre": "FDE269",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN"
       },
       "geometry": {
         "type": "Point",
@@ -3400,7 +3922,9 @@
         "nombre": "FDE270",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 37
+        "capacidad": 37,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN"
       },
       "geometry": {
         "type": "Point",
@@ -3413,7 +3937,9 @@
         "nombre": "FDE271",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 39
+        "capacidad": 39,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN"
       },
       "geometry": {
         "type": "Point",
@@ -3426,7 +3952,9 @@
         "nombre": "FDE272",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN"
       },
       "geometry": {
         "type": "Point",
@@ -3439,7 +3967,9 @@
         "nombre": "FIN673",
         "piso": 1,
         "edificio": "S3 Salón Bulnes (CAI)",
-        "capacidad": 42
+        "capacidad": 42,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 673"
       },
       "geometry": {
         "type": "Point",
@@ -3452,7 +3982,9 @@
         "nombre": "FIN675",
         "piso": 1,
         "edificio": "S3 Salón Bulnes (CAI)",
-        "capacidad": 27
+        "capacidad": 27,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 675"
       },
       "geometry": {
         "type": "Point",
@@ -3465,7 +3997,9 @@
         "nombre": "FIN676",
         "piso": 1,
         "edificio": "S3 Salón Bulnes (CAI)",
-        "capacidad": 27
+        "capacidad": 27,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 676"
       },
       "geometry": {
         "type": "Point",
@@ -3478,7 +4012,9 @@
         "nombre": "FIS201",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE FISICA 201"
       },
       "geometry": {
         "type": "Point",
@@ -3491,7 +4027,9 @@
         "nombre": "FIS202",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE FISICA 202"
       },
       "geometry": {
         "type": "Point",
@@ -3504,7 +4042,9 @@
         "nombre": "FIS301",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE FISICA 301"
       },
       "geometry": {
         "type": "Point",
@@ -3517,7 +4057,9 @@
         "nombre": "FIS302",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE FISICA 302"
       },
       "geometry": {
         "type": "Point",
@@ -3530,7 +4072,9 @@
         "nombre": "FIS401",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE FISICA 401"
       },
       "geometry": {
         "type": "Point",
@@ -3543,7 +4087,9 @@
         "nombre": "FIS402",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE FISICA 402"
       },
       "geometry": {
         "type": "Point",
@@ -3556,7 +4102,9 @@
         "nombre": "FIS501",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE FISICA 501"
       },
       "geometry": {
         "type": "Point",
@@ -3569,7 +4117,9 @@
         "nombre": "FIS502",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE FISICA 502"
       },
       "geometry": {
         "type": "Point",
@@ -3582,7 +4132,9 @@
         "nombre": "FIS619",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 619"
       },
       "geometry": {
         "type": "Point",
@@ -3595,7 +4147,9 @@
         "nombre": "FIS620",
         "piso": 1,
         "edificio": "S3 Departamento de Fisica (FIS)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 620"
       },
       "geometry": {
         "type": "Point",
@@ -3608,7 +4162,9 @@
         "nombre": "FIS622",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 12
+        "capacidad": 12,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 622"
       },
       "geometry": {
         "type": "Point",
@@ -3621,7 +4177,9 @@
         "nombre": "FIS623",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 623"
       },
       "geometry": {
         "type": "Point",
@@ -3634,7 +4192,9 @@
         "nombre": "FIS624",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 18
+        "capacidad": 18,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 624"
       },
       "geometry": {
         "type": "Point",
@@ -3647,7 +4207,9 @@
         "nombre": "FQB305",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 100
+        "capacidad": 100,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 305"
       },
       "geometry": {
         "type": "Point",
@@ -3660,7 +4222,9 @@
         "nombre": "FQB308",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA MICROSCOPÍA"
       },
       "geometry": {
         "type": "Point",
@@ -3673,7 +4237,9 @@
         "nombre": "FQB310",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA MULTIFUNCIONAL 310"
       },
       "geometry": {
         "type": "Point",
@@ -3686,7 +4252,9 @@
         "nombre": "FQB312",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 25
+        "capacidad": 25,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA POSTGRADO 312"
       },
       "geometry": {
         "type": "Point",
@@ -3699,7 +4267,9 @@
         "nombre": "GDC107",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 4
+        "capacidad": 4,
+        "tipo": "Cancha",
+        "denominacion": "TENIS 1"
       },
       "geometry": {
         "type": "Point",
@@ -3712,7 +4282,9 @@
         "nombre": "GEO719",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 719"
       },
       "geometry": {
         "type": "Point",
@@ -3725,7 +4297,9 @@
         "nombre": "GEO720",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 34
+        "capacidad": 34,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 720"
       },
       "geometry": {
         "type": "Point",
@@ -3738,7 +4312,9 @@
         "nombre": "GEO722",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 32
+        "capacidad": 32,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 722"
       },
       "geometry": {
         "type": "Point",
@@ -3751,7 +4327,9 @@
         "nombre": "GEO723",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 25
+        "capacidad": 25,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 723"
       },
       "geometry": {
         "type": "Point",
@@ -3764,7 +4342,9 @@
         "nombre": "GEO724",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 35
+        "capacidad": 35,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 724"
       },
       "geometry": {
         "type": "Point",
@@ -3777,7 +4357,9 @@
         "nombre": "GEO725",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 19
+        "capacidad": 19,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 725"
       },
       "geometry": {
         "type": "Point",
@@ -3790,7 +4372,9 @@
         "nombre": "GEO726",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 45
+        "capacidad": 45,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 726"
       },
       "geometry": {
         "type": "Point",
@@ -3803,7 +4387,9 @@
         "nombre": "GEO727",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE MAPAS 727"
       },
       "geometry": {
         "type": "Point",
@@ -3816,7 +4402,9 @@
         "nombre": "GEO729",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 729"
       },
       "geometry": {
         "type": "Point",
@@ -3829,7 +4417,9 @@
         "nombre": "GEO730",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE MAPAS 730"
       },
       "geometry": {
         "type": "Point",
@@ -3842,7 +4432,9 @@
         "nombre": "GEO734",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 7
+        "capacidad": 7,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE MODELACIÓN AMBIENTAL 734"
       },
       "geometry": {
         "type": "Point",
@@ -3855,7 +4447,9 @@
         "nombre": "HIS330",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 330"
       },
       "geometry": {
         "type": "Point",
@@ -3868,7 +4462,9 @@
         "nombre": "IND201",
         "piso": 2,
         "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO COMPUTACIÓN 201"
       },
       "geometry": {
         "type": "Point",
@@ -3881,7 +4477,9 @@
         "nombre": "IND203",
         "piso": 1,
         "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO COMPUTACIÓN 203"
       },
       "geometry": {
         "type": "Point",
@@ -3894,7 +4492,9 @@
         "nombre": "IND401",
         "piso": 1,
         "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 401"
       },
       "geometry": {
         "type": "Point",
@@ -3907,7 +4507,9 @@
         "nombre": "IND413",
         "piso": 1,
         "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
-        "capacidad": 40
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 413"
       },
       "geometry": {
         "type": "Point",
@@ -3920,7 +4522,9 @@
         "nombre": "IND418",
         "piso": 1,
         "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
-        "capacidad": 74
+        "capacidad": 74,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 418"
       },
       "geometry": {
         "type": "Point",
@@ -3933,7 +4537,9 @@
         "nombre": "IND420",
         "piso": 1,
         "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 420"
       },
       "geometry": {
         "type": "Point",
@@ -3946,7 +4552,9 @@
         "nombre": "IND427",
         "piso": 1,
         "edificio": "S2 Dpto. Ingeniería Industrial (IND)",
-        "capacidad": 24
+        "capacidad": 24,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO COMPUTACIÓN 427"
       },
       "geometry": {
         "type": "Point",
@@ -3959,7 +4567,9 @@
         "nombre": "INF201",
         "piso": 2,
         "edificio": "S2 Dpto. de Ing. Informática (INF)",
-        "capacidad": 28
+        "capacidad": 28,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA DE CONFERENCIA 201"
       },
       "geometry": {
         "type": "Point",
@@ -3972,7 +4582,9 @@
         "nombre": "INF202",
         "piso": 2,
         "edificio": "S2 Dpto. de Ing. Informática (INF)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA DE EXAMEN DE TÍTULOS Y GRADOS 202"
       },
       "geometry": {
         "type": "Point",
@@ -3985,7 +4597,9 @@
         "nombre": "INF519",
         "piso": 1,
         "edificio": "S2 Dpto. de Ing. Informática (INF)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 519"
       },
       "geometry": {
         "type": "Point",
@@ -3998,7 +4612,9 @@
         "nombre": "INF521",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 10
+        "capacidad": 10,
+        "tipo": "Sala de estudio",
+        "denominacion": "SALA DE ESTUDIO 521"
       },
       "geometry": {
         "type": "Point",
@@ -4011,7 +4627,9 @@
         "nombre": "INF526",
         "piso": 1,
         "edificio": "S2 Dpto. de Ing. Informática (INF)",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 526"
       },
       "geometry": {
         "type": "Point",
@@ -4024,7 +4642,9 @@
         "nombre": "LMT202",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 25
+        "capacidad": 25,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABOTATORIO DE MECATRÓNICA"
       },
       "geometry": {
         "type": "Point",
@@ -4037,7 +4657,9 @@
         "nombre": "MCC210",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 23
+        "capacidad": 23,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACION 210"
       },
       "geometry": {
         "type": "Point",
@@ -4050,7 +4672,9 @@
         "nombre": "MCC303",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 21
+        "capacidad": 21,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA DE POSTGRADOS/SEMINARIO/ELECTIVO 303"
       },
       "geometry": {
         "type": "Point",
@@ -4063,7 +4687,9 @@
         "nombre": "MEC205",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 35
+        "capacidad": 35,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 205"
       },
       "geometry": {
         "type": "Point",
@@ -4076,7 +4702,9 @@
         "nombre": "MEC208",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 208"
       },
       "geometry": {
         "type": "Point",
@@ -4089,7 +4717,9 @@
         "nombre": "MEC209",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 18
+        "capacidad": 18,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 209"
       },
       "geometry": {
         "type": "Point",
@@ -4102,7 +4732,9 @@
         "nombre": "MEC522",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 46
+        "capacidad": 46,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 522 LP1"
       },
       "geometry": {
         "type": "Point",
@@ -4115,7 +4747,9 @@
         "nombre": "MEC523",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 80
+        "capacidad": 80,
+        "tipo": "Taller",
+        "denominacion": "SALA 522 LP2"
       },
       "geometry": {
         "type": "Point",
@@ -4128,7 +4762,9 @@
         "nombre": "MEC524",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 30
+        "capacidad": 30,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 524 DIBUJO"
       },
       "geometry": {
         "type": "Point",
@@ -4141,7 +4777,9 @@
         "nombre": "MEC531",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Taller",
+        "denominacion": "SALA 531 DIBUJO"
       },
       "geometry": {
         "type": "Point",
@@ -4154,7 +4792,9 @@
         "nombre": "MEC594",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 50
+        "capacidad": 50,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LP5. LABORATORIO PROCESOS 5"
       },
       "geometry": {
         "type": "Point",
@@ -4167,7 +4807,9 @@
         "nombre": "MET574",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 25
+        "capacidad": 25,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 574"
       },
       "geometry": {
         "type": "Point",
@@ -4180,7 +4822,9 @@
         "nombre": "MET575",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 575"
       },
       "geometry": {
         "type": "Point",
@@ -4193,7 +4837,9 @@
         "nombre": "MET578",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 12
+        "capacidad": 12,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA578"
       },
       "geometry": {
         "type": "Point",
@@ -4206,7 +4852,9 @@
         "nombre": "MET586",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 12
+        "capacidad": 12,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 586"
       },
       "geometry": {
         "type": "Point",
@@ -4219,7 +4867,9 @@
         "nombre": "MET587",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 45
+        "capacidad": 45,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 587"
       },
       "geometry": {
         "type": "Point",
@@ -4232,7 +4882,9 @@
         "nombre": "MIN100",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 10
+        "capacidad": 10,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO PERFORACIÓN Y TRONADURA 100"
       },
       "geometry": {
         "type": "Point",
@@ -4245,7 +4897,9 @@
         "nombre": "MIN102",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 10
+        "capacidad": 10,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE SISTEMAS DE TRANSPORTE 102"
       },
       "geometry": {
         "type": "Point",
@@ -4258,7 +4912,9 @@
         "nombre": "MIN103",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 10
+        "capacidad": 10,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO SISTEMAS DE CARGUÍO 103"
       },
       "geometry": {
         "type": "Point",
@@ -4271,7 +4927,9 @@
         "nombre": "MIN111",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 10
+        "capacidad": 10,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE PETROGRAFÍA 111"
       },
       "geometry": {
         "type": "Point",
@@ -4284,7 +4942,9 @@
         "nombre": "MIN112",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 10
+        "capacidad": 10,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "LABORATORIO DE GEOLOGÍA ESTRUCTURAL 112"
       },
       "geometry": {
         "type": "Point",
@@ -4297,7 +4957,9 @@
         "nombre": "MIN130",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 15
+        "capacidad": 15,
+        "tipo": "Auditorio",
+        "denominacion": "AUDITORIO 1-130"
       },
       "geometry": {
         "type": "Point",
@@ -4310,7 +4972,9 @@
         "nombre": "MIN131",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 15
+        "capacidad": 15,
+        "tipo": "Auditorio",
+        "denominacion": "AUDITORIO 2-131"
       },
       "geometry": {
         "type": "Point",
@@ -4323,7 +4987,9 @@
         "nombre": "MIN161",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 16
+        "capacidad": 16,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN 161"
       },
       "geometry": {
         "type": "Point",
@@ -4336,7 +5002,9 @@
         "nombre": "MIN162",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Laboratorio de computación",
+        "denominacion": "LABORATORIO DE COMPUTACIÓN 162"
       },
       "geometry": {
         "type": "Point",
@@ -4349,7 +5017,9 @@
         "nombre": "MIN212",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 212"
       },
       "geometry": {
         "type": "Point",
@@ -4362,7 +5032,9 @@
         "nombre": "MIN213",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 213"
       },
       "geometry": {
         "type": "Point",
@@ -4375,7 +5047,9 @@
         "nombre": "MIN214",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 21
+        "capacidad": 21,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 214"
       },
       "geometry": {
         "type": "Point",
@@ -4388,7 +5062,9 @@
         "nombre": "QUI220",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 35
+        "capacidad": 35,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 220 QUÍMICA- TEXTIL"
       },
       "geometry": {
         "type": "Point",
@@ -4401,7 +5077,9 @@
         "nombre": "QUI222",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 18
+        "capacidad": 18,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 222"
       },
       "geometry": {
         "type": "Point",
@@ -4414,7 +5092,9 @@
         "nombre": "QUI227",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 227 QUÍMICA MULTIMEDIA"
       },
       "geometry": {
         "type": "Point",
@@ -4427,7 +5107,9 @@
         "nombre": "QUI229",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 25
+        "capacidad": 25,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 229"
       },
       "geometry": {
         "type": "Point",
@@ -4440,7 +5122,9 @@
         "nombre": "R1",
         "piso": 1,
         "edificio": "S5 Edificio Recicla FACIMED",
-        "capacidad": 20
+        "capacidad": 20,
+        "tipo": "Laboratorio de especialidad",
+        "denominacion": "SALA RECICLA 1"
       },
       "geometry": {
         "type": "Point",
@@ -4453,7 +5137,9 @@
         "nombre": "R3",
         "piso": 1,
         "edificio": "S5 Edificio Recicla FACIMED",
-        "capacidad": 55
+        "capacidad": 55,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA RECICLA 3"
       },
       "geometry": {
         "type": "Point",
@@ -4466,7 +5152,9 @@
         "nombre": "R4",
         "piso": 1,
         "edificio": "S5 Edificio Recicla FACIMED",
-        "capacidad": 38
+        "capacidad": 38,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA RECLICA 4"
       },
       "geometry": {
         "type": "Point",
@@ -4479,7 +5167,9 @@
         "nombre": "REG331",
         "piso": 1,
         "edificio": "S6 Paraninfo Profesor Eliodoro Domínguez D. (REG)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 331"
       },
       "geometry": {
         "type": "Point",
@@ -4492,7 +5182,9 @@
         "nombre": "REG332",
         "piso": 1,
         "edificio": "S6 Paraninfo Profesor Eliodoro Domínguez D. (REG)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 332"
       },
       "geometry": {
         "type": "Point",
@@ -4505,7 +5197,9 @@
         "nombre": "REG333",
         "piso": 1,
         "edificio": "S6 Paraninfo Profesor Eliodoro Domínguez D. (REG)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 333"
       },
       "geometry": {
         "type": "Point",
@@ -4518,7 +5212,9 @@
         "nombre": "REG334",
         "piso": 1,
         "edificio": "S6 Paraninfo Profesor Eliodoro Domínguez D. (REG)",
-        "capacidad": 60
+        "capacidad": 60,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 334"
       },
       "geometry": {
         "type": "Point",
@@ -4531,7 +5227,9 @@
         "nombre": "REG335",
         "piso": 1,
         "edificio": "S7 Edificio Vicerrectoría de Postgrado (REG)",
-        "capacidad": 46
+        "capacidad": 46,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 335"
       },
       "geometry": {
         "type": "Point",
@@ -4544,7 +5242,9 @@
         "nombre": "REG336",
         "piso": 1,
         "edificio": "S7 Edificio Vicerrectoría de Postgrado (REG)",
-        "capacidad": 45
+        "capacidad": 45,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 336"
       },
       "geometry": {
         "type": "Point",
@@ -4557,7 +5257,9 @@
         "nombre": "REG337",
         "piso": 1,
         "edificio": "S7 Edificio Vicerrectoría de Postgrado (REG)",
-        "capacidad": 32
+        "capacidad": 32,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 337"
       },
       "geometry": {
         "type": "Point",
@@ -4570,7 +5272,9 @@
         "nombre": "REG339",
         "piso": 1,
         "edificio": "S7 Edificio Vicerrectoría de Postgrado (REG)",
-        "capacidad": 32
+        "capacidad": 32,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 339"
       },
       "geometry": {
         "type": "Point",
@@ -4583,7 +5287,9 @@
         "nombre": "SALAA",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 22
+        "capacidad": 22,
+        "tipo": "Sala de estudio",
+        "denominacion": "SALA DE CONFERENCIA A"
       },
       "geometry": {
         "type": "Point",
@@ -4596,7 +5302,9 @@
         "nombre": "SALAB",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 22
+        "capacidad": 22,
+        "tipo": "Sala de estudio",
+        "denominacion": "SALA DE CONFERENCIAS B"
       },
       "geometry": {
         "type": "Point",
@@ -4609,7 +5317,9 @@
         "nombre": "VM201",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 120
+        "capacidad": 120,
+        "tipo": "Auditorio",
+        "denominacion": "SALA AUDITORIUM ARMANDO QUEZADA"
       },
       "geometry": {
         "type": "Point",
@@ -4622,11 +5332,109 @@
         "nombre": "VM202",
         "piso": 1,
         "edificio": "Sin definir",
-        "capacidad": 120
+        "capacidad": 120,
+        "tipo": "Auditorio",
+        "denominacion": "SALA AUDITORIUM ENRIQUE FROEMMEL"
       },
       "geometry": {
         "type": "Point",
         "coordinates": [-70.68265962, -33.44627692]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "BCH806",
+        "piso": 1,
+        "edificio": "S8 Bachillerato: Salón",
+        "capacidad": 140,
+        "tipo": "Auditorio",
+        "denominacion": "SALON 806",
+        "fuente": "mapa.usach.cl"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686872, -33.451204]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO533",
+        "piso": 2,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 24,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 533",
+        "fuente": "mapa.usach.cl"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.686413, -33.45046]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EAO534",
+        "piso": 1,
+        "edificio": "S2 Escuela de Artes y Oficios (EAO)",
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA 534",
+        "fuente": "mapa.usach.cl"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.68646599, -33.45054713]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "EPF774",
+        "piso": 1,
+        "edificio": "S5 Edificio Pabellón Forma (EPF)",
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "Sala 774",
+        "fuente": "mapa.usach.cl"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.679678, -33.450065]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG341",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA POSTGRADO 341",
+        "fuente": "mapa.usach.cl"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.682398, -33.44748]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nombre": "REG342",
+        "piso": 1,
+        "edificio": "Sin definir",
+        "capacidad": 40,
+        "tipo": "Sala expositiva",
+        "denominacion": "SALA POSTGRADO 342",
+        "fuente": "mapa.usach.cl"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.682312, -33.447463]
       }
     }
   ]

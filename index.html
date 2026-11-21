@@ -19,7 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&family=Inter:wght@500;600&display=swap" rel="stylesheet">
   <!-- Íconos Material Symbols Rounded (los de Google Maps): solo los que usa la app, en orden alfabético.
        Si usas uno nuevo, agrégalo aquí (si no, se ve su nombre en texto): tools/check-icons.mjs lo revisa. -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&icon_names=account_balance,add_a_photo,add_circle,add_location_alt,apartment,arrow_back,bookmark,bug_report,calendar_month,category,chevron_right,clear_night,close,cloud,code,delete,directions,directions_walk,door_open,edit,foggy,groups,history,info,install_mobile,language,layers,local_atm,local_library,location_off,location_on,location_searching,lock,medical_services,meeting_room,mic,more_horiz,museum,my_location,near_me,open_in_new,park,partly_cloudy_day,partly_cloudy_night,pedal_bike,person,photo_library,pin_drop,policy,print,radio,rainy,restaurant,school,share,sports_soccer,stairs,storefront,subway,sunny,swap_vert,sync,thunderstorm,trip_origin,visibility,visibility_off,volunteer_activism,water_drop,wc,weather_snowy&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&icon_names=account_balance,add_a_photo,add_circle,add_location_alt,apartment,arrow_back,bookmark,bug_report,calendar_month,category,chevron_right,clear_night,close,cloud,code,computer,construction,delete,directions,directions_walk,door_open,edit,fitness_center,foggy,groups,history,info,install_mobile,language,layers,local_atm,local_library,location_off,location_on,location_searching,lock,medical_services,meeting_room,mic,more_horiz,museum,my_location,near_me,open_in_new,park,partly_cloudy_day,partly_cloudy_night,pedal_bike,person,photo_library,pin_drop,policy,pool,print,radio,rainy,recycling,restaurant,school,science,share,sports_soccer,stairs,storefront,subway,sunny,swap_vert,sync,theaters,thunderstorm,trip_origin,videocam,visibility,visibility_off,volunteer_activism,water_drop,wc,weather_snowy&display=block" rel="stylesheet">
   <!-- interfaz (estilo Google Maps 2025) -->
   <link rel="stylesheet" href="ui.css">
   <!-- lo propio del motor 3D: etiquetas y marcadores del mapa, panel ?dev -->
@@ -60,6 +60,8 @@
       <div class="nube" style="--x:55%;--y:24%;--w:54vmax;--prof:1.2;--deriva:22.4vw"><i></i></div>
       <div class="nube" style="--x:15%;--y:75%;--w:48vmax;--prof:2.5;--deriva:31.5vw"><i></i></div>
     </div>
+    <!-- barra de carga (js/carga.js): el avance real, dibujado para que la espera se sienta más corta -->
+    <div id="carga" class="carga" role="progressbar" aria-label="Cargando el mapa" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="carga-barra"></div></div>
     <!-- PAUSADO: león 3D que corre sobre una línea punteada roja (leon.css: Grant Jenkins, licencia MIT). En Safari
          (iPad) sus caras parpadean; mientras tanto la carga no lleva indicador. Para volver, descomentar esto y el
          <link> de leon.css.

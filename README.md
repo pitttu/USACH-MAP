@@ -36,6 +36,8 @@ La interfaz es propia, al estilo de Google Maps 2025 (ver *Interfaz*). El mapa e
 | `js/sheet.js` | **Hoja deslizable**: una sola hoja con vistas, tres alturas, título fijo por vista y el arrastre (ver *Interfaz*) |
 | `js/search.js` | **Búsqueda** a pantalla completa y **planificador de rutas** (partida → destino) |
 | `js/places.js` | **Lugares**: catálogo de categorías, cómo se muestra cada lugar, búsqueda, edificios con sus salas, guardados, recientes y distancias a pie |
+| `assets/data/salas.json` | Salas: `nombre`, `piso`, `edificio`, `capacidad` y, de la ficha de cada sala, `tipo` (laboratorio de computación, auditorio, taller…; se muestra con su ícono) y `denominacion` (solo para buscar). Lugares de `Sep-misc.json` con `sinEtiqueta`: se buscan y salen con su pastilla, pero sin rótulo en el mapa |
+| `js/carga.js` | **Barra de carga** de la pantalla de nubes: el avance real (descarga del mapa, datos y armado de la escena) dibujado de lento a rápido, como recomiendan Harrison et al. ("Rethinking the Progress Bar", UIST 2007); gris claro de un solo color. Antes de que cargue el código avanza sola con CSS hasta el 10 %; termina acelerando y recién ahí se abren las nubes |
 | `js/sugerir.js` | **Sugerir un lugar** (pestaña Más): punto en el mapa, nombre, categoría y detalles; se envía con la cuenta @usach.cl al Worker de la comunidad y queda en revisión. Los publicados aparecen en el mapa al abrir la app |
 | `js/editar.js` | **Editar** un lugar ("Sugerir un cambio"): nombre, categoría, ubicación, detalles o que cerró; queda en revisión en el panel del Worker |
 | `js/cuenta.js` | Sesión de Google @usach.cl y dirección del Worker de la comunidad (para fotos y lugares) |

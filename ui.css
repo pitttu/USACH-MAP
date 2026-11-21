@@ -118,6 +118,21 @@ button { cursor: pointer; background: none; border: 0; -webkit-tap-highlight-col
   opacity: 0;
   transform: translate(-50%, -50%) translate(var(--sx, 0px), var(--sy, 0px)) scale(calc(1.6 + var(--prof)));
 }
+/* barra de carga (js/carga.js): fina, gris claro de un solo color sobre una pista apenas marcada, abajo del centro; el
+   relleno ocupa todo el ancho y se recorta (clip-path) */
+.loader .carga {
+  position: absolute; left: 50%; top: 62%; translate: -50% 0; width: min(240px, 56vw); height: 6px; border-radius: 999px;
+  background: rgba(60, 64, 67, 0.08); overflow: hidden;
+  transition: opacity 0.35s ease;
+}
+.loader .carga-barra {
+  position: absolute; inset: 0; border-radius: inherit; clip-path: inset(0 100% 0 0 round 999px);
+  background: #b9bfc5; /* un solo color, gris claro: acorde a las nubes */
+}
+/* antes de que cargue el código: avanza sola hasta el 10 % en 6 s (js/carga.js sigue desde ahí y la apaga) */
+.loader .carga:not(.con-js) .carga-barra { animation: carga-inicio 6s linear forwards; }
+@keyframes carga-inicio { to { clip-path: inset(0 90% 0 0 round 999px); } }
+.loader.llegando .carga { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .loader .nube i { animation: none; } }
 @keyframes spin { to { transform: rotate(360deg); } }
 

@@ -42,7 +42,7 @@ function menu() {
   $('pe-title').textContent = 'Sugerir un cambio';
   $('pe-back').hidden = true;
   $('pe-error').textContent = '';
-  const { d, f } = lugar, sala = d.kind === 'Sala';
+  const { d, f } = lugar, sala = !!d.sala;
   const fila = (ic, texto, campo, cls = '') => h('button', { class: `pe-row ${cls}`, type: 'button', onclick: () => abrir(campo) },
     icon(ic), h('span', { class: 'grow' }, texto), icon('chevron_right'));
   const cat = CATEGORIAS_SUGERIDAS.find(([v]) => v === lugar.categoria)?.[1] || d.kind || 'Agregar una categoría';
@@ -72,7 +72,7 @@ function abrir(campo) {
 function formulario() {
   const { campo } = paso, { d, f } = lugar;
   $('pe-back').hidden = false;
-  const TITULOS = { nombre: 'Cambiar el nombre', categoria: 'Cambiar la categoría', ubicacion: 'Mover el lugar', detalles: 'Corregir los detalles', cerrado: d.kind === 'Sala' ? 'La sala no existe o no está aquí' : 'Cerró o no está aquí' };
+  const TITULOS = { nombre: 'Cambiar el nombre', categoria: 'Cambiar la categoría', ubicacion: 'Mover el lugar', detalles: 'Corregir los detalles', cerrado: d.sala ? 'La sala no existe o no está aquí' : 'Cerró o no está aquí' };
   $('pe-title').textContent = TITULOS[campo];
   let campoEl = null;
   if (campo === 'nombre') campoEl = h('label', { class: 'tu-field' }, h('span', {}, 'Nombre correcto'), h('input', { id: 'pe-valor', type: 'text', maxlength: 80, autocomplete: 'off', value: d.name }));

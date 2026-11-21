@@ -22,9 +22,14 @@ export const CATEGORIES = [
 ];
 export const CAT = Object.fromEntries(CATEGORIES.map((c) => [c.id, c]));
 const CAT_OF = { 'baño': 'banos', dispensador: 'agua', cajero: 'cajeros', acceso: 'accesos', comida: 'comida', biblioteca: 'bibliotecas', transporte: 'metro', educacion: 'facultades', deporte: 'deportes', salud: 'salud', cultura: 'cultura', monumento: 'cultura' };
-const ICON_OF = { institucional: 'account_balance', pastos: 'park', radio: 'radio', tienda: 'storefront', servicios: 'storefront' };
+const ICON_OF = { institucional: 'account_balance', pastos: 'park', radio: 'radio', tienda: 'storefront', servicios: 'storefront', reciclaje: 'recycling' };
+// tipo de sala (de la ficha de la sala; ver tools/importar-mapa-usach.mjs) -> ícono
+const ICONO_TIPO = {
+  'Laboratorio de computación': 'computer', 'Laboratorio de especialidad': 'science', Auditorio: 'theaters', 'Sala de estudio': 'local_library',
+  Taller: 'construction', 'Sala híbrida': 'videocam', 'Sala de trabajo grupal': 'groups', Gimnasio: 'fitness_center', Cancha: 'sports_soccer', Piscina: 'pool',
+};
 // nombres repetidos en los datos: se muestra el nombre corto y, como subtítulo, el lugar con nombre más cercano
-const GENERIC = { 'baño público': 'Baño', 'dispensador de agua': 'Dispensador de agua', 'impresiones y fotocopias': 'Impresiones y fotocopias' };
+const GENERIC = { 'baño público': 'Baño', 'dispensador de agua': 'Dispensador de agua', 'impresiones y fotocopias': 'Impresiones y fotocopias', kiosco: 'Kiosco', 'cafetería': 'Cafetería', 'contenedor de reciclaje': 'Contenedor de reciclaje' };
 
 let searchable = [], landmarks = [], everything = [];
 const labelIds = new Set(); // lugares con etiqueta en el mapa (se resaltan al elegirlos)
@@ -44,10 +49,11 @@ export function indexPlaces(d) {
   CAT.deportes.features = byCat('deporte');
   CAT.salud.features = byCat('salud');
   CAT.cultura.features = [...byCat('cultura'), ...byCat('monumento')];
-  landmarks = both.filter((f) => !/^pastos$/i.test(f.properties.name || ''));
+  // los lugares sin rótulo en el mapa (kioscos, contenedores, el interior de la FAE) no sirven de referencia ("Cerca de")
+  landmarks = both.filter((f) => !/^pastos$/i.test(f.properties.name || '') && !f.properties.sinEtiqueta);
   searchable = [...d.salas.features, ...misc, ...fixed, ...d.metro.features];
   everything = [...searchable, ...d.accesos.features, ...d.banos.features, ...d.dispensadores.features, ...d.impresiones.features, ...d.cajeros.features];
-  for (const f of [...misc, ...fixed, ...d.metro.features]) labelIds.add(placeId(f));
+  for (const f of [...misc, ...fixed, ...d.metro.features]) if (!f.properties.sinEtiqueta) labelIds.add(placeId(f));
   indexBuildings(d.salas.features);
 }
 
@@ -60,10 +66,11 @@ export function describe(f) {
   if (p.custom) {
     d = { name: p.nombre || 'Ubicación seleccionada', sub: 'Punto en el mapa', icon: 'location_on', kind: 'Punto', tint: '#fce8e6', ink: '#c5221f' };
   } else if (p.nombre && ('capacidad' in p || 'piso' in p)) { // sala
-    const building = shortBuilding(p.edificio), floor = Number(p.piso) || null;
+    // tipo: el de su ficha (laboratorio, auditorio...); si no se sabe, "Sala"
+    const building = shortBuilding(p.edificio), floor = Number(p.piso) || null, kind = p.tipo || 'Sala';
     d = {
-      name: p.nombre, kind: 'Sala', icon: 'meeting_room', tint: '#d3f7ff', ink: '#014f5a', building, floor, capacity: p.capacidad || null,
-      sub: ['Sala', building, floor > 1 ? `Piso ${floor}` : floor < 0 ? 'Subterráneo' : ''].filter(Boolean).join(' · '),
+      name: p.nombre, kind, sala: true, icon: ICONO_TIPO[p.tipo] || 'meeting_room', tint: '#d3f7ff', ink: '#014f5a', building, floor, capacity: p.capacidad || null,
+      sub: [kind, building, floor > 1 ? `Piso ${floor}` : floor < 0 ? 'Subterráneo' : ''].filter(Boolean).join(' · '),
     };
   } else {
     const catId = p.category === 'servicios' && /impres|fotocop|copiado/i.test(`${p.type} ${p.name}`) ? 'impresiones' : CAT_OF[p.category];
@@ -113,7 +120,7 @@ export function search(q, limit = 12) {
   for (const f of searchable) {
     const d = describe(f), name = norm(d.name);
     const alias = (f.properties.alias || []).map(norm);
-    const hay = `${name} ${norm(d.sub)} ${norm(f.properties.descripcion)} ${alias.join(' ')}`;
+    const hay = `${name} ${norm(d.sub)} ${norm(f.properties.descripcion)} ${norm(f.properties.denominacion)} ${alias.join(' ')}`;
     if (!tokens.every((t) => hay.includes(t))) continue;
     let score = -name.length / 100;
     const same = (a) => a === full || a.replace(/\s/g, '') === full.replace(/\s/g, '');

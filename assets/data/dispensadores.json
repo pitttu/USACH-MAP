@@ -238,6 +238,36 @@
         "name": "Dispensador de Agua",
         "type": "dispensador"
       }
+    },
+    {
+      "type": "Feature",
+      "id": 1217,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6839293, -33.450211]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1217,
+        "name": "Dispensador de Agua",
+        "type": "dispensador",
+        "fuente": "mapa.usach.cl"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1218,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-70.6888474, -33.4514716]
+      },
+      "properties": {
+        "category": "dispensador",
+        "id": 1218,
+        "name": "Dispensador de Agua",
+        "type": "dispensador",
+        "fuente": "mapa.usach.cl"
+      }
     }
   ]
 }
